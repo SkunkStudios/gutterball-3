@@ -340,6 +340,12 @@
  <Reference Include="UnityEditor.Purchasing">
  <HintPath>C:/Users/Asus/Documents/GitHub/gutterball-3/Gutterball 3/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
  </Reference>
+ <Reference Include="Ookii.Dialogs">
+ <HintPath>C:/Users/Asus/Documents/GitHub/gutterball-3/Gutterball 3/Assets/StandaloneFileBrowser/Plugins/Ookii.Dialogs.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Windows.Forms">
+ <HintPath>C:/Users/Asus/Documents/GitHub/gutterball-3/Gutterball 3/Assets/StandaloneFileBrowser/Plugins/System.Windows.Forms.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.4f1/Editor/Data/PlaybackEngines/AppleTVSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
  </Reference>

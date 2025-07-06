@@ -2751,7 +2751,7 @@ GameObject:
   - component: {fileID: 1422511447}
   - component: {fileID: 1422511448}
   m_Layer: 5
-  m_Name: SkunkStudiosSplash
+  m_Name: SkunkStudios
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5781,7 +5781,10 @@ MonoBehaviour:
     spares: 0
     gutters: 0
   lockRegistered: 1
-  urlInfoScreen: []
+  urlInfoScreen:
+  - https://cdn.ghstatic.com/images/deluxe/300x150/200162.jpg
+  - https://cdn.ghstatic.com/images/deluxe/300x150/200161.jpg
+  - https://cdn.ghstatic.com/images/deluxe/300x150/201458.jpg
   lockBallMat: {fileID: 2100000, guid: 7995fe228353e6c4f92b8a1c95feee1f, type: 2}
   bowler: []
   r_hs: []

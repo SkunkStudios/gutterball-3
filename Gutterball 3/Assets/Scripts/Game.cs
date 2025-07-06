@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System.Diagnostics;
+using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using SFB;
 
 [System.Serializable]
 public class PinSplit
@@ -225,6 +226,7 @@ public class Game : MonoBehaviour
     public Button hyperBallButton;
     public Button lightningBallButton;
 
+    private ExtensionFilter[] extensions = new[] { new ExtensionFilter("PNG", "png" ), new ExtensionFilter("JPEG", "jpg", "jpeg", "jpe", "jfif", "exif"), new ExtensionFilter("WebP", "webp"), new ExtensionFilter("DirectDraw Surface (DDS)", "dds"), new ExtensionFilter("TIFF", "tiff", "tif"), new ExtensionFilter("GIF", "gif"), new ExtensionFilter("BMP", "bmp", "dib", "rle"), new ExtensionFilter("TGA", "tga") };
     private AudioSource music;
     private GameObject[] sounds;
     private bool isIntro = true;
@@ -1703,7 +1705,6 @@ public class Game : MonoBehaviour
             }
             GameObject.FindObjectOfType<PinSetter>().gutterballAnimationTwoTimes[gbAnimIndex2X].PlayAnimation();
         }
-        powerUps = BallPowerUps.Off;
         GameObject.FindObjectOfType<PinSetter>().ScooperPins();
         if (throwBall < maxBalls)
         {
@@ -3844,6 +3845,14 @@ public class Game : MonoBehaviour
                     ballNameText.text = gameManager.chooseBalls[GameManager.turnBalls1].ballName;
                     ballDataText.text = gameManager.chooseBalls[GameManager.turnBalls1].lbs + "lbs.  speed:" + gameManager.chooseBalls[GameManager.turnBalls1].speed + "  spin:" + gameManager.chooseBalls[GameManager.turnBalls1].spin;
                     ballRender.material = gameManager.chooseBalls[GameManager.turnBalls1].ballMat;
+                    if (GameManager.turnBalls1 == 45)
+                    {
+                        ball.ringBall.SetActive(true);
+                    }
+                    else
+                    {
+                        ball.ringBall.SetActive(false);
+                    }
                     ball.ChargeBall(gameManager.chooseBalls[GameManager.turnBalls1].ballMat, gameManager.chooseBalls[GameManager.turnBalls1].lbs, gameManager.chooseBalls[GameManager.turnBalls1].speed, gameManager.chooseBalls[GameManager.turnBalls1].spin);
                     chooseBallUI.SetActive(true);
                     powerUpUI.SetActive(true);
@@ -3861,6 +3870,14 @@ public class Game : MonoBehaviour
                     ballNameText.text = gameManager.chooseBalls[GameManager.turnBalls2].ballName;
                     ballDataText.text = gameManager.chooseBalls[GameManager.turnBalls2].lbs + "lbs.  speed:" + gameManager.chooseBalls[GameManager.turnBalls2].speed + "  spin:" + gameManager.chooseBalls[GameManager.turnBalls2].spin;
                     ballRender.material = gameManager.chooseBalls[GameManager.turnBalls2].ballMat;
+                    if (GameManager.turnBalls2 == 45)
+                    {
+                        ball.ringBall.SetActive(true);
+                    }
+                    else
+                    {
+                        ball.ringBall.SetActive(false);
+                    }
                     ball.ChargeBall(gameManager.chooseBalls[GameManager.turnBalls2].ballMat, gameManager.chooseBalls[GameManager.turnBalls2].lbs, gameManager.chooseBalls[GameManager.turnBalls2].speed, gameManager.chooseBalls[GameManager.turnBalls2].spin);
                     chooseBallUI.SetActive(true);
                     powerUpUI.SetActive(true);
@@ -3878,6 +3895,14 @@ public class Game : MonoBehaviour
                     ballNameText.text = gameManager.chooseBalls[GameManager.turnBalls3].ballName;
                     ballDataText.text = gameManager.chooseBalls[GameManager.turnBalls3].lbs + "lbs.  speed:" + gameManager.chooseBalls[GameManager.turnBalls3].speed + "  spin:" + gameManager.chooseBalls[GameManager.turnBalls3].spin;
                     ballRender.material = gameManager.chooseBalls[GameManager.turnBalls3].ballMat;
+                    if (GameManager.turnBalls3 == 45)
+                    {
+                        ball.ringBall.SetActive(true);
+                    }
+                    else
+                    {
+                        ball.ringBall.SetActive(false);
+                    }
                     ball.ChargeBall(gameManager.chooseBalls[GameManager.turnBalls3].ballMat, gameManager.chooseBalls[GameManager.turnBalls3].lbs, gameManager.chooseBalls[GameManager.turnBalls3].speed, gameManager.chooseBalls[GameManager.turnBalls3].spin);
                     chooseBallUI.SetActive(true);
                     powerUpUI.SetActive(true);
@@ -3895,6 +3920,14 @@ public class Game : MonoBehaviour
                     ballNameText.text = gameManager.chooseBalls[GameManager.turnBalls4].ballName;
                     ballDataText.text = gameManager.chooseBalls[GameManager.turnBalls4].lbs + "lbs.  speed:" + gameManager.chooseBalls[GameManager.turnBalls4].speed + "  spin:" + gameManager.chooseBalls[GameManager.turnBalls4].spin;
                     ballRender.material = gameManager.chooseBalls[GameManager.turnBalls4].ballMat;
+                    if (GameManager.turnBalls4 == 45)
+                    {
+                        ball.ringBall.SetActive(true);
+                    }
+                    else
+                    {
+                        ball.ringBall.SetActive(false);
+                    }
                     ball.ChargeBall(gameManager.chooseBalls[GameManager.turnBalls4].ballMat, gameManager.chooseBalls[GameManager.turnBalls4].lbs, gameManager.chooseBalls[GameManager.turnBalls4].speed, gameManager.chooseBalls[GameManager.turnBalls4].spin);
                     chooseBallUI.SetActive(true);
                     powerUpUI.SetActive(true);
@@ -3912,6 +3945,7 @@ public class Game : MonoBehaviour
                     ballNameText.text = gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].ballName;
                     ballDataText.text = gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].lbs + "lbs.  speed:" + gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].speed + "  spin:" + gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].spin;
                     ballRender.material = gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].ballMat;
+                    ball.ringBall.SetActive(false);
                     ball.ChargeBall(gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].ballMat, gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].lbs, gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].speed, gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].spin);
                     chooseBallUI.SetActive(false);
                     powerUpUI.SetActive(false);
@@ -4371,6 +4405,14 @@ public class Game : MonoBehaviour
     public void RandomChargeBall()
     {
         chargeBallIndex = Random.Range(0, gameManager.chooseBalls.Length);
+        if (chargeBallIndex == 45)
+        {
+            ball.ringBall.SetActive(true);
+        }
+        else
+        {
+            ball.ringBall.SetActive(false);
+        }
         ball.ChargeBall(gameManager.chooseBalls[chargeBallIndex].ballMat, gameManager.chooseBalls[chargeBallIndex].lbs, gameManager.chooseBalls[chargeBallIndex].speed, gameManager.chooseBalls[chargeBallIndex].spin);
     }
 
@@ -4716,6 +4758,50 @@ public class Game : MonoBehaviour
                     GameManager.turnBalls4 -= gameManager.chooseBalls[i].isLock;
                 }
             }
+            if (playerTurn == 0)
+            {
+                if (GameManager.turnBalls1 == 45)
+                {
+                    ball.ringBall.SetActive(true);
+                }
+                else
+                {
+                    ball.ringBall.SetActive(false);
+                }
+            }
+            else if (playerTurn == 1)
+            {
+                if (GameManager.turnBalls2 == 45)
+                {
+                    ball.ringBall.SetActive(true);
+                }
+                else
+                {
+                    ball.ringBall.SetActive(false);
+                }
+            }
+            else if (playerTurn == 2)
+            {
+                if (GameManager.turnBalls3 == 45)
+                {
+                    ball.ringBall.SetActive(true);
+                }
+                else
+                {
+                    ball.ringBall.SetActive(false);
+                }
+            }
+            else if (playerTurn == 3)
+            {
+                if (GameManager.turnBalls4 == 45)
+                {
+                    ball.ringBall.SetActive(true);
+                }
+                else
+                {
+                    ball.ringBall.SetActive(false);
+                }
+            }
         }
         else
         {
@@ -4815,6 +4901,50 @@ public class Game : MonoBehaviour
                 else if (GameManager.turnBalls4 >= gameManager.chooseBalls.Length || GameManager.turnBalls4 >= 5 && GameManager.unlockRegister == 1)
                 {
                     GameManager.turnBalls4 = 0;
+                }
+            }
+            if (playerTurn == 0)
+            {
+                if (GameManager.turnBalls1 == 45)
+                {
+                    ball.ringBall.SetActive(true);
+                }
+                else
+                {
+                    ball.ringBall.SetActive(false);
+                }
+            }
+            else if (playerTurn == 1)
+            {
+                if (GameManager.turnBalls2 == 45)
+                {
+                    ball.ringBall.SetActive(true);
+                }
+                else
+                {
+                    ball.ringBall.SetActive(false);
+                }
+            }
+            else if (playerTurn == 2)
+            {
+                if (GameManager.turnBalls3 == 45)
+                {
+                    ball.ringBall.SetActive(true);
+                }
+                else
+                {
+                    ball.ringBall.SetActive(false);
+                }
+            }
+            else if (playerTurn == 3)
+            {
+                if (GameManager.turnBalls4 == 45)
+                {
+                    ball.ringBall.SetActive(true);
+                }
+                else
+                {
+                    ball.ringBall.SetActive(false);
                 }
             }
         }
@@ -5478,6 +5608,15 @@ public class Game : MonoBehaviour
         }
         infoFileField.text = "";
         FileData.SaveToSAV<string>(gameManager.urlInfoScreen, "InfoURL");
+    }
+
+    public void FileOpen()
+    {
+        var paths = StandaloneFileBrowser.OpenFilePanel("Open Image", "", extensions, true);
+        if (paths.Length > 0)
+        {
+            customBallFileField.text = "file:///" + paths[0];
+        }
     }
 
     public void BuyBomb()

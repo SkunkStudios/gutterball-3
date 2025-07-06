@@ -9,7 +9,10 @@ public class AnimationScript : MonoBehaviour
 
 	void Awake ()
 	{
-        objects = GetComponentsInChildren<ObjectAnimation>();
+        if (objects.Length == 0)
+        {
+            objects = GetComponentsInChildren<ObjectAnimation>();
+        }
     }
 
     public void IdleAnimation()

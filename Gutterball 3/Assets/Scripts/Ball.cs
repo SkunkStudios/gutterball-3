@@ -14,6 +14,7 @@ public class Ball : MonoBehaviour
     public AudioSource electricAudio;
     public AudioSource splashAudio;
     public AudioClip[] tubSplashs;
+    public AudioClip[] exploreClips;
     public Game game;
     public GameObject hit;
     public GameObject splash;
@@ -26,6 +27,7 @@ public class Ball : MonoBehaviour
     public bool isGutterAnimation = false;
     public bool isGutterAnimation2X = false;
     public GameObject controlArrow;
+    public GameObject ringBall;
     public GameObject bombBall;
     public GameObject hyperBall;
     public GameObject lightningBall;
@@ -55,6 +57,7 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+        ringBall.transform.eulerAngles = new Vector3(90, 0, 0);
         bombBall.transform.eulerAngles = Vector3.zero;
         hyperBall.transform.eulerAngles = Vector3.zero;
         lightningBall.transform.eulerAngles = Vector3.zero;
@@ -82,12 +85,15 @@ public class Ball : MonoBehaviour
             hyperBall.SetActive(false);
             lightningBall.SetActive(true);
         }
-        spinStart = Input.mousePosition;
-        spinEnd = spinUI.ScreenToWorldPoint(spinStart);
+        if (Game.type != Game.GameState.Menu)
+        {
+            spinStart = Input.mousePosition;
+            spinEnd = spinUI.ScreenToWorldPoint(spinStart);
 
-        direction = new Vector2(spinEnd.x, spinEnd.y);
+            direction = new Vector2(spinEnd.x, spinEnd.y);
 
-        controlArrow.transform.up = direction;
+            controlArrow.transform.up = direction;
+        }
         if (game.ballType == Game.BallType.MoveX && Game.type == Game.GameState.Game && !game.isComputer && !isMoveY)
         {
             moveMouse = direction;
@@ -175,6 +181,10 @@ public class Ball : MonoBehaviour
                 if (GameManager.isParticle)
                 {
                     Instantiate(explores[Random.Range(0, explores.Length)], transform.position, Quaternion.identity);
+                    if (GameManager.isSound && Game.type != Game.GameState.Menu)
+                    {
+                        splashAudio.PlayOneShot(exploreClips[Random.Range(0, exploreClips.Length)]);
+                    }
                 }
                 GameObject.FindObjectOfType<CameraShake>().Shake(20);
                 foreach (Collider hit in colliders)
@@ -527,6 +537,7 @@ public class Ball : MonoBehaviour
         rigidBody.angularVelocity = Vector3.zero;
         if (GameObject.FindObjectOfType<PinSetter>().returnPoint != null)
         {
+            game.powerUps = Game.BallPowerUps.Off;
             transform.position = GameObject.FindObjectOfType<PinSetter>().returnPoint.position;
             rigidBody.velocity = Vector3.forward * 200;
         }

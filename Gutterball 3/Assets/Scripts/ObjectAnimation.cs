@@ -121,12 +121,24 @@ public class ObjectAnimation : MonoBehaviour
                     GameObject pop = Instantiate(fireworks, objectTarget.position, Quaternion.identity) as GameObject;
                     var main = pop.GetComponent<ParticleSystem>().main;
                     main.startColor = pop.GetComponent<Fireworks>().colorFireworks[Random.Range(0, pop.GetComponent<Fireworks>().colorFireworks.Length)];
+                    Instantiate(GameObject.FindObjectOfType<Ball>().explores[Random.Range(0, GameObject.FindObjectOfType<Ball>().explores.Length)], objectTarget.position, Quaternion.identity);
+                    if (GameManager.isSound && Game.type != Game.GameState.Menu)
+                    {
+                        GameObject.FindObjectOfType<Ball>().splashAudio.PlayOneShot(GameObject.FindObjectOfType<Ball>().exploreClips[Random.Range(0, GameObject.FindObjectOfType<Ball>().exploreClips.Length)]);
+                    }
+                    GameObject.FindObjectOfType<CameraShake>().Shake(20);
                 }
                 else if (fireworks != null && animList == null && GameManager.isParticle)
                 {
                     GameObject pop = Instantiate(fireworks, objectTarget.position, Quaternion.identity) as GameObject;
                     var main = pop.GetComponent<ParticleSystem>().main;
                     main.startColor = pop.GetComponent<Fireworks>().colorFireworks[Random.Range(0, pop.GetComponent<Fireworks>().colorFireworks.Length)];
+                    Instantiate(GameObject.FindObjectOfType<Ball>().explores[Random.Range(0, GameObject.FindObjectOfType<Ball>().explores.Length)], objectTarget.position, Quaternion.identity);
+                    if (GameManager.isSound && Game.type != Game.GameState.Menu)
+                    {
+                        GameObject.FindObjectOfType<Ball>().splashAudio.PlayOneShot(GameObject.FindObjectOfType<Ball>().exploreClips[Random.Range(0, GameObject.FindObjectOfType<Ball>().exploreClips.Length)]);
+                    }
+                    GameObject.FindObjectOfType<CameraShake>().Shake(20);
                 }
                 objectTarget.position = popPosition;
             }
