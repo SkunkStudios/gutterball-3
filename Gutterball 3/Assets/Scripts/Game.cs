@@ -225,6 +225,9 @@ public class Game : MonoBehaviour
     public Button bombBallButton;
     public Button hyperBallButton;
     public Button lightningBallButton;
+    public AudioClip[] exploreClips;
+    public GameObject[] explores;
+    public GameObject[] bigExplores;
 
     private ExtensionFilter[] extensions = new[] { new ExtensionFilter("PNG", "png" ), new ExtensionFilter("JPEG", "jpg", "jpeg", "jpe", "jfif", "exif"), new ExtensionFilter("WebP", "webp"), new ExtensionFilter("DirectDraw Surface (DDS)", "dds"), new ExtensionFilter("TIFF", "tiff", "tif"), new ExtensionFilter("GIF", "gif"), new ExtensionFilter("BMP", "bmp", "dib", "rle"), new ExtensionFilter("TGA", "tga") };
     private AudioSource music;
@@ -810,6 +813,14 @@ public class Game : MonoBehaviour
             if (GameManager.chooseBallIndex < gameManager.chooseBalls.Length)
             {
                 ball.ChargeBall(gameManager.chooseBalls[GameManager.chooseBallIndex].ballMat, gameManager.chooseBalls[GameManager.chooseBallIndex].lbs, gameManager.chooseBalls[GameManager.chooseBallIndex].speed, gameManager.chooseBalls[GameManager.chooseBallIndex].spin);
+            }
+            if (GameManager.chooseBallIndex == 45)
+            {
+                ball.ringBall.SetActive(true);
+            }
+            else
+            {
+                ball.ringBall.SetActive(false);
             }
         }
         for (int i = 0; i < regCount; i++)

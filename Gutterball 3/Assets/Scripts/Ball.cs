@@ -14,11 +14,9 @@ public class Ball : MonoBehaviour
     public AudioSource electricAudio;
     public AudioSource splashAudio;
     public AudioClip[] tubSplashs;
-    public AudioClip[] exploreClips;
     public Game game;
     public GameObject hit;
     public GameObject splash;
-    public GameObject[] explores;
     public CameraFollow cameraFollow;
     public BoxCollider roll;
     public BoxCollider replay;
@@ -180,10 +178,10 @@ public class Ball : MonoBehaviour
                 colliders = Physics.OverlapSphere(transform.position, 128);
                 if (GameManager.isParticle)
                 {
-                    Instantiate(explores[Random.Range(0, explores.Length)], transform.position, Quaternion.identity);
+                    Instantiate(game.explores[Random.Range(0, game.explores.Length)], transform.position, Quaternion.identity);
                     if (GameManager.isSound && Game.type != Game.GameState.Menu)
                     {
-                        splashAudio.PlayOneShot(exploreClips[Random.Range(0, exploreClips.Length)]);
+                        splashAudio.PlayOneShot(game.exploreClips[Random.Range(0, game.exploreClips.Length)]);
                     }
                 }
                 GameObject.FindObjectOfType<CameraShake>().Shake(20);

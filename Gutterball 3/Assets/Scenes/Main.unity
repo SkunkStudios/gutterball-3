@@ -28694,7 +28694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 12
   objects:
-  - {fileID: 1455669388}
+  - {fileID: 1575935973}
   - {fileID: 382349869}
 --- !u!4 &98463186
 Transform:
@@ -287004,28 +287004,9 @@ MonoBehaviour:
   tubSplashs:
   - {fileID: 8300000, guid: 62ee07105e6e5914286dccbac0301a0d, type: 3}
   - {fileID: 8300000, guid: a52686ee8326f1642b1c561731ee5b3c, type: 3}
-  exploreClips:
-  - {fileID: 8300000, guid: 10878b84969efbd40ac5afffbd81031c, type: 3}
-  - {fileID: 8300000, guid: 71df6e10f690c8748b2e660be412d1e7, type: 3}
-  - {fileID: 8300000, guid: b163b4fcc43c8114f8f9ce9fc1fe4e0b, type: 3}
-  - {fileID: 8300000, guid: e782ca90b15c0ae4f800fca4f68e825e, type: 3}
-  - {fileID: 8300000, guid: 2c0b5c7e75e700d4f80e5a161ea33f51, type: 3}
-  - {fileID: 8300000, guid: e6de6d0e6a8b294468d14867f8d85c62, type: 3}
-  - {fileID: 8300000, guid: 5d6320393dbd15a4c8f4a70a2dbcd71e, type: 3}
-  - {fileID: 8300000, guid: af85d37bcf6b6f349ae0bd3d4b675114, type: 3}
-  - {fileID: 8300000, guid: cd5a4b6637f6c2e4fa4f1c6bda7b7e39, type: 3}
-  - {fileID: 8300000, guid: 40eb9e83749a27f49a3b1e81cfc32b7a, type: 3}
-  - {fileID: 8300000, guid: 7d2b82145c4f1894fa94b575e5c3c667, type: 3}
-  - {fileID: 8300000, guid: 03ed6ad63a725674a80cd0268b118ac2, type: 3}
   game: {fileID: 2113552612}
   hit: {fileID: 1231986192026138, guid: 7211ac4a109d85049bf54415fe96d284, type: 3}
   splash: {fileID: 1729249570546098, guid: 99cdbbeabbb39b74ab6e3ca1ebc01e8e, type: 3}
-  explores:
-  - {fileID: 1341651171278120, guid: 54a292f74b21fd645901e6b6bdcab2ea, type: 3}
-  - {fileID: 1341651171278120, guid: 9cba28d4c221d314380bd54c31244837, type: 3}
-  - {fileID: 1341651171278120, guid: b153b1921eb90534aa5aa1bab9fbe2c9, type: 3}
-  - {fileID: 1341651171278120, guid: ddb7a6fd4c5e1924082ed6ad1a2923fe, type: 3}
-  - {fileID: 1341651171278120, guid: 7b4e09cccce744e4e912bbd237e9c238, type: 3}
   cameraFollow: {fileID: 1618555983}
   roll: {fileID: 905277934}
   replay: {fileID: 1260062754}
@@ -404124,6 +404105,31 @@ MonoBehaviour:
   bombBallButton: {fileID: 38061625}
   hyperBallButton: {fileID: 1614086083}
   lightningBallButton: {fileID: 404628878}
+  exploreClips:
+  - {fileID: 8300000, guid: 10878b84969efbd40ac5afffbd81031c, type: 3}
+  - {fileID: 8300000, guid: 71df6e10f690c8748b2e660be412d1e7, type: 3}
+  - {fileID: 8300000, guid: b163b4fcc43c8114f8f9ce9fc1fe4e0b, type: 3}
+  - {fileID: 8300000, guid: e782ca90b15c0ae4f800fca4f68e825e, type: 3}
+  - {fileID: 8300000, guid: 2c0b5c7e75e700d4f80e5a161ea33f51, type: 3}
+  - {fileID: 8300000, guid: e6de6d0e6a8b294468d14867f8d85c62, type: 3}
+  - {fileID: 8300000, guid: 5d6320393dbd15a4c8f4a70a2dbcd71e, type: 3}
+  - {fileID: 8300000, guid: af85d37bcf6b6f349ae0bd3d4b675114, type: 3}
+  - {fileID: 8300000, guid: cd5a4b6637f6c2e4fa4f1c6bda7b7e39, type: 3}
+  - {fileID: 8300000, guid: 40eb9e83749a27f49a3b1e81cfc32b7a, type: 3}
+  - {fileID: 8300000, guid: 7d2b82145c4f1894fa94b575e5c3c667, type: 3}
+  - {fileID: 8300000, guid: 03ed6ad63a725674a80cd0268b118ac2, type: 3}
+  explores:
+  - {fileID: 1341651171278120, guid: 54a292f74b21fd645901e6b6bdcab2ea, type: 3}
+  - {fileID: 1341651171278120, guid: 9cba28d4c221d314380bd54c31244837, type: 3}
+  - {fileID: 1341651171278120, guid: b153b1921eb90534aa5aa1bab9fbe2c9, type: 3}
+  - {fileID: 1341651171278120, guid: ddb7a6fd4c5e1924082ed6ad1a2923fe, type: 3}
+  - {fileID: 1341651171278120, guid: 7b4e09cccce744e4e912bbd237e9c238, type: 3}
+  bigExplores:
+  - {fileID: 1341651171278120, guid: 6becfc6be44296d4398e280d9a8cdd9b, type: 3}
+  - {fileID: 1341651171278120, guid: db90a59830cc40d4c85a43b0cc435a24, type: 3}
+  - {fileID: 1341651171278120, guid: 24a4c3e28aad57141a8b9436bd930869, type: 3}
+  - {fileID: 1341651171278120, guid: cddf82446a2c97c428faae226fb6a082, type: 3}
+  - {fileID: 1341651171278120, guid: 62c217ce9deec804dbb5a4e63f95dd43, type: 3}
 --- !u!4 &2113552613
 Transform:
   m_ObjectHideFlags: 0
