@@ -66,11 +66,9 @@ public class GameManager : MonoBehaviour
     public static int lightningBalls;
 
     private static GameManager instance;
-    private float maximumTime;
 
     void Awake()
     {
-        maximumTime = Time.maximumDeltaTime;
         if (instance == null)
         {
             instance = this;
@@ -100,18 +98,6 @@ public class GameManager : MonoBehaviour
         m_hs = FileData.ReadListFromSAV<ScoreBowler>("HS_Mineshaft");
         resolutions = Screen.resolutions;
         SavePrefs();
-    }
-
-    void Update()
-    {
-        if (!File.Exists("ddraw.dll") && Screen.fullScreen)
-        {
-            Time.maximumDeltaTime = Time.timeScale * 0.01f;
-        }
-        else
-        {
-            Time.maximumDeltaTime = maximumTime;
-        }
     }
 
     public void SavePrefs()

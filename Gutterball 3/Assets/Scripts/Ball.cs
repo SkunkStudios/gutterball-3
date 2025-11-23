@@ -33,6 +33,8 @@ public class Ball : MonoBehaviour
 
     private Vector2 moveMouse;
     private Vector2 direction;
+    private float fastSpeed;
+    private float maxSpeed;
     private bool isMoveY = false;
     private bool isThrow = false;
     private bool isNet = false;
@@ -95,6 +97,18 @@ public class Ball : MonoBehaviour
         if (game.ballType == Game.BallType.MoveX && Game.type == Game.GameState.Game && !game.isComputer && !isMoveY)
         {
             moveMouse = direction;
+            fastSpeed = direction.y;
+        }
+        if (game.ballType == Game.BallType.MoveX && Game.type == Game.GameState.Game && !game.isComputer && isMoveY)
+        {
+            if (fastSpeed > direction.y - 100)
+            {
+                fastSpeed = direction.y - 100;
+            }
+            else
+            {
+                fastSpeed += Time.deltaTime * 200;
+            }
         }
         if (game.ballType == Game.BallType.MoveX && Game.type == Game.GameState.Game && spinEnd.x <= -75 && spinEnd.x >= -150 && spinEnd.y > -125 && !game.isComputer && !isMoveY)
         {
@@ -133,6 +147,7 @@ public class Ball : MonoBehaviour
         {
             rigidBody.AddForce(0, 0, -rigidBody.mass * 640);
         }
+        maxSpeed = fastSpeed - direction.y;
     }
 
     void OnCollisionEnter(Collision collision)
@@ -514,11 +529,11 @@ public class Ball : MonoBehaviour
         game.CrowdStop();
         if (game.powerUps == Game.BallPowerUps.Hyper)
         {
-            rigidBody.AddForce(moveMouse.x - direction.x * spin * rigidBody.mass * 0.64f, 0, moveMouse.y - direction.y * speed * 256f);
+            rigidBody.AddForce(moveMouse.x - direction.x * spin * rigidBody.mass * 0.64f, 0, maxSpeed * speed * 256f);
         }
         else
         {
-            rigidBody.AddForce(moveMouse.x - direction.x * spin * rigidBody.mass * 0.64f, 0, moveMouse.y - direction.y * speed * 128f);
+            rigidBody.AddForce(moveMouse.x - direction.x * spin * rigidBody.mass * 0.64f, 0, maxSpeed * speed * 128f);
         }
         game.PlayClip("Thumbpop");
         game.ballType = Game.BallType.ThrowBall;

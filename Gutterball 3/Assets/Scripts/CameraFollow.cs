@@ -18,7 +18,7 @@ public class CameraFollow : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, GameObject.FindObjectOfType<PinSetter>().offsetY, transform.position.z);
         }
-        if (transform.position.z < -GameObject.FindObjectOfType<PinSetter>().offsetZ && game.ballType == Game.BallType.SpinBall)
+        if (transform.position.x > -GameObject.FindObjectOfType<PinSetter>().offsetX && transform.position.x < GameObject.FindObjectOfType<PinSetter>().offsetX && transform.position.z < -GameObject.FindObjectOfType<PinSetter>().offsetZ && game.ballType == Game.BallType.SpinBall)
         {
             game.camType = Game.CameraType.LookBall;
         }

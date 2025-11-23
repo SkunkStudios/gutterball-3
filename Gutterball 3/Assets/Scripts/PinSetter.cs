@@ -20,6 +20,7 @@ public class PinSetter : MonoBehaviour
     public float rotSetX;
     public float rotOffset;
     public float rotScoreCard;
+    public float offsetX;
     public float offsetY;
     public float offsetZ;
     public bool isGravity = true;

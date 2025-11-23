@@ -76091,6 +76091,7 @@ MonoBehaviour:
   rotSetX: -1
   rotOffset: -0.875
   rotScoreCard: -0.5
+  offsetX: 30000
   offsetY: 50
   offsetZ: 3000
   isGravity: 1
@@ -190111,8 +190112,9 @@ MonoBehaviour:
   rotSetX: -1.125
   rotOffset: -1.5
   rotScoreCard: -2
+  offsetX: 75
   offsetY: 50
-  offsetZ: 30000
+  offsetZ: 3000
   isGravity: 1
   isSplash: 1
   isRain: 1
@@ -199700,6 +199702,7 @@ MonoBehaviour:
   rotSetX: -1.25
   rotOffset: -1.25
   rotScoreCard: -1.25
+  offsetX: 30000
   offsetY: -500
   offsetZ: 50000
   isGravity: 1
@@ -300843,6 +300846,7 @@ MonoBehaviour:
   rotSetX: -1
   rotOffset: -1.125
   rotScoreCard: -1
+  offsetX: 30000
   offsetY: 50
   offsetZ: 3000
   isGravity: 0
@@ -302652,6 +302656,7 @@ MonoBehaviour:
   rotSetX: -1
   rotOffset: -3
   rotScoreCard: -1
+  offsetX: 30000
   offsetY: 50
   offsetZ: 3000
   isGravity: 1
@@ -303448,6 +303453,7 @@ MonoBehaviour:
   rotSetX: -1
   rotOffset: -1.125
   rotScoreCard: -1
+  offsetX: 30000
   offsetY: 50
   offsetZ: 3000
   isGravity: 1
@@ -304826,6 +304832,7 @@ MonoBehaviour:
   rotSetX: -1
   rotOffset: -1.125
   rotScoreCard: -1
+  offsetX: 30000
   offsetY: 50
   offsetZ: 3000
   isGravity: 1
@@ -352635,6 +352642,7 @@ MonoBehaviour:
   rotSetX: -1
   rotOffset: -1.125
   rotScoreCard: -1
+  offsetX: 30000
   offsetY: 50
   offsetZ: 3000
   isGravity: 1
