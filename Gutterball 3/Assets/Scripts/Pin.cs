@@ -53,7 +53,7 @@ public class Pin : MonoBehaviour
         if (collision.gameObject.tag == "Ball" && !GameObject.FindObjectOfType<PinSetter>().isGravity || collision.gameObject.tag == "Pin" && !GameObject.FindObjectOfType<PinSetter>().isGravity)
         {
             GetComponent<Rigidbody>().useGravity = false;
-            GetComponent<ConstantForce>().force = new Vector3(0, -15, -150);
+            GetComponent<ConstantForce>().force = new Vector3(0, -7.5f, -75);
         }
     }
 
@@ -62,7 +62,7 @@ public class Pin : MonoBehaviour
         if (other.CompareTag("Fall") && !GameObject.FindObjectOfType<PinSetter>().isGravity)
         {
             GetComponent<Rigidbody>().useGravity = false;
-            GetComponent<ConstantForce>().force = new Vector3(0, -15, -150);
+            GetComponent<ConstantForce>().force = new Vector3(0, -7.5f, -75f);
         }
         Vector3 splashPosition = new Vector3(transform.position.x, other.transform.position.y, transform.position.z);
         if (other.CompareTag("Fall") && isSplash || other.CompareTag("Gutter") && isSplash || other.CompareTag("Water") && isSplash)

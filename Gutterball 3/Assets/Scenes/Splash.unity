@@ -4103,13 +4103,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e4c60771ce008c4ebd9c3a8955c192a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLockAlleys: 0000000000000000000000000000000000000000010000000100000001000000
+  isLockAlleys: 000000000000000000000000000000000000000001000000010000000100000001000000
   nameAlleys:
   - Retro
   - Lotus
   - Jungle
   - Iceberg
   - Wacky
+  - Vegas
   - Mineshaft
   - Barnyard
   - Cosmic
@@ -4119,6 +4120,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: dfbf81b0e10934e4abcc19feae514876, type: 3}
   - {fileID: 21300000, guid: fc65fc37d568a844cb95593b0f213731, type: 3}
   - {fileID: 21300000, guid: 13461dd2388a8594289b368d69b77e38, type: 3}
+  - {fileID: 21300000, guid: e55774ba89a6cfd4f972a90d021c096b, type: 3}
   - {fileID: 21300000, guid: 0d39a04076954ff4ca79873e5df8715b, type: 3}
   - {fileID: 21300000, guid: e8fdd513e0181fa48806ab96869c9909, type: 3}
   - {fileID: 21300000, guid: a56df111d257ff442b32b90193675e85, type: 3}
@@ -4521,6 +4523,56 @@ MonoBehaviour:
     lbs: 10
     speed: 45
     spin: 60
+    isLock: 1
+    urlTextureBall: 
+  - ballName: Vegas 1
+    lockType: 0
+    totalLock: 0
+    CPUName: 
+    ballMat: {fileID: 2100000, guid: 59b73a376895f854fb0d189d44c82810, type: 2}
+    lbs: 11
+    speed: 55
+    spin: 45
+    isLock: 0
+    urlTextureBall: 
+  - ballName: Vegas 2
+    lockType: 0
+    totalLock: 0
+    CPUName: 
+    ballMat: {fileID: 2100000, guid: fdc72cca97c7da548acd9e9d2a48c408, type: 2}
+    lbs: 10
+    speed: 45
+    spin: 35
+    isLock: 0
+    urlTextureBall: 
+  - ballName: Vegas 3
+    lockType: 0
+    totalLock: 0
+    CPUName: 
+    ballMat: {fileID: 2100000, guid: 6780dce0f6a5acb47a4d8f3982eddf67, type: 2}
+    lbs: 14
+    speed: 70
+    spin: 50
+    isLock: 0
+    urlTextureBall: 
+  - ballName: Rebel Force
+    lockType: 3
+    totalLock: 0
+    CPUName: Mike CPU
+    ballMat: {fileID: 2100000, guid: f27917d951efe4c4b85fd8b379192f55, type: 2}
+    lbs: 13
+    speed: 50
+    spin: 60
+    isLock: 1
+    urlTextureBall: 
+  - ballName: Vegas Baby
+    lockType: 4
+    totalLock: 45000
+    CPUName: Genius CPU
+    ballMat: {fileID: 2100000, guid: 06feca1296c70a14690bab75bd282fee, type: 2}
+    lbs: 10
+    speed: 45
+    spin: 40
     isLock: 1
     urlTextureBall: 
   - ballName: Mercury
@@ -5373,6 +5425,56 @@ MonoBehaviour:
     spin: 50
     isLock: 0
     urlTextureBall: 
+  - ballName: Custom 41
+    lockType: 5
+    totalLock: 0
+    CPUName: Custom CPU
+    ballMat: {fileID: 2100000, guid: f5ecd1585d2557545bd1c959b9db6964, type: 2}
+    lbs: 12
+    speed: 50
+    spin: 50
+    isLock: 0
+    urlTextureBall: 
+  - ballName: Custom 42
+    lockType: 5
+    totalLock: 0
+    CPUName: Custom CPU
+    ballMat: {fileID: 2100000, guid: 3ad4b5731735dfd4d98908afbafdd9f5, type: 2}
+    lbs: 12
+    speed: 50
+    spin: 50
+    isLock: 0
+    urlTextureBall: 
+  - ballName: Custom 43
+    lockType: 5
+    totalLock: 0
+    CPUName: Custom CPU
+    ballMat: {fileID: 2100000, guid: 5e04c4f0b35303840bac9a1e0394c564, type: 2}
+    lbs: 12
+    speed: 50
+    spin: 50
+    isLock: 0
+    urlTextureBall: 
+  - ballName: Custom 44
+    lockType: 5
+    totalLock: 0
+    CPUName: Custom CPU
+    ballMat: {fileID: 2100000, guid: e6044e7b7f6b631489957b8feeac486f, type: 2}
+    lbs: 12
+    speed: 50
+    spin: 50
+    isLock: 0
+    urlTextureBall: 
+  - ballName: Custom 45
+    lockType: 5
+    totalLock: 0
+    CPUName: Custom CPU
+    ballMat: {fileID: 2100000, guid: e6f55a1a378aac843b6d4601751b6fe2, type: 2}
+    lbs: 12
+    speed: 50
+    spin: 50
+    isLock: 0
+    urlTextureBall: 
   compuObj:
   - cpuIndex: 3
     money: 0
@@ -5486,35 +5588,14 @@ MonoBehaviour:
     strikes: 0
     spares: 0
     gutters: 0
-  - cpuIndex: 83
+  - cpuIndex: 43
     money: 0
     win: 0
     loss: 0
     strikes: 0
     spares: 0
     gutters: 0
-  - cpuIndex: 84
-    money: 0
-    win: 0
-    loss: 0
-    strikes: 0
-    spares: 0
-    gutters: 0
-  - cpuIndex: 85
-    money: 0
-    win: 0
-    loss: 0
-    strikes: 0
-    spares: 0
-    gutters: 0
-  - cpuIndex: 86
-    money: 0
-    win: 0
-    loss: 0
-    strikes: 0
-    spares: 0
-    gutters: 0
-  - cpuIndex: 87
+  - cpuIndex: 44
     money: 0
     win: 0
     loss: 0
@@ -5780,6 +5861,41 @@ MonoBehaviour:
     strikes: 0
     spares: 0
     gutters: 0
+  - cpuIndex: 125
+    money: 0
+    win: 0
+    loss: 0
+    strikes: 0
+    spares: 0
+    gutters: 0
+  - cpuIndex: 126
+    money: 0
+    win: 0
+    loss: 0
+    strikes: 0
+    spares: 0
+    gutters: 0
+  - cpuIndex: 127
+    money: 0
+    win: 0
+    loss: 0
+    strikes: 0
+    spares: 0
+    gutters: 0
+  - cpuIndex: 128
+    money: 0
+    win: 0
+    loss: 0
+    strikes: 0
+    spares: 0
+    gutters: 0
+  - cpuIndex: 129
+    money: 0
+    win: 0
+    loss: 0
+    strikes: 0
+    spares: 0
+    gutters: 0
   lockRegistered: 1
   urlInfoScreen:
   - https://cdn.ghstatic.com/images/deluxe/300x150/200162.jpg
@@ -5795,6 +5911,7 @@ MonoBehaviour:
   c_hs: []
   b_hs: []
   m_hs: []
+  v_hs: []
 --- !u!4 &1898682777
 Transform:
   m_ObjectHideFlags: 0

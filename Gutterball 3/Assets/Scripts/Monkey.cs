@@ -166,7 +166,7 @@ public class Monkey : MonoBehaviour
     {
         if (other.CompareTag("Ball"))
         {
-            if (ball.GetComponent<Rigidbody>().velocity.sqrMagnitude > 320000)
+            if (ball.GetComponent<Rigidbody>().velocity.sqrMagnitude > 250000)
             {
                 isRoll = true;
             }
