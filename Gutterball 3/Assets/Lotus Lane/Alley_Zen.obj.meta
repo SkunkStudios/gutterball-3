@@ -221,7 +221,187 @@ ModelImporter:
     4300066: zengardenLayer7
     4300068: zengardenLayer8
     4300070: zengardenLayer9
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lane
+    second: {fileID: 2100000, guid: 91d4193087ba360418bd5a9a1cdb1e47, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LanesApproach
+    second: {fileID: 2100000, guid: dfd4909611998094e9710b186f7fdec8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Zenoff
+    second: {fileID: 2100000, guid: d8dbd88d2e9c8ff40925781bb5bd89dd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Zenon
+    second: {fileID: 2100000, guid: a5446b05f8ddfc5488cc47dca305e785, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: backgroundsky
+    second: {fileID: 2100000, guid: 52ad4e056c0cd8144ad6ed6e75cc8f80, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gong
+    second: {fileID: 2100000, guid: 46ba69536a1bf024485dc6bb1734b389, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gongBackleft
+    second: {fileID: 2100000, guid: 55322aa08a4ecfa4fb52bcb2bc9d1798, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gongBackright
+    second: {fileID: 2100000, guid: a7615fdf6f0f311418f17c7ba60f211d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gongback
+    second: {fileID: 2100000, guid: c068ec7a3987af0459c3dc531722503b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lanesides
+    second: {fileID: 2100000, guid: 9e31d54c8e854d243aa96c1f8899dc83, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pagodainsideL
+    second: {fileID: 2100000, guid: 186fe8f7fbb98b3498b2536f6c913191, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pagodainsideR
+    second: {fileID: 2100000, guid: 15f989b0e87cd5d478eae7ed76d6d403, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinBTM
+    second: {fileID: 2100000, guid: dcb2bb9d23378ae4ab45af029a4f6393, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinjungle
+    second: {fileID: 2100000, guid: ffbc80e63fec3c9439a994f9f29aafb7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinjungleback
+    second: {fileID: 2100000, guid: 25a7c32ad2208bc4e9554803c8da73dd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: watergutter
+    second: {fileID: 2100000, guid: 34f957bc4f4931b4ba638c1b24eaec90, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zenDoors
+    second: {fileID: 2100000, guid: 5a57d86f5837c764da1f1778ca06a619, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zenblack
+    second: {fileID: 2100000, guid: a29ce5cc9876e824799e05ca0f759ee8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zenbridge
+    second: {fileID: 2100000, guid: ecd547b1e07714b49bf821253b0117c0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zenbridgerock
+    second: {fileID: 2100000, guid: e956eb2b884d5924f9cbfe06031d395b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zenbridgerock2
+    second: {fileID: 2100000, guid: c2a5e596887eed44b9fd59980b04dfdd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zenbridgerock3
+    second: {fileID: 2100000, guid: 22868a32335bd8e4ea77fedc87ac9ce2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zenbridgerock4
+    second: {fileID: 2100000, guid: f6e2f22648a5fa5438f743c550b86d84, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zenbuddah
+    second: {fileID: 2100000, guid: 938112426c5523245a0e1bcaedc45364, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zendeflector
+    second: {fileID: 2100000, guid: c944f2b3c030cc7479194c779060c818, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zengrass
+    second: {fileID: 2100000, guid: 4ced4c20015f5f14d8b04dccf9dd112f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zengrass1
+    second: {fileID: 2100000, guid: 72eea90b94125ad4181a0a71dcb3b98c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zengrass2
+    second: {fileID: 2100000, guid: 11adb32cbba9039459b34341ab025a79, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zenhouse
+    second: {fileID: 2100000, guid: d8dbd88d2e9c8ff40925781bb5bd89dd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zenpagodamain1
+    second: {fileID: 2100000, guid: db4f4094b7bcbf24688c7bdbd2794caa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zenpagodapinboxwalls
+    second: {fileID: 2100000, guid: ec7dc5d7e182cfc449475d686582125e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zenpagodasmall1
+    second: {fileID: 2100000, guid: afbb4d69b04b59d41822496f4f2e087a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zensky
+    second: {fileID: 2100000, guid: 3ece21c11c119dd46b84e2256d45f07e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zenskyright
+    second: {fileID: 2100000, guid: 0daf916f31eddc248b88485c654b17d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zentorch1
+    second: {fileID: 2100000, guid: 5834ff30694cdbf4bb6b4e82b91c097c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: zentorch2
+    second: {fileID: 2100000, guid: 14582598194325c408a4985198267552, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

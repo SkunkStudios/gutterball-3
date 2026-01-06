@@ -206,7 +206,212 @@ ModelImporter:
     4300058: wackytower1(1
     4300060: wackytower1(2
     4300062: ZauberUsersthomasestessDocumentsGAMESGutterballII3DFILESAlleyWACKYWACKYround12objects
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Default
+    second: {fileID: 2100000, guid: ccca443d2c101f440b9f7ecf70e5a7eb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GiantPin-arm1
+    second: {fileID: 2100000, guid: 4bacb16271d08ad4dbdcad8c234ffa44, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GiantPin-teethgums
+    second: {fileID: 2100000, guid: 86348526760f11b4f95b0199f2e44699, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GiantPin-tooth1
+    second: {fileID: 2100000, guid: efc080bcd8363e0479a1f7b52421c0df, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: arena-floor
+    second: {fileID: 2100000, guid: 26935f32bd4420e478b36be923faa18e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: arena-floorringsides
+    second: {fileID: 2100000, guid: 05ae571c37720e5469488276c7cc2760, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: arena-floorringtop
+    second: {fileID: 2100000, guid: 8cbef2f14e813dd4eac6357cd447533f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: arenabackwalldisc
+    second: {fileID: 2100000, guid: a9caeba7ebdbb0c4689bf705951543fe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: arenawallcolumn1
+    second: {fileID: 2100000, guid: 1b0550db753002740953791fa553eb77, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: box1
+    second: {fileID: 2100000, guid: ac843845aa3b36648a80fcde5de7faf6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: crowdpoly1
+    second: {fileID: 2100000, guid: f40669d7f06280e41bdaba921bd3a148, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eyesWACKEDsmall
+    second: {fileID: 2100000, guid: 782825b2e5829af43aa1b3c959656c87, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: giantPin-black
+    second: {fileID: 2100000, guid: e4d3e8c82fbb197458dfddca80b1de94, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: giantPin-eybrows
+    second: {fileID: 2100000, guid: e26bcd8e7d71a4241be29bb6f328f050, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: giantPin-eyeLeft
+    second: {fileID: 2100000, guid: 562ae6404cce93644a82c3bf31ffbd0d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: giantPin-eyeright
+    second: {fileID: 2100000, guid: 85cfad85becce4f4bbe02eaeb427d22f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: giantPin-head
+    second: {fileID: 2100000, guid: 2e6e04b8af19412419a4db5baa26fc5d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: giantPin-lipTop
+    second: {fileID: 2100000, guid: 0b0e541073a36a14d8b7c9935813d5ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: giantPin-nosearea
+    second: {fileID: 2100000, guid: 535fd71c2f169d347a0637e4b23729bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: giantPin-snarlinner
+    second: {fileID: 2100000, guid: 01e20288128965548a2b410e925b0feb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lane-center-BTM
+    second: {fileID: 2100000, guid: 7ad651bcd9cf3e545bac443677d82bf7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lane-center-edges
+    second: {fileID: 2100000, guid: e36904795d3ecec46aed6537b10b4826, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lane-center-top
+    second: {fileID: 2100000, guid: 3a1ad29b0c7e1b54c9d7dbe47eb9dfda, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lane-left-edges
+    second: {fileID: 2100000, guid: 4cf3a04c8dfb347449c57356540563ce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lane-left-top
+    second: {fileID: 2100000, guid: cf0d69b314578b0448099df53ffe21d7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lane-right-edges
+    second: {fileID: 2100000, guid: 81eab9c7a7d53134cb1e914bfe34c3ad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lane-right-top
+    second: {fileID: 2100000, guid: f777a1478e7f5d94ba4cd7e39aef5592, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lane-rightleft-btm
+    second: {fileID: 2100000, guid: 044001e4ceb984a4f996e35734ff02d9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lane-tongue
+    second: {fileID: 2100000, guid: 47869070193471445a58ef2d823a4791, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lanebarricades1
+    second: {fileID: 2100000, guid: a22353b7a8a5217409fa6b8db2d91a6f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lanebarricades2
+    second: {fileID: 2100000, guid: fdadc6f21ff003947a7ab1fa4f269a5f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: null
+    second: {fileID: 2100000, guid: c033bee0ce607b544b1699ed1a1afe49, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinwackback
+    second: {fileID: 2100000, guid: 3914cdedc4da126418ac6696d32421b3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinwackbtm
+    second: {fileID: 2100000, guid: a29755b5c13928a40912537ceae29cdb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinwackfront
+    second: {fileID: 2100000, guid: e279b200467ad154d979bd3bfcf51426, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinwackneck
+    second: {fileID: 2100000, guid: 9640afbcd8490f846830e8812de22490, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wackyoff
+    second: {fileID: 2100000, guid: b0d63ff440f887740aa1e96ccd571e70, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wackyon
+    second: {fileID: 2100000, guid: 623d211b2f7ff994b8d3bd5c6f07f646, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wackypinHolder
+    second: {fileID: 2100000, guid: d95aeabc76b2ca14d8e4897e27a472f2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wackypinHolderfront
+    second: {fileID: 2100000, guid: 5d985637c876f9749870662ee923f883, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: whackyApproach
+    second: {fileID: 2100000, guid: 6f755e238d9b69c499622260a60c8b41, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

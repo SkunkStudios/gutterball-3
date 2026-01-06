@@ -154,7 +154,7 @@ public class Ball : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.Rotate(rigidBody.angularVelocity / 1.5f, Space.World);
+        transform.Rotate(rigidBody.angularVelocity / 1.25f, Space.World);
     }
 
     void OnCollisionEnter(Collision collision)

@@ -10,6 +10,14 @@ public class ReflectMat : MonoBehaviour
 
     void Start ()
 	{
+        if (GetComponent<PlaneReflection>() != null)
+        {
+            GetComponent<PlaneReflection>().enabled = GameManager.isReflect;
+        }
+        if (GetComponent<Water>() != null)
+        {
+            GetComponent<Water>().enabled = GameManager.isReflect;
+        }
         Material[] mats = GetComponent<Renderer>().materials;
         if (GameManager.isReflect)
         {
