@@ -18,7 +18,8 @@ public class AnimList : MonoBehaviour
     public Renderer meshBall;
 
     private SpriteRenderer[] renderers;
-	private float stompTime;
+    private float time;
+    private float stompTime;
 	private int animIndex;
 	private int spriteIndex = 1;
     private bool isStompAnim;
@@ -31,7 +32,12 @@ public class AnimList : MonoBehaviour
 	
 	void Update ()
 	{
-        spriteIndex++;
+        time += Time.deltaTime;
+        if (time >= 1 / 30)
+        {
+            spriteIndex++;
+            time = 0;
+        }
         if (isStompAnim)
         {
             stompTime -= 15 * Time.deltaTime;

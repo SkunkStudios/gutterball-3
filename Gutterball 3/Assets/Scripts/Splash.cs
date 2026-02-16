@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class Splash : MonoBehaviour
 {
 	public GameObject splashScreen;
-	public GameObject activisionScreen;
 	public GameObject ronkatScreen;
 	public GameObject warningScreen;
 	public GameObject loadScreen;
@@ -29,9 +28,6 @@ public class Splash : MonoBehaviour
         splashScreen.SetActive(true);
         yield return new WaitForSeconds(30f);
         splashScreen.SetActive(false);
-        activisionScreen.SetActive(true);
-        yield return new WaitForSeconds(18f);
-        activisionScreen.SetActive(false);
         ronkatScreen.SetActive(true);
         yield return new WaitForSeconds(18f);
         ronkatScreen.SetActive(false);

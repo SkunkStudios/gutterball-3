@@ -18,6 +18,7 @@ public class Pin : MonoBehaviour
     private bool pinRaise;
     private bool isSplash;
     private bool isSpare;
+    private bool isFall;
 
     // Use this for initialization
     void Start ()
@@ -46,14 +47,26 @@ public class Pin : MonoBehaviour
                 transform.Translate(new Vector3(0, -distToRaise * Time.deltaTime, 0), Space.World);
             }
         }
+        if (!isFall)
+        {
+            transform.position = pinStartPos;
+            transform.rotation = Quaternion.identity;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            GetComponent<Rigidbody>().Sleep();
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Ball" && !GameObject.FindObjectOfType<PinSetter>().isGravity || collision.gameObject.tag == "Pin" && !GameObject.FindObjectOfType<PinSetter>().isGravity)
+        if (collision.gameObject.tag != "Lane")
         {
-            GetComponent<Rigidbody>().useGravity = false;
-            GetComponent<ConstantForce>().force = new Vector3(0, -7.5f, -75);
+            isFall = true;
+            if (!GameObject.FindObjectOfType<PinSetter>().isGravity)
+            {
+                GetComponent<Rigidbody>().useGravity = false;
+                GetComponent<ConstantForce>().force = new Vector3(0, -7.5f, -75);
+            }
         }
     }
 
@@ -61,6 +74,7 @@ public class Pin : MonoBehaviour
     {
         if (other.CompareTag("Fall") && !GameObject.FindObjectOfType<PinSetter>().isGravity)
         {
+            isFall = true;
             GetComponent<Rigidbody>().useGravity = false;
             GetComponent<ConstantForce>().force = new Vector3(0, -7.5f, -75f);
         }
@@ -113,6 +127,7 @@ public class Pin : MonoBehaviour
     {
         if (game.throwBall < game.maxBalls)
         {
+            isFall = true;
             GetComponent<Rigidbody>().isKinematic = pinRaise;
         }
         type = PinType.PinRaise;
@@ -149,6 +164,7 @@ public class Pin : MonoBehaviour
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             GetComponent<Rigidbody>().Sleep();
+            isFall = false;
         }
         type = PinType.PinGravity;
     }
@@ -168,6 +184,7 @@ public class Pin : MonoBehaviour
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             GetComponent<Rigidbody>().Sleep();
+            isFall = false;
         }
     }
 
@@ -184,6 +201,7 @@ public class Pin : MonoBehaviour
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         GetComponent<Rigidbody>().Sleep();
+        isFall = false;
         pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOn;
     }
 
@@ -201,6 +219,7 @@ public class Pin : MonoBehaviour
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         GetComponent<Rigidbody>().Sleep();
+        isFall = false;
         if (isPinFall != 0)
         {
             gameObject.SetActive(true);

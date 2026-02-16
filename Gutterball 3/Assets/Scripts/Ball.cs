@@ -36,6 +36,7 @@ public class Ball : MonoBehaviour
     private Vector2 direction;
     private float fastSpeed;
     private float maxSpeed;
+    private float moveZThrow;
     private bool isMoveY = false;
     private bool isThrow = false;
     private bool isNet = false;
@@ -45,6 +46,7 @@ public class Ball : MonoBehaviour
     private Vector3 spinEnd;
     private Rigidbody rigidBody;
     private ConstantForce force;
+    private GameObject pinTarget;
 
     // Use this for initialization
     void Start ()
@@ -58,6 +60,10 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+        if (pinTarget == null)
+        {
+            pinTarget = GameObject.Find("Pin (1)");
+        }
         saturnRingBall.transform.eulerAngles = new Vector3(0, 0, 0);
         uranusRingBall.transform.eulerAngles = new Vector3(0, 0, 0);
         bombBall.transform.eulerAngles = Vector3.zero;
@@ -94,7 +100,9 @@ public class Ball : MonoBehaviour
 
             direction = new Vector2(spinEnd.x, spinEnd.y);
 
-            controlArrow.transform.up = direction;
+            controlArrow.transform.up = -direction;
+
+            controlArrow.transform.eulerAngles = new Vector3(0, 0, Mathf.Clamp(controlArrow.transform.eulerAngles.z, 90, 270));
         }
         if (game.ballType == Game.BallType.MoveX && Game.type == Game.GameState.Game && !game.isComputer && !isMoveY)
         {
@@ -132,7 +140,11 @@ public class Ball : MonoBehaviour
         {
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, -120, 120), transform.position.y, transform.position.z);
         }
-        if (transform.position.z < GameObject.FindObjectOfType<PinSetter>().ballPos.z && game.ballType == Game.BallType.MoveX && Game.type == Game.GameState.Game && !game.isComputer)
+        if (transform.position.z > moveZThrow && game.ballType == Game.BallType.MoveX && Game.type == Game.GameState.Game && !game.isComputer)
+        {
+            moveZThrow = transform.position.z;
+        }
+        else if (transform.position.z < moveZThrow && game.ballType == Game.BallType.MoveX && Game.type == Game.GameState.Game && !game.isComputer)
         {
             isThrow = true;
         }
@@ -148,6 +160,32 @@ public class Ball : MonoBehaviour
         if (isGutter)
         {
             rigidBody.AddForce(0, 0, -rigidBody.mass * 320);
+        }
+        if (game.ballType == Game.BallType.SpinBall && pinTarget.activeSelf && game.isComputer && GameManager.chooseAlleys != GameManager.Alley.Wacky || game.ballType == Game.BallType.SpinBall && pinTarget.activeSelf && Game.type == Game.GameState.Menu && GameManager.chooseAlleys != GameManager.Alley.Wacky)
+        {
+            if (spin > 50)
+            {
+                rigidBody.AddForce(-GameObject.Find("Pin (1)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
+                rigidBody.AddTorque(0, 0, GameObject.Find("Pin (1)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
+            }
+            else
+            {
+                rigidBody.AddForce(-GameObject.Find("Pin (1)").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.0f * Time.deltaTime, 0, 0);
+                rigidBody.AddTorque(0, 0, GameObject.Find("Pin (1)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime);
+            }
+        }
+        else if (game.ballType == Game.BallType.SpinBall && !pinTarget.activeSelf && game.isComputer && GameManager.chooseAlleys != GameManager.Alley.Wacky || game.ballType == Game.BallType.SpinBall && !pinTarget.activeSelf && Game.type == Game.GameState.Menu && GameManager.chooseAlleys != GameManager.Alley.Wacky)
+        {
+            if (spin > 50)
+            {
+                rigidBody.AddForce(-GameObject.FindGameObjectWithTag("Pin").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
+                rigidBody.AddTorque(0, 0, -GameObject.FindGameObjectWithTag("Pin").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
+            }
+            else
+            {
+                rigidBody.AddForce(-GameObject.FindGameObjectWithTag("Pin").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.0f * Time.deltaTime, 0, 0);
+                rigidBody.AddTorque(0, 0, -GameObject.FindGameObjectWithTag("Pin").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime);
+            }
         }
         maxSpeed = fastSpeed - direction.y;
     }
@@ -464,6 +502,8 @@ public class Ball : MonoBehaviour
         {
             rollAudio.Stop();
             controlArrow.SetActive(false);
+            force.force = new Vector3(0, 0, 0);
+            force.torque = new Vector3(0, 0, 0);
             game.CrowdStop();
             if (game.ballType == Game.BallType.ThrowBall)
             {
@@ -535,6 +575,7 @@ public class Ball : MonoBehaviour
             {
                 isMoveY = false;
                 transform.position = GameObject.FindObjectOfType<PinSetter>().ballPos;
+                moveZThrow = GameObject.FindObjectOfType<PinSetter>().ballPos.z;
             }
         }
     }
@@ -591,6 +632,7 @@ public class Ball : MonoBehaviour
         transform.rotation = Quaternion.Euler(45, 0, 0);
         rigidBody.velocity = Vector3.zero;
         rigidBody.angularVelocity = Vector3.zero;
+        moveZThrow = GameObject.FindObjectOfType<PinSetter>().ballPos.z;
         isMoveY = false;
         isThrow = false;
         isGutter = false;
@@ -610,8 +652,10 @@ public class Ball : MonoBehaviour
     public void ResetBowl()
     {
         rigidBody.useGravity = true;
+        force.force = new Vector3(0, 0, 0);
+        force.torque = new Vector3(0, 0, 0);
         rigidBody.isKinematic = false;
-        transform.position = new Vector3(Random.Range(-75, 75), GameObject.FindObjectOfType<PinSetter>().ballPos.y, GameObject.FindObjectOfType<PinSetter>().ballPos.z);
+        transform.position = new Vector3(Random.Range(-25, 25), GameObject.FindObjectOfType<PinSetter>().ballPos.y, GameObject.FindObjectOfType<PinSetter>().ballPos.z);
         transform.rotation = Quaternion.Euler(45, 0, 0);
         rigidBody.velocity = Vector3.zero;
         rigidBody.angularVelocity = Vector3.zero;
@@ -622,82 +666,35 @@ public class Ball : MonoBehaviour
         isBackWall = false;
         isSplash = GameObject.FindObjectOfType<PinSetter>().isSplash;
         game.isReplayRecord = false;
-        if (speed <= 30)
-        {
-            rigidBody.AddForce(Vector3.forward * -speed * rigidBody.mass * 1125);
-        }
-        else if (speed > 30 && speed <= 40)
-        {
-            rigidBody.AddForce(Vector3.forward * -speed * rigidBody.mass * 875);
-        }
-        else if (speed > 40 && speed <= 50)
-        {
-            rigidBody.AddForce(Vector3.forward * -speed * rigidBody.mass * 750);
-        }
-        else if (speed > 50 && speed <= 60)
-        {
-            rigidBody.AddForce(Vector3.forward * -speed * rigidBody.mass * 625);
-        }
-        else if (speed > 60)
-        {
-            rigidBody.AddForce(Vector3.forward * -speed * 5625);
-        }
-        if (transform.position.x < GameObject.FindObjectOfType<PinSetter>().ballPos.x)
+        rigidBody.AddForce(-Vector3.forward * rigidBody.mass * 24000);
+        if (transform.position.x > 0)
         {
             if (spin < 25)
             {
-                force.force = new Vector3(spin * -rigidBody.mass * 0.75f, 0, 0);
-                force.torque = new Vector3(0, 0, spin * rigidBody.mass * 0.375f);
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(25, 112.5f));
+                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-75f, -12.5f));
             }
             else if (spin >= 25 && spin < 50)
             {
-                force.force = new Vector3(spin * -rigidBody.mass * 0.5f, 0, 0);
-                force.torque = new Vector3(0, 0, spin * rigidBody.mass * 0.25f);
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(25, 75));
+                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-50f, -12.5f));
             }
             else if (spin >= 50)
             {
-                force.force = new Vector3(spin * -rigidBody.mass * 0.125f, 0, 0);
-                force.torque = new Vector3(0, 0, spin * rigidBody.mass * 0.0625f);
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(25, 37.5f));
+                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-25f, -12.5f));
             }
         }
-        else if (transform.position.x == GameObject.FindObjectOfType<PinSetter>().ballPos.x)
-        {
-            force.force = new Vector3(0, 0, 0);
-            if (spin < 25)
-            {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-112.5f, 112.5f));
-            }
-            else if (spin >= 25 && spin < 50)
-            {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-75, 75));
-            }
-            else if (spin >= 50)
-            {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-37.5f, 37.5f));
-            }
-        }
-        else if (transform.position.x > GameObject.FindObjectOfType<PinSetter>().ballPos.x)
+        else
         {
             if (spin < 25)
             {
-                force.force = new Vector3(spin * rigidBody.mass * 0.75f, 0, 0);
-                force.torque = new Vector3(0, 0, spin * -rigidBody.mass * 0.375f);
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-112.5f, -25));
+                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(12.5f, 75f));
             }
             else if (spin >= 25 && spin < 50)
             {
-                force.force = new Vector3(spin * rigidBody.mass * 0.5f, 0, 0);
-                force.torque = new Vector3(0, 0, spin * -rigidBody.mass * 0.25f);
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-75, -25));
+                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(12.5f, 50f));
             }
             else if (spin >= 50)
             {
-                force.force = new Vector3(spin * rigidBody.mass * 0.125f, 0, 0);
-                force.torque = new Vector3(0, 0, spin * -rigidBody.mass * 0.0625f);
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-37.5f, -25));
+                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(12.5f, 25f));
             }
         }
         game.PlayClip("Thumbpop");
