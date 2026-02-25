@@ -18,7 +18,6 @@ public class AnimList : MonoBehaviour
     public Renderer meshBall;
 
     private SpriteRenderer[] renderers;
-    private float time;
     private float stompTime;
 	private int animIndex;
 	private int spriteIndex = 1;
@@ -28,16 +27,11 @@ public class AnimList : MonoBehaviour
     void Start ()
 	{
         renderers = GetComponentsInChildren<SpriteRenderer>();
+        StartCoroutine(AnimTime());
     }
-	
-	void Update ()
+
+    void Update ()
 	{
-        time += Time.deltaTime;
-        if (time >= 1 / 30)
-        {
-            spriteIndex++;
-            time = 0;
-        }
         if (isStompAnim)
         {
             stompTime -= 15 * Time.deltaTime;
@@ -83,5 +77,15 @@ public class AnimList : MonoBehaviour
     public void PlaySFX(string clipName)
     {
         GameObject.FindObjectOfType<Game>().PlayClip(clipName);
+    }
+
+    public IEnumerator AnimTime()
+    {
+        yield return new WaitForSeconds(0.05f);
+        while (true)
+        {
+            spriteIndex++;
+            yield return new WaitForSeconds(0.05f);
+        }
     }
 }

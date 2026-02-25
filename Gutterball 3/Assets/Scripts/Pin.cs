@@ -231,4 +231,9 @@ public class Pin : MonoBehaviour
             pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOff;
         }
     }
+
+    public void FallPinDown()
+    {
+        isFall = true;
+    }
 }
