@@ -57,6 +57,14 @@ public class Pin : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (isFall)
+        {
+            transform.Rotate(GetComponent<Rigidbody>().angularVelocity / 1.25f, Space.World);
+        }
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag != "Lane")
