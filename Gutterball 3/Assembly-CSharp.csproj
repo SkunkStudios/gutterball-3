@@ -55,6 +55,10 @@
   <ItemGroup>
     <Compile Include="Assets\AdamPlaneReflection\PlaneReflection\PlaneReflection.cs" />
     <Compile Include="Assets\ChargeTVImage.cs" />
+    <Compile Include="Assets\Earth\Scripts\EarthRootScript.cs" />
+    <Compile Include="Assets\Earth\Scripts\EarthScript.cs" />
+    <Compile Include="Assets\Earth\Scripts\MoveScript.cs" />
+    <Compile Include="Assets\Earth\Scripts\SphereScript.cs" />
     <Compile Include="Assets\MeshCombiner\Scripts\MeshCombiner.cs" />
     <Compile Include="Assets\MirrorReflection\MirrorReflection.cs" />
     <Compile Include="Assets\Scripts\ActionMasterOld.cs" />
@@ -80,6 +84,8 @@
     <Compile Include="Assets\Scripts\Fireworks.cs" />
     <Compile Include="Assets\Scripts\Game.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Intro.cs" />
+    <Compile Include="Assets\Scripts\IntroRigidbody.cs" />
     <Compile Include="Assets\Scripts\Monkey.cs" />
     <Compile Include="Assets\Scripts\ObjectAnimation.cs" />
     <Compile Include="Assets\Scripts\Orbit.cs" />
@@ -119,11 +125,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Alpha-Cancel.shader" />
+    <None Include="Assets\Earth\Materials\EarthShader.shader" />
     <None Include="Assets\AdamPlaneReflection\Shared\UnityStandardCore.cginc" />
     <None Include="Assets\AdamPlaneReflection\Shared\UnityStandardInput.cginc" />
     <None Include="Assets\StandaloneFileBrowser\Plugins\Ookii.Dialogs.dll" />
     <None Include="Assets\MirrorReflection\MirrorReflection.shader" />
     <None Include="Assets\AdamPlaneReflection\PlaneReflection\Convolve.shader" />
+    <None Include="Assets\Earth\Readme.txt" />
     <None Include="Assets\Shaders\LightsEmmissive.shader" />
     <None Include="Assets\AdamPlaneReflection\Shared\AdamPlaneReflectionsStandardSpecular.shader" />
     <None Include="Assets\StandaloneFileBrowser\Plugins\System.Windows.Forms.dll" />

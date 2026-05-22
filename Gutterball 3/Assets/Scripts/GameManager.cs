@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 {
     public enum PinMode { Tenpin, Spare }
     public static PinMode pinMode;
+    public static PinMode pinGameMode;
     public enum Alley { Retro, Zen, Jungle, Iceberg, Wacky, Vegas, Mineshaft, Barnyard, Cosmic }
     public static Alley chooseAlleys;
     public int[] isLockAlleys = new int[9];
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
     public List<ScoreBowler> v_hs = new List<ScoreBowler>();
     public static int moneys;
     public static int bombBalls;
+    public static int forcePulseBalls;
     public static int hyperBalls;
     public static int lightningBalls;
 
@@ -154,8 +156,10 @@ public class GameManager : MonoBehaviour
         }
         chooseAlleys = (Alley)PlayerPrefs.GetInt("ChooseAlleys");
         pinMode = (PinMode)PlayerPrefs.GetInt("PinModes");
+        pinGameMode = pinMode;
         moneys = PlayerPrefs.GetInt("SaveMoney", 5000);
         bombBalls = PlayerPrefs.GetInt("SaveBomb", 3);
+        forcePulseBalls = PlayerPrefs.GetInt("SaveForcePulse", 3);
         hyperBalls = PlayerPrefs.GetInt("SaveHyper", 3);
         lightningBalls = PlayerPrefs.GetInt("SaveLightning", 3);
     }

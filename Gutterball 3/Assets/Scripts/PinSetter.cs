@@ -141,21 +141,13 @@ public class PinSetter : MonoBehaviour
         foreach (Pin pin in GameObject.FindObjectsOfType<Pin>())
         {
             pin.pinLight.material = pinOff;
-            pin.ResetFall(Random.Range(-1, 1));
+            pin.ResetFall(Random.Range(-1, 2));
         }
     }
 
     public void PerformAction(ActionMasterOld.Action action)
     {
         if (action == ActionMasterOld.Action.EndGame)
-        {
-            throw new UnityException("Don't know how to handle end game yet");
-        }
-    }
-
-    public void PerformAction3(ActionMasterOldBall3.Action action)
-    {
-        if (action == ActionMasterOldBall3.Action.EndGame)
         {
             throw new UnityException("Don't know how to handle end game yet");
         }

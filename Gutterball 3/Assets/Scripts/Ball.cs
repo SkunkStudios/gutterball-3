@@ -27,10 +27,14 @@ public class Ball : MonoBehaviour
     public GameObject controlArrow;
     public GameObject saturnRingBall;
     public GameObject uranusRingBall;
+    public GameObject sunBall;
     public GameObject bombBall;
+    public GameObject forcePulseBall;
     public GameObject hyperBall;
     public GameObject lightningBall;
+    public GameObject sunParticle;
     public GameObject bombParticle;
+    public ParticleSystem forcePulseParticle;
     public GameObject hyperParticle;
     public GameObject lightningParticle;
     public Renderer[] meshBalls;
@@ -56,21 +60,21 @@ public class Ball : MonoBehaviour
     private Pin pin6;
     private Pin pin7;
     private Pin pin10;
-    private bool isSpinPins = false;
+
+    void Awake()
+    {
+        splashAudio = GameObject.Find("Splash").GetComponent<AudioSource>();
+        rigidBody = GetComponent<Rigidbody>();
+        force = GetComponent<ConstantForce>();
+    }
 
     // Use this for initialization
     void Start ()
     {
-        splashAudio = GameObject.Find("Splash").GetComponent<AudioSource>();
-        rigidBody = GetComponent<Rigidbody>();
         rigidBody.mass = lbs;
-        force = GetComponent<ConstantForce>();
-        if (GameManager.pinMode != GameManager.PinMode.Spare)
-        {
-            isSpinPins = true;
-        }
         if (!GameManager.isParticle)
         {
+            sunParticle.SetActive(false);
             bombParticle.SetActive(false);
             hyperParticle.SetActive(false);
             lightningParticle.SetActive(false);
@@ -80,60 +84,72 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        if (pin1 == null && isSpinPins)
+        if (pin1 == null && GameManager.pinGameMode != GameManager.PinMode.Spare)
         {
             pin1 = GameObject.Find("Pin (1)").GetComponent<Pin>();
         }
-        if (pin2 == null && isSpinPins)
+        if (pin2 == null && GameManager.pinGameMode != GameManager.PinMode.Spare)
         {
             pin2 = GameObject.Find("Pin (2)").GetComponent<Pin>();
         }
-        if (pin3 == null && isSpinPins)
+        if (pin3 == null && GameManager.pinGameMode != GameManager.PinMode.Spare)
         {
             pin3 = GameObject.Find("Pin (3)").GetComponent<Pin>();
         }
-        if (pin4 == null && isSpinPins)
+        if (pin4 == null && GameManager.pinGameMode != GameManager.PinMode.Spare)
         {
             pin4 = GameObject.Find("Pin (4)").GetComponent<Pin>();
         }
-        if (pin6 == null && isSpinPins)
+        if (pin6 == null && GameManager.pinGameMode != GameManager.PinMode.Spare)
         {
             pin6 = GameObject.Find("Pin (6)").GetComponent<Pin>();
         }
-        if (pin7 == null && isSpinPins)
+        if (pin7 == null && GameManager.pinGameMode != GameManager.PinMode.Spare)
         {
             pin7 = GameObject.Find("Pin (7)").GetComponent<Pin>();
         }
-        if (pin10 == null && isSpinPins)
+        if (pin10 == null && GameManager.pinGameMode != GameManager.PinMode.Spare)
         {
             pin10 = GameObject.Find("Pin (10)").GetComponent<Pin>();
         }
-        saturnRingBall.transform.eulerAngles = new Vector3(0, 0, 0);
-        uranusRingBall.transform.eulerAngles = new Vector3(0, 0, 0);
+        saturnRingBall.transform.eulerAngles = Vector3.zero;
+        uranusRingBall.transform.eulerAngles = Vector3.zero;
         bombBall.transform.eulerAngles = Vector3.zero;
+        forcePulseBall.transform.eulerAngles = Vector3.zero;
         hyperBall.transform.eulerAngles = Vector3.zero;
         lightningBall.transform.eulerAngles = Vector3.zero;
         if (game.powerUps == Game.BallPowerUps.Off)
         {
             bombBall.SetActive(false);
+            forcePulseBall.SetActive(false);
             hyperBall.SetActive(false);
             lightningBall.SetActive(false);
         }
         else if (game.powerUps == Game.BallPowerUps.Bomb)
         {
             bombBall.SetActive(true);
+            forcePulseBall.SetActive(false);
+            hyperBall.SetActive(false);
+            lightningBall.SetActive(false);
+        }
+        else if (game.powerUps == Game.BallPowerUps.ForcePulse)
+        {
+            bombBall.SetActive(false);
+            forcePulseBall.SetActive(true);
             hyperBall.SetActive(false);
             lightningBall.SetActive(false);
         }
         else if (game.powerUps == Game.BallPowerUps.Hyper)
         {
             bombBall.SetActive(false);
+            forcePulseBall.SetActive(false);
             hyperBall.SetActive(true);
             lightningBall.SetActive(false);
         }
         else if (game.powerUps == Game.BallPowerUps.Lightning)
         {
             bombBall.SetActive(false);
+            forcePulseBall.SetActive(false);
             hyperBall.SetActive(false);
             lightningBall.SetActive(true);
         }
@@ -205,111 +221,151 @@ public class Ball : MonoBehaviour
         {
             rigidBody.AddForce(0, 0, -rigidBody.mass * 320);
         }
-        if (game.ballType == Game.BallType.SpinBall && game.isComputer && isSpinPins || game.ballType == Game.BallType.SpinBall && Game.type == Game.GameState.Menu && isSpinPins)
+        if (game.ballType == Game.BallType.SpinBall && game.isComputer && GameManager.pinGameMode != GameManager.PinMode.Spare || game.ballType == Game.BallType.SpinBall && Game.type == Game.GameState.Menu && GameManager.pinGameMode != GameManager.PinMode.Spare)
         {
             if (pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false)
             {
-                if (spin > 50)
+                if (spin < 25)
                 {
-                    rigidBody.AddForce(-GameObject.Find("Pin (1)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
-                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (1)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
+                    rigidBody.AddForce(-GameObject.Find("Pin (1)").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.5f * Time.deltaTime, 0, 0);
+                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (1)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.75f * Time.deltaTime);
                 }
-                else
+                else if (spin >= 25 && spin < 50)
                 {
                     rigidBody.AddForce(-GameObject.Find("Pin (1)").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.0f * Time.deltaTime, 0, 0);
                     rigidBody.AddTorque(0, 0, GameObject.Find("Pin (1)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime);
                 }
-            }
-            else if (pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false)
-            {
-                if (spin > 50)
+                else if (spin >= 50)
                 {
-                    rigidBody.AddForce(-GameObject.Find("Pin (2)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
-                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (2)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
+                    rigidBody.AddForce(-GameObject.Find("Pin (1)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
+                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (1)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
                 }
-                else
+            }
+            else if (pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false)
+            {
+                if (spin < 25)
+                {
+                    rigidBody.AddForce(-GameObject.Find("Pin (2)").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.5f * Time.deltaTime, 0, 0);
+                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (2)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.75f * Time.deltaTime);
+                }
+                else if (spin >= 25 && spin < 50)
                 {
                     rigidBody.AddForce(-GameObject.Find("Pin (2)").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.0f * Time.deltaTime, 0, 0);
                     rigidBody.AddTorque(0, 0, GameObject.Find("Pin (2)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime);
                 }
-            }
-            else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false)
-            {
-                if (spin > 50)
+                else if (spin >= 50)
                 {
-                    rigidBody.AddForce(-GameObject.Find("Pin (3)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
-                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (3)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
+                    rigidBody.AddForce(-GameObject.Find("Pin (2)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
+                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (2)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
                 }
-                else
+            }
+            else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false)
+            {
+                if (spin < 25)
+                {
+                    rigidBody.AddForce(-GameObject.Find("Pin (3)").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.5f * Time.deltaTime, 0, 0);
+                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (3)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.75f * Time.deltaTime);
+                }
+                else if (spin >= 25 && spin < 50)
                 {
                     rigidBody.AddForce(-GameObject.Find("Pin (3)").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.0f * Time.deltaTime, 0, 0);
                     rigidBody.AddTorque(0, 0, GameObject.Find("Pin (3)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime);
                 }
+                else if (spin >= 50)
+                {
+                    rigidBody.AddForce(-GameObject.Find("Pin (3)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
+                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (3)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
+                }
             }
             else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false)
             {
-                if (spin > 50)
+                if (spin < 25)
                 {
-                    rigidBody.AddForce(-GameObject.Find("Pin (4)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
-                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (4)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
+                    rigidBody.AddForce(-GameObject.Find("Pin (4)").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.5f * Time.deltaTime, 0, 0);
+                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (4)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.75f * Time.deltaTime);
                 }
-                else
+                else if (spin >= 25 && spin < 50)
                 {
                     rigidBody.AddForce(-GameObject.Find("Pin (4)").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.0f * Time.deltaTime, 0, 0);
                     rigidBody.AddTorque(0, 0, GameObject.Find("Pin (4)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime);
                 }
+                else if (spin >= 50)
+                {
+                    rigidBody.AddForce(-GameObject.Find("Pin (4)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
+                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (4)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
+                }
             }
             else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false)
             {
-                if (spin > 50)
+                if (spin < 25)
                 {
-                    rigidBody.AddForce(-GameObject.Find("Pin (6)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
-                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (6)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
+                    rigidBody.AddForce(-GameObject.Find("Pin (6)").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.5f * Time.deltaTime, 0, 0);
+                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (6)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.75f * Time.deltaTime);
                 }
-                else
+                else if (spin >= 25 && spin < 50)
                 {
                     rigidBody.AddForce(-GameObject.Find("Pin (6)").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.0f * Time.deltaTime, 0, 0);
                     rigidBody.AddTorque(0, 0, GameObject.Find("Pin (6)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime);
                 }
+                else if (spin >= 50)
+                {
+                    rigidBody.AddForce(-GameObject.Find("Pin (6)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
+                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (6)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
+                }
             }
             else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false)
             {
-                if (spin > 50)
+                if (spin < 25)
                 {
-                    rigidBody.AddForce(-GameObject.Find("Pin (7)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
-                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (7)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
+                    rigidBody.AddForce(-GameObject.Find("Pin (7)").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.5f * Time.deltaTime, 0, 0);
+                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (7)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.75f * Time.deltaTime);
                 }
-                else
+                else if (spin >= 25 && spin < 50)
                 {
                     rigidBody.AddForce(-GameObject.Find("Pin (7)").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.0f * Time.deltaTime, 0, 0);
                     rigidBody.AddTorque(0, 0, GameObject.Find("Pin (7)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime);
                 }
+                else if (spin >= 50)
+                {
+                    rigidBody.AddForce(-GameObject.Find("Pin (7)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
+                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (7)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
+                }
             }
             else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true)
             {
-                if (spin > 50)
+                if (spin < 25)
                 {
-                    rigidBody.AddForce(-GameObject.Find("Pin (10)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
-                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (10)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
+                    rigidBody.AddForce(-GameObject.Find("Pin (10)").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.5f * Time.deltaTime, 0, 0);
+                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (10)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.75f * Time.deltaTime);
                 }
-                else
+                else if (spin >= 25 && spin < 50)
                 {
                     rigidBody.AddForce(-GameObject.Find("Pin (10)").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.0f * Time.deltaTime, 0, 0);
                     rigidBody.AddTorque(0, 0, GameObject.Find("Pin (10)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime);
                 }
+                else if (spin >= 50)
+                {
+                    rigidBody.AddForce(-GameObject.Find("Pin (10)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
+                    rigidBody.AddTorque(0, 0, GameObject.Find("Pin (10)").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
+                }
             }
         }
-        else if (game.ballType == Game.BallType.SpinBall && game.isComputer && !isSpinPins || game.ballType == Game.BallType.SpinBall && Game.type == Game.GameState.Menu && !isSpinPins)
+        else if (game.ballType == Game.BallType.SpinBall && game.isComputer && GameManager.pinGameMode == GameManager.PinMode.Spare || game.ballType == Game.BallType.SpinBall && Game.type == Game.GameState.Menu && GameManager.pinGameMode == GameManager.PinMode.Spare)
         {
-            if (spin > 50)
+            if (spin < 25)
             {
-                rigidBody.AddForce(-GameObject.FindGameObjectWithTag("Pin").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
-                rigidBody.AddTorque(0, 0, GameObject.FindGameObjectWithTag("Pin").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
+                rigidBody.AddForce(-GameObject.FindGameObjectWithTag("Pin").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.5f * Time.deltaTime, 0, 0);
+                rigidBody.AddTorque(0, 0, GameObject.FindGameObjectWithTag("Pin").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.75f * Time.deltaTime);
             }
-            else
+            else if (spin >= 25 && spin < 50)
             {
                 rigidBody.AddForce(-GameObject.FindGameObjectWithTag("Pin").transform.position.x - transform.position.x * spin * rigidBody.mass * 1.0f * Time.deltaTime, 0, 0);
                 rigidBody.AddTorque(0, 0, GameObject.FindGameObjectWithTag("Pin").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime);
+            }
+            else if (spin >= 50)
+            {
+                rigidBody.AddForce(-GameObject.FindGameObjectWithTag("Pin").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.5f * Time.deltaTime, 0, 0);
+                rigidBody.AddTorque(0, 0, GameObject.FindGameObjectWithTag("Pin").transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
             }
         }
         maxSpeed = fastSpeed - direction.y;
@@ -356,14 +412,14 @@ public class Ball : MonoBehaviour
             controlArrow.SetActive(false);
             if (GameManager.isParticle)
             {
-                Instantiate(hit, collision.transform.position, Quaternion.identity);
+                Instantiate(hit, collision.contacts[0].point, Quaternion.identity);
+            }
+            foreach (Pin pin in GameObject.FindObjectsOfType<Pin>())
+            {
+                pin.FallPinDown();
             }
             if (game.powerUps == Game.BallPowerUps.Bomb)
             {
-                foreach (Pin pin in GameObject.FindObjectsOfType<Pin>())
-                {
-                    pin.FallPinDown();
-                }
                 colliders = Physics.OverlapSphere(transform.position, 128);
                 if (GameManager.isParticle)
                 {
@@ -373,6 +429,10 @@ public class Ball : MonoBehaviour
                         splashAudio.PlayOneShot(game.exploreClips[Random.Range(0, game.exploreClips.Length)]);
                     }
                 }
+                if (Game.type != Game.GameState.Menu)
+                {
+                    game.rollCrowd.Stop();
+                }
                 GameObject.FindObjectOfType<CameraShake>().Shake(20);
                 foreach (Collider hit in colliders)
                 {
@@ -380,18 +440,32 @@ public class Ball : MonoBehaviour
 
                     if (rb != null)
                     {
-                        rb.AddExplosionForce(6400, transform.position, 12800, 256);
+                        rb.AddExplosionForce(12000, transform.position, 12000, 120);
                     }
                 }
                 transform.position = new Vector3(0, -5000, -5000);
                 GameManager.bombBalls--;
             }
+            else if (game.powerUps == Game.BallPowerUps.ForcePulse)
+            {
+                colliders = Physics.OverlapSphere(transform.position, 64);
+                if (GameManager.isParticle)
+                {
+                    forcePulseParticle.Play();
+                }
+                foreach (Collider hit in colliders)
+                {
+                    Rigidbody rb = hit.GetComponent<Rigidbody>();
+
+                    if (rb != null)
+                    {
+                        rb.AddExplosionForce(6000, transform.position, 12000, 0);
+                    }
+                }
+                GameManager.forcePulseBalls--;
+            }
             else if (game.powerUps == Game.BallPowerUps.Hyper)
             {
-                foreach (Pin pin in GameObject.FindObjectsOfType<Pin>())
-                {
-                    pin.FallPinDown();
-                }
                 colliders = Physics.OverlapSphere(transform.position, 32);
                 foreach (Collider hit in colliders)
                 {
@@ -399,25 +473,21 @@ public class Ball : MonoBehaviour
 
                     if (rb != null)
                     {
-                        rb.AddExplosionForce(3200, transform.position, 6400, 0);
+                        rb.AddExplosionForce(3000, transform.position, 6000, 0);
                     }
                 }
                 GameManager.hyperBalls--;
             }
             else if (game.powerUps == Game.BallPowerUps.Lightning)
             {
-                foreach (Pin pin in GameObject.FindObjectsOfType<Pin>())
-                {
-                    pin.FallPinDown();
-                }
-                colliders = Physics.OverlapSphere(transform.position, 32);
+                colliders = Physics.OverlapSphere(transform.position, 48);
                 foreach (Collider hit in colliders)
                 {
                     Rigidbody rb = hit.GetComponent<Rigidbody>();
 
                     if (rb != null)
                     {
-                        rb.AddExplosionForce(1600, transform.position, 3200, 0);
+                        rb.AddExplosionForce(1500, transform.position, 3000, 0);
                     }
                 }
                 GameManager.lightningBalls--;
@@ -456,7 +526,7 @@ public class Ball : MonoBehaviour
             else
             {
                 rigidBody.useGravity = false;
-                force.force = new Vector3(0, -rigidBody.mass * 25, -rigidBody.mass * 250);
+                force.force = new Vector3(0, 0, -rigidBody.mass * 100);
                 force.torque = new Vector3(0, 0, 0);
             }
             game.isPin = true;
@@ -468,7 +538,24 @@ public class Ball : MonoBehaviour
         }
         else if (collision.gameObject.tag == "Pin" && collision.relativeVelocity.magnitude > rigidBody.mass * 10 && game.isPin)
         {
-            if (game.powerUps == Game.BallPowerUps.Hyper)
+            foreach (Pin pin in GameObject.FindObjectsOfType<Pin>())
+            {
+                pin.FallPinDown();
+            }
+            if (game.powerUps == Game.BallPowerUps.ForcePulse)
+            {
+                colliders = Physics.OverlapSphere(transform.position, 64);
+                foreach (Collider hit in colliders)
+                {
+                    Rigidbody rb = hit.GetComponent<Rigidbody>();
+
+                    if (rb != null)
+                    {
+                        rb.AddExplosionForce(6000, transform.position, 12000, 0);
+                    }
+                }
+            }
+            else if (game.powerUps == Game.BallPowerUps.Hyper)
             {
                 colliders = Physics.OverlapSphere(transform.position, 32);
                 foreach (Collider hit in colliders)
@@ -477,20 +564,20 @@ public class Ball : MonoBehaviour
 
                     if (rb != null)
                     {
-                        rb.AddExplosionForce(3200, transform.position, 6400, 0);
+                        rb.AddExplosionForce(3000, transform.position, 6000, 0);
                     }
                 }
             }
             else if (game.powerUps == Game.BallPowerUps.Lightning)
             {
-                colliders = Physics.OverlapSphere(transform.position, 32);
+                colliders = Physics.OverlapSphere(transform.position, 48);
                 foreach (Collider hit in colliders)
                 {
                     Rigidbody rb = hit.GetComponent<Rigidbody>();
 
                     if (rb != null)
                     {
-                        rb.AddExplosionForce(1600, transform.position, 3200, 0);
+                        rb.AddExplosionForce(1500, transform.position, 3000, 0);
                     }
                 }
             }
@@ -572,7 +659,7 @@ public class Ball : MonoBehaviour
             replay.enabled = false;
             game.isReplayRecord = true;
         }
-        if (other.CompareTag("Fall") && isSplash && game.ballType == Game.BallType.ThrowBall || other.CompareTag("Fall") && isSplash && game.ballType == Game.BallType.SpinBall || other.CompareTag("Fall") && isSplash && game.ballType == Game.BallType.FallBall || other.CompareTag("Gutter") && isSplash && game.ballType == Game.BallType.SpinBall && !game.isPin && !game.isPin || other.CompareTag("Water") && isSplash && game.ballType == Game.BallType.SpinBall || other.CompareTag("Water") && isSplash && game.ballType == Game.BallType.FallBall)
+        if (other.CompareTag("Fall") && isSplash && game.ballType == Game.BallType.ThrowBall || other.CompareTag("Fall") && isSplash && game.ballType == Game.BallType.SpinBall || other.CompareTag("Fall") && isSplash && game.ballType == Game.BallType.FallBall || other.CompareTag("Gutter") && isSplash && game.ballType == Game.BallType.SpinBall && !game.isPin || other.CompareTag("Water") && isSplash && game.ballType == Game.BallType.SpinBall || other.CompareTag("Water") && isSplash && game.ballType == Game.BallType.FallBall)
         {
             if (GameManager.isSound && Game.type != Game.GameState.Menu)
             {
@@ -605,7 +692,7 @@ public class Ball : MonoBehaviour
             else
             {
                 rigidBody.useGravity = false;
-                force.force = new Vector3(0, -rigidBody.mass * 25, -rigidBody.mass * 250);
+                force.force = new Vector3(0, 0, -rigidBody.mass * 100);
                 force.torque = new Vector3(0, 0, 0);
             }
             if (transform.position.z >= -3200 || game.isComputer && game.gutterAnimation == 0 || Game.type == Game.GameState.Menu && game.gutterAnimation == 0)
@@ -871,6 +958,18 @@ public class Ball : MonoBehaviour
         else
         {
             game.powerUps = Game.BallPowerUps.Bomb;
+        }
+    }
+
+    public void ForcePulseBall()
+    {
+        if (game.powerUps == Game.BallPowerUps.ForcePulse)
+        {
+            game.powerUps = Game.BallPowerUps.Off;
+        }
+        else
+        {
+            game.powerUps = Game.BallPowerUps.ForcePulse;
         }
     }
 

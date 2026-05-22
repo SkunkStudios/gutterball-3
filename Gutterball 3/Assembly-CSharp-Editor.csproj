@@ -54,6 +54,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\AdamPlaneReflection\Shared\Editor\AdamStandardShaderGUI.cs" />
+    <Compile Include="Assets\Earth\Editor\EarthEditor.cs" />
     <Compile Include="Assets\MeshCombiner\Editor\MeshCombinerEditor.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -35,6 +35,13 @@ public class Splash : MonoBehaviour
         yield return new WaitForSeconds(18f);
         warningScreen.SetActive(false);
         loadScreen.SetActive(true);
-		SceneManager.LoadScene(1);
+        if (PlayerPrefs.GetInt("IntroSkip") == 0)
+        {
+            SceneManager.LoadScene("Intro");
+        }
+        else
+        {
+            SceneManager.LoadScene("Main");
+        }
     }
 }

@@ -20,13 +20,17 @@ public class Pin : MonoBehaviour
     private bool isSpare;
     private bool isFall;
 
-    // Use this for initialization
-    void Start ()
-	{
+    void Awake()
+    {
         pinStartPos = transform.position;
         GetComponent<Rigidbody>().Sleep();
         ball = GameObject.FindObjectOfType<Ball>();
         isSplash = GameObject.FindObjectOfType<PinSetter>().isSplash;
+    }
+
+    // Use this for initialization
+    void Start ()
+	{
         if (GameManager.pinMode != GameManager.PinMode.Spare)
         {
             pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOn;
@@ -73,7 +77,7 @@ public class Pin : MonoBehaviour
             if (!GameObject.FindObjectOfType<PinSetter>().isGravity)
             {
                 GetComponent<Rigidbody>().useGravity = false;
-                GetComponent<ConstantForce>().force = new Vector3(0, -7.5f, -75);
+                GetComponent<ConstantForce>().force = new Vector3(0, 0, -30);
             }
         }
     }
@@ -84,7 +88,7 @@ public class Pin : MonoBehaviour
         {
             isFall = true;
             GetComponent<Rigidbody>().useGravity = false;
-            GetComponent<ConstantForce>().force = new Vector3(0, -7.5f, -75f);
+            GetComponent<ConstantForce>().force = new Vector3(0, 0, -30);
         }
         Vector3 splashPosition = new Vector3(transform.position.x, other.transform.position.y, transform.position.z);
         if (other.CompareTag("Fall") && isSplash || other.CompareTag("Gutter") && isSplash || other.CompareTag("Water") && isSplash)
@@ -242,6 +246,14 @@ public class Pin : MonoBehaviour
 
     public void FallPinDown()
     {
-        isFall = true;
+        if (game.powerUps == Game.BallPowerUps.Bomb && Vector3.Distance(ball.transform.position, transform.position) <= 128 || game.powerUps == Game.BallPowerUps.ForcePulse && Vector3.Distance(ball.transform.position, transform.position) <= 64 || game.powerUps == Game.BallPowerUps.Hyper && Vector3.Distance(ball.transform.position, transform.position) <= 32 || game.powerUps == Game.BallPowerUps.Lightning && Vector3.Distance(ball.transform.position, transform.position) <= 48)
+        {
+            isFall = true;
+            if (!GameObject.FindObjectOfType<PinSetter>().isGravity)
+            {
+                GetComponent<Rigidbody>().useGravity = false;
+                GetComponent<ConstantForce>().force = new Vector3(0, -7.5f, -75);
+            }
+        }
     }
 }

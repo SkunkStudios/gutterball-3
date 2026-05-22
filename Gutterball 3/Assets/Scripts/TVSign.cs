@@ -10,6 +10,7 @@ public class TVSign : MonoBehaviour
 
 	public RawImage backScreen;
     public RawImage frontScreen;
+    public bool isIntro;
 
     private Game game;
     private GameManager gameManager;
@@ -28,21 +29,35 @@ public class TVSign : MonoBehaviour
     {
         if (gameManager.urlInfoScreen.Count == 0)
         {
-            infoIndex = Random.Range(0, 2);
+            if (isIntro)
+            {
+                infoIndex = 0;
+            }
+            else
+            {
+                infoIndex = Random.Range(0, 2);
+            }
         }
         else if (gameManager.urlInfoScreen.Count > 0)
         {
-            infoIndex = Random.Range(0, 3);
+            if (isIntro)
+            {
+                infoIndex = Random.Range(0, 2);
+            }
+            else
+            {
+                infoIndex = Random.Range(0, 3);
+            }
         }
         if (infoIndex == 0)
         {
             backScreen.texture = screens[Random.Range(0, screens.Length)];
         }
-        else if (infoIndex == 1)
+        else if (infoIndex == 1 && !isIntro)
         {
             backScreen.texture = game.firstPersonCam;
         }
-        else if (infoIndex == 2)
+        else if (infoIndex == 2 && !isIntro || infoIndex == 1 && isIntro)
         {
             StartCoroutine(DownloadImage(gameManager.urlInfoScreen[Random.Range(0, gameManager.urlInfoScreen.Count)], backScreen));
         }
@@ -52,21 +67,35 @@ public class TVSign : MonoBehaviour
     {
         if (gameManager.urlInfoScreen.Count == 0)
         {
-            infoIndex = Random.Range(0, 2);
+            if (isIntro)
+            {
+                infoIndex = 0;
+            }
+            else
+            {
+                infoIndex = Random.Range(0, 2);
+            }
         }
         else if (gameManager.urlInfoScreen.Count > 0)
         {
-            infoIndex = Random.Range(0, 3);
+            if (isIntro)
+            {
+                infoIndex = Random.Range(0, 2);
+            }
+            else
+            {
+                infoIndex = Random.Range(0, 3);
+            }
         }
         if (infoIndex == 0)
         {
             frontScreen.texture = screens[Random.Range(0, screens.Length)];
         }
-        else if (infoIndex == 1)
+        else if (infoIndex == 1 && !isIntro)
         {
             frontScreen.texture = game.firstPersonCam;
         }
-        else if (infoIndex == 2)
+        else if (infoIndex == 2 && !isIntro || infoIndex == 1 && isIntro)
         {
             StartCoroutine(DownloadImage(gameManager.urlInfoScreen[Random.Range(0, gameManager.urlInfoScreen.Count)], frontScreen));
         }

@@ -11,9 +11,8 @@ public class AnimatedWater : MonoBehaviour
     private float curX;
     private float curY;
 
-    // Use this for initialization
-    void Start ()
-	{
+    void Awake()
+    {
         curX = GetComponent<Renderer>().material.mainTextureOffset.x;
         curY = GetComponent<Renderer>().material.mainTextureOffset.y;
     }

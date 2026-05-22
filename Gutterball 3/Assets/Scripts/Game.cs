@@ -23,7 +23,7 @@ public class PinSplit
 
 public class Game : MonoBehaviour
 {
-    public enum BallPowerUps { Off, Bomb, Hyper, Lightning }
+    public enum BallPowerUps { Off, Bomb, ForcePulse, Hyper, Lightning }
     public BallPowerUps powerUps;
     public enum BallType { MoveX, ThrowBall, SpinBall, FallBall }
     public BallType ballType;
@@ -177,6 +177,8 @@ public class Game : MonoBehaviour
     public GameObject chooseBallUI;
     public GameObject powerUpUI;
     public Image selectAlleysUI;
+    public Image selectAlleysLeftUI;
+    public Image selectAlleysRightUI;
     public GameObject[] trueObjects;
     public GameObject[] falseObjects;
     public GameObject loadingUI;
@@ -217,17 +219,21 @@ public class Game : MonoBehaviour
     public GameObject gutterHintUI;
     public Text moneyText;
     public Text bombBallText;
+    public Text forcePulseBallText;
     public Text hyperBallText;
     public Text lightningBallText;
     public Text bombShopText;
+    public Text forcePulseShopText;
     public Text hyperShopText;
     public Text lightningShopText;
     public Button bombBallButton;
+    public Button forcePulseBallButton;
     public Button hyperBallButton;
     public Button lightningBallButton;
     public AudioClip[] exploreClips;
     public GameObject[] explores;
     public GameObject[] bigExplores;
+    public Button playSongButton;
 
     private ExtensionFilter[] extensions = new[] { new ExtensionFilter("PNG", "png" ), new ExtensionFilter("JPEG", "jpg", "jpeg", "jpe", "jfif", "exif"), new ExtensionFilter("WebP", "webp"), new ExtensionFilter("DirectDraw Surface (DDS)", "dds"), new ExtensionFilter("TIFF", "tiff", "tif"), new ExtensionFilter("GIF", "gif"), new ExtensionFilter("BMP", "bmp", "dib", "rle"), new ExtensionFilter("TGA", "tga") };
     private AudioSource music;
@@ -348,6 +354,16 @@ public class Game : MonoBehaviour
                 StartCoroutine(gameManager.DownloadTexture(PlayerPrefs.GetString("CustomBallURL" + customBalls), gameManager.chooseBalls[customBalls].ballMat));
             }
         }
+
+        if (gameManager.r_hs[0].playerScore >= 300 && gameManager.w_hs[0].playerScore >= 300 && gameManager.i_hs[0].playerScore >= 300 && gameManager.j_hs[0].playerScore >= 300 && gameManager.z_hs[0].playerScore >= 300 && gameManager.c_hs[0].playerScore >= 300 && gameManager.b_hs[0].playerScore >= 300 && gameManager.m_hs[0].playerScore >= 300 && gameManager.v_hs[0].playerScore >= 300)
+        {
+            playSongButton.interactable = true;
+        }
+        else
+        {
+            playSongButton.interactable = false;
+        }
+
         switch (GameManager.chooseAlleys)
         {
             case GameManager.Alley.Retro:
@@ -415,7 +431,7 @@ public class Game : MonoBehaviour
         pins = GameObject.FindGameObjectsWithTag("Pin");
         replays = GameObject.FindObjectsOfType<ActionReplay>();
         reactIndex = Random.Range(0, GameObject.FindObjectOfType<PinSetter>().reacts.Length);
-        if (GameManager.pinMode == GameManager.PinMode.Spare)
+        if (GameManager.pinGameMode == GameManager.PinMode.Spare)
         {
             GameObject.FindObjectOfType<PinSetter>().ResetPinsFall();
         }
@@ -552,10 +568,12 @@ public class Game : MonoBehaviour
         }
         PlayerPrefs.SetInt("SaveMoney", GameManager.moneys);
         PlayerPrefs.SetInt("SaveBomb", GameManager.bombBalls);
+        PlayerPrefs.SetInt("SaveForcePulse", GameManager.forcePulseBalls);
         PlayerPrefs.SetInt("SaveHyper", GameManager.hyperBalls);
         PlayerPrefs.SetInt("SaveLightning", GameManager.lightningBalls);
         moneyText.text = "$" + GameManager.moneys;
         bombBallText.text = bombShopText.text = GameManager.bombBalls + "x";
+        forcePulseBallText.text = forcePulseShopText.text = GameManager.forcePulseBalls + "x";
         hyperBallText.text = hyperShopText.text = GameManager.hyperBalls + "x";
         lightningBallText.text = lightningShopText.text = GameManager.lightningBalls + "x";
         if (GameManager.bombBalls <= 0)
@@ -565,6 +583,14 @@ public class Game : MonoBehaviour
         else
         {
             bombBallButton.interactable = true;
+        }
+        if (GameManager.forcePulseBalls <= 0)
+        {
+            forcePulseBallButton.interactable = false;
+        }
+        else
+        {
+            forcePulseBallButton.interactable = true;
         }
         if (GameManager.hyperBalls <= 0)
         {
@@ -733,6 +759,22 @@ public class Game : MonoBehaviour
         resolutionText.text = GameManager.resolutions[GameManager.resolutionIndex].width + " x " + GameManager.resolutions[GameManager.resolutionIndex].height;
         alleyText.text = gameManager.nameAlleys[PlayerPrefs.GetInt("ChooseAlleys")];
         selectAlleysUI.sprite = gameManager.spriteAlleys[PlayerPrefs.GetInt("ChooseAlleys")];
+        if (PlayerPrefs.GetInt("ChooseAlleys") == 0)
+        {
+            selectAlleysLeftUI.sprite = gameManager.spriteAlleys[8];
+        }
+        else
+        {
+            selectAlleysLeftUI.sprite = gameManager.spriteAlleys[PlayerPrefs.GetInt("ChooseAlleys") - 1];
+        }
+        if (PlayerPrefs.GetInt("ChooseAlleys") == 8)
+        {
+            selectAlleysRightUI.sprite = gameManager.spriteAlleys[0];
+        }
+        else
+        {
+            selectAlleysRightUI.sprite = gameManager.spriteAlleys[PlayerPrefs.GetInt("ChooseAlleys") + 1];
+        }
         if (Input.GetMouseButtonDown(0) && type == GameState.Intro && isIntro)
         {
             StopCoroutine(IntroTime());
@@ -833,16 +875,25 @@ public class Game : MonoBehaviour
             {
                 ball.saturnRingBall.SetActive(true);
                 ball.uranusRingBall.SetActive(false);
+                ball.sunBall.SetActive(false);
             }
             else if(GameManager.chooseBallIndex == 51)
             {
                 ball.saturnRingBall.SetActive(false);
                 ball.uranusRingBall.SetActive(true);
+                ball.sunBall.SetActive(false);
+            }
+            else if(GameManager.chooseBallIndex == 54)
+            {
+                ball.saturnRingBall.SetActive(false);
+                ball.uranusRingBall.SetActive(false);
+                ball.sunBall.SetActive(true);
             }
             else
             {
                 ball.saturnRingBall.SetActive(false);
                 ball.uranusRingBall.SetActive(false);
+                ball.sunBall.SetActive(false);
             }
         }
         for (int i = 0; i < regCount; i++)
@@ -1371,13 +1422,13 @@ public class Game : MonoBehaviour
         }
         for (int i = 0; i < pinSplits.Length; i++)
         {
-            if (pin1.IsStanding() == pinSplits[i].isPin1 && pin2.IsStanding() == pinSplits[i].isPin2 && pin3.IsStanding() == pinSplits[i].isPin3 && pin4.IsStanding() == pinSplits[i].isPin4 && pin5.IsStanding() == pinSplits[i].isPin5 && pin6.IsStanding() == pinSplits[i].isPin6 && pin7.IsStanding() == pinSplits[i].isPin7 && pin8.IsStanding() == pinSplits[i].isPin8 && pin9.IsStanding() == pinSplits[i].isPin9 && pin10.IsStanding() == pinSplits[i].isPin10 && throwBall == 1)
+            if (pin1.IsStanding() == pinSplits[i].isPin1 && pin2.IsStanding() == pinSplits[i].isPin2 && pin3.IsStanding() == pinSplits[i].isPin3 && pin4.IsStanding() == pinSplits[i].isPin4 && pin5.IsStanding() == pinSplits[i].isPin5 && pin6.IsStanding() == pinSplits[i].isPin6 && pin7.IsStanding() == pinSplits[i].isPin7 && pin8.IsStanding() == pinSplits[i].isPin8 && pin9.IsStanding() == pinSplits[i].isPin9 && pin10.IsStanding() == pinSplits[i].isPin10 && throwBall == 1 && !ball.isGutter)
             {
                 isSplit = true;
                 is710 = false;
             }
         }
-        if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin8.IsStanding() == false && pin9.IsStanding() == false && pin10.IsStanding() == true && throwBall == 1)
+        if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin8.IsStanding() == false && pin9.IsStanding() == false && pin10.IsStanding() == true && throwBall == 1 && !ball.isGutter)
         {
             isSplit = true;
             is710 = true;
@@ -2616,7 +2667,7 @@ public class Game : MonoBehaviour
                 }
             }
         }
-        if (throwBall >= 2)
+        else if (throwBall == 2)
         {
             if (pinCounts == 0 && PinCounter.pinCount > 0 && type == GameState.Replay)
             {
@@ -3124,7 +3175,7 @@ public class Game : MonoBehaviour
             {
                 RandomChargeBall();
             }
-            if (GameManager.pinMode != GameManager.PinMode.Spare)
+            if (GameManager.pinGameMode != GameManager.PinMode.Spare)
             {
                 pinCounter.Reset();
                 GameObject.FindObjectOfType<PinSetter>().ResetPins();
@@ -4146,6 +4197,16 @@ public class Game : MonoBehaviour
         SceneManager.LoadScene("Main");
         type = GameState.Intro;
         PlayerPrefs.SetInt("PinModes", (int)GameManager.pinMode);
+        GameManager.pinGameMode = GameManager.pinMode;
+    }
+
+    public void IntroSong()
+    {
+        GameManager.isHighScore = false;
+        VoiceStop();
+        AudioStop();
+        loadingUI.SetActive(true);
+        SceneManager.LoadScene("Intro");
     }
 
     public void Sending()
@@ -4164,7 +4225,7 @@ public class Game : MonoBehaviour
 
     public void EndGame()
     {
-        if (GameManager.pinMode != GameManager.PinMode.Spare)
+        if (GameManager.pinMode == GameManager.PinMode.Tenpin)
         {
             switch (GameManager.chooseAlleys)
             {
@@ -5376,13 +5437,13 @@ public class Game : MonoBehaviour
                 lockAlleyText.text = "Score 200 in Iceberg to Unlock";
                 break;
             case GameManager.Alley.Mineshaft:
-                voices1 = Commentators.Baxter;
-                voices2 = Commentators.Jensen;
+                voices1 = Commentators.Maria;
+                voices2 = Commentators.Master;
                 lockAlleyText.text = "Score 200 in Jungle to Unlock";
                 break;
             case GameManager.Alley.Vegas:
-                voices1 = Commentators.Maria;
-                voices2 = Commentators.Baxter;
+                voices1 = Commentators.Baxter;
+                voices2 = Commentators.Jensen;
                 lockAlleyText.text = "Score 200 in Lotus to Unlock";
                 break;
         }
@@ -5805,6 +5866,20 @@ public class Game : MonoBehaviour
         {
             GameManager.bombBalls++;
             GameManager.moneys -= 1000;
+            PlayClip("buy_powerups");
+        }
+        else
+        {
+            PlayClip("not_powerups");
+        }
+    }
+
+    public void BuyForcePulse()
+    {
+        if (GameManager.moneys >= 750)
+        {
+            GameManager.forcePulseBalls++;
+            GameManager.moneys -= 750;
             PlayClip("buy_powerups");
         }
         else
