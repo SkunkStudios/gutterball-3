@@ -28724,7 +28724,7 @@ MonoBehaviour:
         m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
-  m_SelectionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SelectionColor: {r: 0, g: 0, b: 1, a: 0.5019608}
   m_Text: 
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
@@ -36735,7 +36735,7 @@ MonoBehaviour:
         m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
-  m_SelectionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SelectionColor: {r: 0, g: 0, b: 1, a: 0.5019608}
   m_Text: Wow! Check out this amazing new 3D bowling game I found - GutterBall 3!!
     If you tried the original Gutterball, you have got to see this!                       
     The game controls are easy to learn, and it is lots of fun! Plus, you can try
@@ -42626,7 +42626,7 @@ MonoBehaviour:
         m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
-  m_SelectionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SelectionColor: {r: 0, g: 0, b: 1, a: 0.5019608}
   m_Text: Your Name
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
@@ -65776,7 +65776,7 @@ MonoBehaviour:
         m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
-  m_SelectionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SelectionColor: {r: 0, g: 0, b: 1, a: 0.5019608}
   m_Text: Type your e-mail here
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
@@ -95003,7 +95003,7 @@ MonoBehaviour:
         m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
-  m_SelectionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SelectionColor: {r: 0, g: 0, b: 1, a: 0.5019608}
   m_Text: 
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
@@ -144654,7 +144654,7 @@ MonoBehaviour:
         m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
-  m_SelectionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SelectionColor: {r: 0, g: 0, b: 1, a: 0.5019608}
   m_Text: Play GutterBall 3 !!!
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
@@ -251166,7 +251166,7 @@ MonoBehaviour:
         m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
-  m_SelectionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SelectionColor: {r: 0, g: 0, b: 1, a: 0.5019608}
   m_Text: 
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
@@ -320255,7 +320255,7 @@ MonoBehaviour:
         m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
-  m_SelectionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SelectionColor: {r: 0, g: 0, b: 1, a: 0.5019608}
   m_Text: 
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
@@ -356073,7 +356073,7 @@ MonoBehaviour:
         m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
-  m_SelectionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SelectionColor: {r: 0, g: 0, b: 1, a: 0.5019608}
   m_Text: Type your friend's e-mail here
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
@@ -416035,7 +416035,7 @@ MonoBehaviour:
         m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
-  m_SelectionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SelectionColor: {r: 0, g: 0, b: 1, a: 0.5019608}
   m_Text: 
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1

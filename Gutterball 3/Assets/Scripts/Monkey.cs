@@ -70,17 +70,17 @@ public class Monkey : MonoBehaviour
         }
         if (isJumpOut && transform.position.z <= -3000)
         {
-            JumpOut(50);
+            JumpOut();
         }
     }
 
-    void JumpOut(float jump)
+    void JumpOut()
     {
         MonkeyRoll(true);
         monkeyBall.SetActive(false);
         transform.position = new Vector3(ball.position.x, ball.position.y + 40, ball.position.z);
-        animList.PlayAnim(6, jump);
-        fall = new Vector3(Random.Range(-300, 300), jump, 50);
+        animList.PlayAnim(6, 45);
+        fall = new Vector3(Random.Range(-300, 300), 45, 75);
         isJump = true;
         isJumpOut = false;
     }

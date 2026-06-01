@@ -3931,16 +3931,25 @@ public class Game : MonoBehaviour
                     {
                         ball.saturnRingBall.SetActive(true);
                         ball.uranusRingBall.SetActive(false);
+                        ball.sunBall.SetActive(false);
                     }
                     else if (GameManager.turnBalls1 == 51)
                     {
                         ball.saturnRingBall.SetActive(false);
                         ball.uranusRingBall.SetActive(true);
+                        ball.sunBall.SetActive(false);
+                    }
+                    else if (GameManager.turnBalls1 == 54)
+                    {
+                        ball.saturnRingBall.SetActive(false);
+                        ball.uranusRingBall.SetActive(false);
+                        ball.sunBall.SetActive(true);
                     }
                     else
                     {
                         ball.saturnRingBall.SetActive(false);
                         ball.uranusRingBall.SetActive(false);
+                        ball.sunBall.SetActive(false);
                     }
                     ball.ChargeBall(gameManager.chooseBalls[GameManager.turnBalls1].ballMat, gameManager.chooseBalls[GameManager.turnBalls1].lbs, gameManager.chooseBalls[GameManager.turnBalls1].speed, gameManager.chooseBalls[GameManager.turnBalls1].spin);
                     chooseBallUI.SetActive(true);
@@ -3963,16 +3972,25 @@ public class Game : MonoBehaviour
                     {
                         ball.saturnRingBall.SetActive(true);
                         ball.uranusRingBall.SetActive(false);
+                        ball.sunBall.SetActive(false);
                     }
                     else if (GameManager.turnBalls2 == 51)
                     {
                         ball.saturnRingBall.SetActive(false);
                         ball.uranusRingBall.SetActive(true);
+                        ball.sunBall.SetActive(false);
+                    }
+                    else if (GameManager.turnBalls2 == 54)
+                    {
+                        ball.saturnRingBall.SetActive(false);
+                        ball.uranusRingBall.SetActive(false);
+                        ball.sunBall.SetActive(true);
                     }
                     else
                     {
                         ball.saturnRingBall.SetActive(false);
                         ball.uranusRingBall.SetActive(false);
+                        ball.sunBall.SetActive(false);
                     }
                     ball.ChargeBall(gameManager.chooseBalls[GameManager.turnBalls2].ballMat, gameManager.chooseBalls[GameManager.turnBalls2].lbs, gameManager.chooseBalls[GameManager.turnBalls2].speed, gameManager.chooseBalls[GameManager.turnBalls2].spin);
                     chooseBallUI.SetActive(true);
@@ -3995,16 +4013,25 @@ public class Game : MonoBehaviour
                     {
                         ball.saturnRingBall.SetActive(true);
                         ball.uranusRingBall.SetActive(false);
+                        ball.sunBall.SetActive(false);
                     }
                     else if (GameManager.turnBalls3 == 51)
                     {
                         ball.saturnRingBall.SetActive(false);
                         ball.uranusRingBall.SetActive(true);
+                        ball.sunBall.SetActive(false);
+                    }
+                    else if (GameManager.turnBalls3 == 54)
+                    {
+                        ball.saturnRingBall.SetActive(false);
+                        ball.uranusRingBall.SetActive(false);
+                        ball.sunBall.SetActive(true);
                     }
                     else
                     {
                         ball.saturnRingBall.SetActive(false);
                         ball.uranusRingBall.SetActive(false);
+                        ball.sunBall.SetActive(false);
                     }
                     ball.ChargeBall(gameManager.chooseBalls[GameManager.turnBalls3].ballMat, gameManager.chooseBalls[GameManager.turnBalls3].lbs, gameManager.chooseBalls[GameManager.turnBalls3].speed, gameManager.chooseBalls[GameManager.turnBalls3].spin);
                     chooseBallUI.SetActive(true);
@@ -4027,16 +4054,25 @@ public class Game : MonoBehaviour
                     {
                         ball.saturnRingBall.SetActive(true);
                         ball.uranusRingBall.SetActive(false);
+                        ball.sunBall.SetActive(false);
                     }
                     else if (GameManager.turnBalls4 == 51)
                     {
                         ball.saturnRingBall.SetActive(false);
                         ball.uranusRingBall.SetActive(true);
+                        ball.sunBall.SetActive(false);
+                    }
+                    else if (GameManager.turnBalls4 == 54)
+                    {
+                        ball.saturnRingBall.SetActive(false);
+                        ball.uranusRingBall.SetActive(false);
+                        ball.sunBall.SetActive(true);
                     }
                     else
                     {
                         ball.saturnRingBall.SetActive(false);
                         ball.uranusRingBall.SetActive(false);
+                        ball.sunBall.SetActive(false);
                     }
                     ball.ChargeBall(gameManager.chooseBalls[GameManager.turnBalls4].ballMat, gameManager.chooseBalls[GameManager.turnBalls4].lbs, gameManager.chooseBalls[GameManager.turnBalls4].speed, gameManager.chooseBalls[GameManager.turnBalls4].spin);
                     chooseBallUI.SetActive(true);
@@ -4057,6 +4093,7 @@ public class Game : MonoBehaviour
                     ballRender.material = gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].ballMat;
                     ball.saturnRingBall.SetActive(false);
                     ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
                     ball.ChargeBall(gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].ballMat, gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].lbs, gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].speed, gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].spin);
                     chooseBallUI.SetActive(false);
                     powerUpUI.SetActive(false);
@@ -4559,16 +4596,25 @@ public class Game : MonoBehaviour
         {
             ball.saturnRingBall.SetActive(true);
             ball.uranusRingBall.SetActive(false);
+            ball.sunBall.SetActive(false);
         }
         else if (chargeBallIndex == 51)
         {
             ball.saturnRingBall.SetActive(false);
             ball.uranusRingBall.SetActive(true);
+            ball.sunBall.SetActive(false);
+        }
+        else if (chargeBallIndex == 54)
+        {
+            ball.saturnRingBall.SetActive(false);
+            ball.uranusRingBall.SetActive(false);
+            ball.sunBall.SetActive(true);
         }
         else
         {
             ball.saturnRingBall.SetActive(false);
             ball.uranusRingBall.SetActive(false);
+            ball.sunBall.SetActive(false);
         }
         ball.ChargeBall(gameManager.chooseBalls[chargeBallIndex].ballMat, gameManager.chooseBalls[chargeBallIndex].lbs, gameManager.chooseBalls[chargeBallIndex].speed, gameManager.chooseBalls[chargeBallIndex].spin);
     }
@@ -4921,16 +4967,25 @@ public class Game : MonoBehaviour
                 {
                     ball.saturnRingBall.SetActive(true);
                     ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
                 }
                 else if (GameManager.turnBalls1 == 51)
                 {
                     ball.saturnRingBall.SetActive(false);
                     ball.uranusRingBall.SetActive(true);
+                    ball.sunBall.SetActive(false);
+                }
+                else if (GameManager.turnBalls1 == 54)
+                {
+                    ball.saturnRingBall.SetActive(false);
+                    ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(true);
                 }
                 else
                 {
                     ball.saturnRingBall.SetActive(false);
                     ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
                 }
             }
             else if (playerTurn == 1)
@@ -4939,16 +4994,25 @@ public class Game : MonoBehaviour
                 {
                     ball.saturnRingBall.SetActive(true);
                     ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
                 }
                 else if (GameManager.turnBalls2 == 51)
                 {
                     ball.saturnRingBall.SetActive(false);
                     ball.uranusRingBall.SetActive(true);
+                    ball.sunBall.SetActive(false);
+                }
+                else if (GameManager.turnBalls2 == 54)
+                {
+                    ball.saturnRingBall.SetActive(false);
+                    ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(true);
                 }
                 else
                 {
                     ball.saturnRingBall.SetActive(false);
                     ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
                 }
             }
             else if (playerTurn == 2)
@@ -4957,16 +5021,25 @@ public class Game : MonoBehaviour
                 {
                     ball.saturnRingBall.SetActive(true);
                     ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
                 }
                 else if (GameManager.turnBalls3 == 51)
                 {
                     ball.saturnRingBall.SetActive(false);
                     ball.uranusRingBall.SetActive(true);
+                    ball.sunBall.SetActive(false);
+                }
+                else if (GameManager.turnBalls3 == 54)
+                {
+                    ball.saturnRingBall.SetActive(false);
+                    ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(true);
                 }
                 else
                 {
                     ball.saturnRingBall.SetActive(false);
                     ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
                 }
             }
             else if (playerTurn == 3)
@@ -4975,16 +5048,25 @@ public class Game : MonoBehaviour
                 {
                     ball.saturnRingBall.SetActive(true);
                     ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
                 }
                 else if (GameManager.turnBalls4 == 51)
                 {
                     ball.saturnRingBall.SetActive(false);
                     ball.uranusRingBall.SetActive(true);
+                    ball.sunBall.SetActive(false);
+                }
+                else if (GameManager.turnBalls4 == 54)
+                {
+                    ball.saturnRingBall.SetActive(false);
+                    ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(true);
                 }
                 else
                 {
                     ball.saturnRingBall.SetActive(false);
                     ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
                 }
             }
         }
@@ -5094,16 +5176,25 @@ public class Game : MonoBehaviour
                 {
                     ball.saturnRingBall.SetActive(true);
                     ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
                 }
                 else if (GameManager.turnBalls1 == 51)
                 {
                     ball.saturnRingBall.SetActive(false);
                     ball.uranusRingBall.SetActive(true);
+                    ball.sunBall.SetActive(false);
+                }
+                else if (GameManager.turnBalls1 == 54)
+                {
+                    ball.saturnRingBall.SetActive(false);
+                    ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(true);
                 }
                 else
                 {
                     ball.saturnRingBall.SetActive(false);
                     ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
                 }
             }
             else if (playerTurn == 1)
@@ -5112,16 +5203,25 @@ public class Game : MonoBehaviour
                 {
                     ball.saturnRingBall.SetActive(true);
                     ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
                 }
                 else if (GameManager.turnBalls2 == 51)
                 {
                     ball.saturnRingBall.SetActive(false);
                     ball.uranusRingBall.SetActive(true);
+                    ball.sunBall.SetActive(false);
+                }
+                else if (GameManager.turnBalls2 == 54)
+                {
+                    ball.saturnRingBall.SetActive(false);
+                    ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(true);
                 }
                 else
                 {
                     ball.saturnRingBall.SetActive(false);
                     ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
                 }
             }
             else if (playerTurn == 2)
@@ -5130,16 +5230,25 @@ public class Game : MonoBehaviour
                 {
                     ball.saturnRingBall.SetActive(true);
                     ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
                 }
                 else if (GameManager.turnBalls3 == 51)
                 {
                     ball.saturnRingBall.SetActive(false);
                     ball.uranusRingBall.SetActive(true);
+                    ball.sunBall.SetActive(false);
+                }
+                else if (GameManager.turnBalls3 == 54)
+                {
+                    ball.saturnRingBall.SetActive(false);
+                    ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(true);
                 }
                 else
                 {
                     ball.saturnRingBall.SetActive(false);
                     ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
                 }
             }
             else if (playerTurn == 3)
@@ -5148,16 +5257,25 @@ public class Game : MonoBehaviour
                 {
                     ball.saturnRingBall.SetActive(true);
                     ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
                 }
                 else if (GameManager.turnBalls4 == 51)
                 {
                     ball.saturnRingBall.SetActive(false);
                     ball.uranusRingBall.SetActive(true);
+                    ball.sunBall.SetActive(false);
+                }
+                else if (GameManager.turnBalls4 == 54)
+                {
+                    ball.saturnRingBall.SetActive(false);
+                    ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(true);
                 }
                 else
                 {
                     ball.saturnRingBall.SetActive(false);
                     ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
                 }
             }
         }
