@@ -38,6 +38,13 @@ public class PinSetter : MonoBehaviour
     public BoxCollider gutter;
     public Material pinOn;
     public Material pinOff;
+    public GameObject pin1;
+    public GameObject pin2;
+    public GameObject pin3;
+    public GameObject pin4;
+    public GameObject pin6;
+    public GameObject pin7;
+    public GameObject pin10;
 
     private Animator animator;
 
