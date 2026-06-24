@@ -61,6 +61,7 @@ public class Ball : MonoBehaviour
     private Pin pin7;
     private Pin pin10;
     private bool isPinTarget = false;
+    private int randomTarget;
 
     void Awake()
     {
@@ -228,7 +229,7 @@ public class Ball : MonoBehaviour
                     rigidBody.AddTorque(0, 0, GameObject.FindObjectOfType<PinSetter>().pin1.transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
                 }
             }
-            else if (pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false)
+            else if (pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true && randomTarget == 0 || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true && randomTarget == 0 || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false && randomTarget == 0 || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true && randomTarget == 0 || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false && randomTarget == 0)
             {
                 if (spin < 25)
                 {
@@ -246,7 +247,7 @@ public class Ball : MonoBehaviour
                     rigidBody.AddTorque(0, 0, GameObject.FindObjectOfType<PinSetter>().pin2.transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
                 }
             }
-            else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false)
+            else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true && randomTarget == 1 || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true && randomTarget == 1 || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false && randomTarget == 1 || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true && randomTarget == 1 || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false && randomTarget == 1)
             {
                 if (spin < 25)
                 {
@@ -264,7 +265,7 @@ public class Ball : MonoBehaviour
                     rigidBody.AddTorque(0, 0, GameObject.FindObjectOfType<PinSetter>().pin3.transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
                 }
             }
-            else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false)
+            else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true && randomTarget == 0 || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false && randomTarget == 0)
             {
                 if (spin < 25)
                 {
@@ -282,7 +283,7 @@ public class Ball : MonoBehaviour
                     rigidBody.AddTorque(0, 0, GameObject.FindObjectOfType<PinSetter>().pin4.transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
                 }
             }
-            else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false)
+            else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == true && pin10.IsStanding() == true && randomTarget == 1 || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin6.IsStanding() == true && pin7.IsStanding() == false && pin10.IsStanding() == false && randomTarget == 1)
             {
                 if (spin < 25)
                 {
@@ -300,7 +301,7 @@ public class Ball : MonoBehaviour
                     rigidBody.AddTorque(0, 0, GameObject.FindObjectOfType<PinSetter>().pin6.transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
                 }
             }
-            else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false)
+            else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true && randomTarget == 0)
             {
                 if (spin < 25)
                 {
@@ -318,7 +319,7 @@ public class Ball : MonoBehaviour
                     rigidBody.AddTorque(0, 0, GameObject.FindObjectOfType<PinSetter>().pin7.transform.position.x - transform.position.x * spin * rigidBody.mass * 0.25f * Time.deltaTime);
                 }
             }
-            else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true)
+            else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin10.IsStanding() == true && randomTarget == 1)
             {
                 if (spin < 25)
                 {
@@ -409,7 +410,7 @@ public class Ball : MonoBehaviour
 
                     if (rb != null)
                     {
-                        rb.AddExplosionForce(10000, transform.position, 12500, 100);
+                        rb.AddExplosionForce(9000, transform.position, 12000, 90);
                     }
                 }
                 transform.position = new Vector3(0, -5000, -5000);
@@ -428,7 +429,7 @@ public class Ball : MonoBehaviour
 
                     if (rb != null)
                     {
-                        rb.AddExplosionForce(7500, transform.position, 10000, 0);
+                        rb.AddExplosionForce(6000, transform.position, 9000, 0);
                     }
                 }
                 GameManager.forcePulseBalls--;
@@ -442,7 +443,7 @@ public class Ball : MonoBehaviour
 
                     if (rb != null)
                     {
-                        rb.AddExplosionForce(5000, transform.position, 7500, 0);
+                        rb.AddExplosionForce(3000, transform.position, 6000, 0);
                     }
                 }
                 GameManager.hyperBalls--;
@@ -456,7 +457,7 @@ public class Ball : MonoBehaviour
 
                     if (rb != null)
                     {
-                        rb.AddExplosionForce(2500, transform.position, 5000, 0);
+                        rb.AddExplosionForce(1500, transform.position, 3000, 0);
                     }
                 }
                 GameManager.lightningBalls--;
@@ -520,7 +521,7 @@ public class Ball : MonoBehaviour
 
                     if (rb != null)
                     {
-                        rb.AddExplosionForce(7500, transform.position, 10000, 0);
+                        rb.AddExplosionForce(6000, transform.position, 9000, 0);
                     }
                 }
             }
@@ -533,7 +534,7 @@ public class Ball : MonoBehaviour
 
                     if (rb != null)
                     {
-                        rb.AddExplosionForce(5000, transform.position, 7500, 0);
+                        rb.AddExplosionForce(3000, transform.position, 6000, 0);
                     }
                 }
             }
@@ -546,7 +547,7 @@ public class Ball : MonoBehaviour
 
                     if (rb != null)
                     {
-                        rb.AddExplosionForce(2500, transform.position, 5000, 0);
+                        rb.AddExplosionForce(1500, transform.position, 3000, 0);
                     }
                 }
             }
@@ -844,6 +845,7 @@ public class Ball : MonoBehaviour
 
     public void ResetBowl()
     {
+        randomTarget = Random.Range(0, 2);
         rigidBody.useGravity = true;
         force.force = new Vector3(0, 0, 0);
         force.torque = new Vector3(0, 0, 0);
@@ -866,13 +868,17 @@ public class Ball : MonoBehaviour
             {
                 if (spin < 25)
                 {
-                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-75f, -12.5f));
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-100f, -12.5f));
                 }
                 else if (spin >= 25 && spin < 50)
                 {
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-75f, -12.5f));
+                }
+                else if (spin >= 50 && spin < 75)
+                {
                     rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-50f, -12.5f));
                 }
-                else if (spin >= 50)
+                else if (spin >= 75)
                 {
                     rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-25f, -12.5f));
                 }
@@ -881,13 +887,17 @@ public class Ball : MonoBehaviour
             {
                 if (spin < 25)
                 {
-                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(12.5f, 75f));
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(12.5f, 100f));
                 }
                 else if (spin >= 25 && spin < 50)
                 {
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(12.5f, 75f));
+                }
+                else if (spin >= 50 && spin < 75)
+                {
                     rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(12.5f, 50f));
                 }
-                else if (spin >= 50)
+                else if (spin >= 75)
                 {
                     rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(12.5f, 25f));
                 }
@@ -897,13 +907,17 @@ public class Ball : MonoBehaviour
         {
             if (spin < 25)
             {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-75f, 75f));
+                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-100f, 100f));
             }
             else if (spin >= 25 && spin < 50)
             {
+                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-75f, 75f));
+            }
+            else if (spin >= 50 && spin < 75)
+            {
                 rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-50f, 50f));
             }
-            else if (spin >= 50)
+            else if (spin >= 75)
             {
                 rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-25f, 25f));
             }

@@ -69,6 +69,10 @@ public class Game : MonoBehaviour
     private int allStrikes2 = 1;
     private int allStrikes3 = 1;
     private int allStrikes4 = 1;
+    private int allSpares1 = 1;
+    private int allSpares2 = 1;
+    private int allSpares3 = 1;
+    private int allSpares4 = 1;
     private int turns = 0;
     private int nextTurn = 0;
     private int playerTurn = 0;
@@ -1476,6 +1480,7 @@ public class Game : MonoBehaviour
                         strikes1++;
                         addCash += 10 * allStrikes1;
                         allStrikes1++;
+                        allSpares1 = 1;
                     }
                     else if (playerTurn == 1 || playerTurn == 4)
                     {
@@ -1484,6 +1489,7 @@ public class Game : MonoBehaviour
                         {
                             addCash += 10 * allStrikes2;
                             allStrikes2++;
+                            allSpares2 = 1;
                         }
                     }
                     else if (playerTurn == 2)
@@ -1491,12 +1497,14 @@ public class Game : MonoBehaviour
                         strikes3++;
                         addCash += 10 * allStrikes3;
                         allStrikes3++;
+                        allSpares3 = 1;
                     }
                     else if (playerTurn == 3)
                     {
                         strikes4++;
                         addCash += 10 * allStrikes4;
                         allStrikes4++;
+                        allSpares4 = 1;
                     }
                     scoreDisplay[turns].AllStrike();
                 }
@@ -1522,44 +1530,56 @@ public class Game : MonoBehaviour
             if (playerTurn == 0)
             {
                 spares1++;
-                addCash += 5 * allStrikes1;
+                addCash += 5 * allSpares1;
+                allSpares1++;
+                allStrikes1 = 1;
             }
             else if (playerTurn == 1 || playerTurn == 4)
             {
                 spares2++;
                 if (!isComputer)
                 {
-                    addCash += 5 * allStrikes2;
+                    addCash += 5 * allSpares2;
+                    allSpares2++;
+                    allStrikes2 = 1;
                 }
             }
             else if (playerTurn == 2)
             {
                 spares3++;
-                addCash += 5 * allStrikes3;
-            }
-            else if (playerTurn == 3)
-            {
-                spares4++;
-                addCash += 5 * allStrikes4;
-            }
-        }
-        if (throwBall == 2)
-        {
-            if (playerTurn == 0)
-            {
-                allStrikes1 = 1;
-            }
-            else if (playerTurn == 1 || playerTurn == 4)
-            {
-                allStrikes2 = 1;
-            }
-            else if (playerTurn == 2)
-            {
+                addCash += 5 * allSpares3;
+                allSpares3++;
                 allStrikes3 = 1;
             }
             else if (playerTurn == 3)
             {
+                spares4++;
+                addCash += 5 * allSpares4;
+                allSpares4++;
                 allStrikes4 = 1;
+            }
+        }
+        if (PinCounter.pinCount != 0 && throwBall == 2)
+        {
+            if (playerTurn == 0)
+            {
+                allStrikes1 = 1;
+                allSpares1 = 1;
+            }
+            else if (playerTurn == 1 || playerTurn == 4)
+            {
+                allStrikes2 = 1;
+                allSpares2 = 1;
+            }
+            else if (playerTurn == 2)
+            {
+                allStrikes3 = 1;
+                allSpares3 = 1;
+            }
+            else if (playerTurn == 3)
+            {
+                allStrikes4 = 1;
+                allSpares4 = 1;
             }
         }
         if (gutterAnimation == 0 && isReplay)
@@ -6055,7 +6075,7 @@ public class Game : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(0.3f, 3f));
         while (true)
         {
-            GameObject pop = Instantiate(fireworks, new Vector3(Random.Range(-512, 512), Random.Range(-256, 256), 5000), Quaternion.identity) as GameObject;
+            GameObject pop = Instantiate(fireworks, new Vector3(Random.Range(-512, 512), Random.Range(-256, 256), 7500), Quaternion.identity) as GameObject;
             var main = pop.GetComponent<ParticleSystem>().main;
             main.startColor = pop.GetComponent<Fireworks>().colorFireworks[Random.Range(0, pop.GetComponent<Fireworks>().colorFireworks.Length)];
             yield return new WaitForSeconds(Random.Range(0.3f, 3f));

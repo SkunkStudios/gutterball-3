@@ -24236,8 +24236,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 220, y: 2, z: 3600}
-  m_Center: {x: 0, y: -16, z: -1595}
+  m_Size: {x: 220, y: 7.5, z: 3600}
+  m_Center: {x: 0, y: -20, z: -1595}
 --- !u!1 &63256609
 GameObject:
   m_ObjectHideFlags: 0
@@ -63649,7 +63649,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 6
-  far clip plane: 2000000
+  far clip plane: 500000000
   field of view: 30
   orthographic: 0
   orthographic size: 5
@@ -85230,7 +85230,7 @@ Transform:
   m_GameObject: {fileID: 395738057}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1000, y: 1000, z: 1000}
+  m_LocalScale: {x: 100000, y: 100000, z: 100000}
   m_Children:
   - {fileID: 147413479}
   - {fileID: 913584988}
@@ -162573,8 +162573,8 @@ Camera:
     y: 0.25
     width: 1
     height: 1
-  near clip plane: -128
-  far clip plane: 128
+  near clip plane: -256
+  far clip plane: 256
   field of view: 60
   orthographic: 1
   orthographic size: 256
@@ -162601,7 +162601,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 697425828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 5000}
+  m_LocalPosition: {x: 0, y: 0, z: 7500}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -191660,7 +191660,7 @@ MonoBehaviour:
   clipPlaneOffset: 0
   clipSkyDome: 0
   nearPlaneDistance: 6
-  farPlaneDistance: 2000000
+  farPlaneDistance: 500000000
   mipShift: 0
   useDepth: 1
   depthScale: 1.25
@@ -214732,8 +214732,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 220, y: 2, z: 3600}
-  m_Center: {x: 0, y: -16, z: -1595}
+  m_Size: {x: 220, y: 7.5, z: 3600}
+  m_Center: {x: 0, y: -20, z: -1595}
 --- !u!1 &922302215
 GameObject:
   m_ObjectHideFlags: 0
@@ -232759,7 +232759,7 @@ MonoBehaviour:
   clipPlaneOffset: 0
   clipSkyDome: 0
   nearPlaneDistance: 6
-  farPlaneDistance: 2000000
+  farPlaneDistance: 500000000
   mipShift: 0
   useDepth: 1
   depthScale: 1.25
@@ -240592,7 +240592,7 @@ MonoBehaviour:
   clipPlaneOffset: 0
   clipSkyDome: 0
   nearPlaneDistance: 6
-  farPlaneDistance: 2000000
+  farPlaneDistance: 500000000
   mipShift: 0
   useDepth: 1
   depthScale: 1.25
@@ -265714,8 +265714,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 220, y: 2, z: 3600}
-  m_Center: {x: 0, y: -16, z: -1615}
+  m_Size: {x: 220, y: 7.5, z: 3600}
+  m_Center: {x: 0, y: -20, z: -1615}
 --- !u!1 &1157084469
 GameObject:
   m_ObjectHideFlags: 0
@@ -325595,8 +325595,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 220, y: 2, z: 3600}
-  m_Center: {x: 0, y: -16, z: -1595}
+  m_Size: {x: 220, y: 7.5, z: 3600}
+  m_Center: {x: 0, y: -20, z: -1595}
 --- !u!4 &1435056223
 Transform:
   m_ObjectHideFlags: 0
@@ -326540,7 +326540,7 @@ MonoBehaviour:
   clipPlaneOffset: 0
   clipSkyDome: 0
   nearPlaneDistance: 6
-  farPlaneDistance: 2000000
+  farPlaneDistance: 500000000
   mipShift: 0
   useDepth: 1
   depthScale: 1.25
@@ -348120,7 +348120,7 @@ MonoBehaviour:
     clipName: 
   - monkey: {fileID: 0}
     fireworksPosition: {x: 0, y: 0, z: 0}
-    move: {x: 0, y: -20, z: 0}
+    move: {x: 0, y: -5, z: 0}
     jump: 0
     waitTime: 3
     animIndex: 0
@@ -368604,8 +368604,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 220, y: 2, z: 3600}
-  m_Center: {x: 0, y: -16, z: -1595}
+  m_Size: {x: 220, y: 7.5, z: 3600}
+  m_Center: {x: 0, y: -20, z: -1595}
 --- !u!1 &1679085617
 GameObject:
   m_ObjectHideFlags: 0
@@ -374040,8 +374040,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 220, y: 2, z: 3600}
-  m_Center: {x: 0, y: -16, z: -1614}
+  m_Size: {x: 220, y: 7.5, z: 3600}
+  m_Center: {x: 0, y: -20, z: -1595}
 --- !u!1 &1722127187
 GameObject:
   m_ObjectHideFlags: 0
@@ -376032,7 +376032,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733343757}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 46}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1012348311}
@@ -396217,7 +396217,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 6
-  far clip plane: 2000000
+  far clip plane: 500000000
   field of view: 30
   orthographic: 0
   orthographic size: 5
@@ -400518,7 +400518,7 @@ MonoBehaviour:
   clipPlaneOffset: 0
   clipSkyDome: 0
   nearPlaneDistance: 6
-  farPlaneDistance: 2000000
+  farPlaneDistance: 500000000
   mipShift: 0
   useDepth: 1
   depthScale: 1.25
@@ -405768,7 +405768,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 6
-  far clip plane: 2000000
+  far clip plane: 500000000
   field of view: 30
   orthographic: 0
   orthographic size: 5
@@ -405781,7 +405781,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 0
+  m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 1
   m_OcclusionCulling: 0
