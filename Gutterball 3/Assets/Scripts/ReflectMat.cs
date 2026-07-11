@@ -8,7 +8,7 @@ public class ReflectMat : MonoBehaviour
     public Material reflectOff;
     public bool is2Renderer;
 
-    void Start ()
+    void Awake ()
 	{
         if (GetComponent<PlaneReflection>() != null)
         {

@@ -4209,7 +4209,7 @@ MonoBehaviour:
   - ballName: Black Hole
     lockType: 4
     totalLock: 30000
-    CPUName: Astro CPU
+    CPUName: Astronaut CPU
     ballMat: {fileID: 2100000, guid: dad88d2f053dd8f42899d7bd3989241d, type: 2}
     lbs: 12
     speed: 80

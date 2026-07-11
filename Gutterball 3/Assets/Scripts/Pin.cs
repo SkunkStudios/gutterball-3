@@ -103,7 +103,7 @@ public class Pin : MonoBehaviour
 
     public bool IsStanding()
     {
-        if (transform.position.y > pinStartPos.y - 0.5f && transform.position.y < pinStartPos.y + 0.5f)
+        if (transform.position.y > pinStartPos.y - 10f && transform.position.y < pinStartPos.y + 10f && transform.position.z > -3500)
         {
             return true;
         }

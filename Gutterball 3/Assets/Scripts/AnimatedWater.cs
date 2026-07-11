@@ -21,6 +21,14 @@ public class AnimatedWater : MonoBehaviour
 	{
         curX += Time.deltaTime * speedX;
         curY += Time.deltaTime * speedY;
+        if (curX >= 1)
+        {
+            curX = 0;
+        }
+        if (curY >= 1)
+        {
+            curY = 0;
+        }
         if (is2Renderer)
         {
             GetComponent<Renderer>().materials[1].SetTextureOffset("_MainTex", new Vector2(curX, curY));
