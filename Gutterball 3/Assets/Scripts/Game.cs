@@ -6404,7 +6404,6 @@ public class Game : MonoBehaviour
 
     public void ThrowBall()
     {
-        randomTarget = Random.Range(0, 2);
         if (pin1.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == true && pin6.IsStanding() == false)
         {
             ball.ResetBowl(0);
