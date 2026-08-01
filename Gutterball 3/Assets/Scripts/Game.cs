@@ -147,7 +147,6 @@ public class Game : MonoBehaviour
     public GameObject menuCam;
     public GameObject gameCam;
     public GameObject scoreCardCam;
-    public RenderTexture firstPersonCam;
     public Animation thunderAnimation;
     public GameObject menuUI;
     public GameObject gameUI;
@@ -1475,7 +1474,7 @@ public class Game : MonoBehaviour
         {
             nextIndex = 0;
         }
-        if (!isReplayRecord && !isCurrentReplay)
+        if (!isReplayRecord && !isCurrentReplay && !isWaitPin)
         {
             currentReplayIndex = 0;
             replayTime = 0;
@@ -6404,120 +6403,68 @@ public class Game : MonoBehaviour
 
     public void ThrowBall()
     {
-        if (pin1.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == true && pin6.IsStanding() == false)
+        if (pin1.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == true && pin6.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin8.IsStanding() == true && pin9.IsStanding() == true && pin10.IsStanding() == false)
         {
             ball.ResetBowl(0);
         }
-        else if (pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin8.IsStanding() == true && pin9.IsStanding() == false && pin10.IsStanding() == false)
+        else if (pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin5.IsStanding() == true && pin6.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin8.IsStanding() == true && pin9.IsStanding() == false && pin10.IsStanding() == false)
         {
-            ball.ResetBowl(18);
+            ball.ResetBowl(20);
         }
-        else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin8.IsStanding() == false && pin9.IsStanding() == true && pin10.IsStanding() == false)
+        else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == true && pin6.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin8.IsStanding() == false && pin9.IsStanding() == true && pin10.IsStanding() == false)
         {
-            ball.ResetBowl(-18);
+            ball.ResetBowl(-20);
         }
-        else if (pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true)
+        else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin5.IsStanding() == false && pin6.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin8.IsStanding() == true && pin9.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin8.IsStanding() == true && pin9.IsStanding() == false && pin10.IsStanding() == true)
         {
-            randomTarget = Random.Range(0, 2);
-            if (randomTarget == 0)
-            {
-                ball.ResetBowl(18);
-            }
-            else
-            {
-                ball.ResetBowl(-18);
-            }
+            ball.ResetBowl(40);
         }
-        else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin5.IsStanding() == false && pin6.IsStanding() == false)
+        else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin8.IsStanding() == false && pin9.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin8.IsStanding() == false && pin9.IsStanding() == true && pin10.IsStanding() == true)
         {
-            ball.ResetBowl(36);
-        }
-        else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == true)
-        {
-            ball.ResetBowl(-36);
-        }
-        else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin5.IsStanding() == true && pin6.IsStanding() == false)
-        {
-            randomTarget = Random.Range(0, 2);
-            if (randomTarget == 0)
-            {
-                ball.ResetBowl(36);
-            }
-            else
-            {
-                ball.ResetBowl(0);
-            }
+            ball.ResetBowl(-40);
         }
         else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin5.IsStanding() == false && pin6.IsStanding() == true)
         {
             randomTarget = Random.Range(0, 2);
             if (randomTarget == 0)
             {
-                ball.ResetBowl(36);
+                ball.ResetBowl(40);
             }
             else
             {
-                ball.ResetBowl(-36);
-            }
-        }
-        else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == true && pin6.IsStanding() == true)
-        {
-            randomTarget = Random.Range(0, 2);
-            if (randomTarget == 0)
-            {
-                ball.ResetBowl(0);
-            }
-            else
-            {
-                ball.ResetBowl(-36);
+                ball.ResetBowl(-40);
             }
         }
         else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin5.IsStanding() == true && pin6.IsStanding() == true)
         {
-            randomTarget = Random.Range(0, 3);
+            randomTarget = Random.Range(0, 2);
             if (randomTarget == 0)
             {
-                ball.ResetBowl(36);
-            }
-            if (randomTarget == 1)
-            {
-                ball.ResetBowl(0);
+                ball.ResetBowl(20);
             }
             else
             {
-                ball.ResetBowl(-36);
+                ball.ResetBowl(-20);
             }
         }
         else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin8.IsStanding() == false && pin9.IsStanding() == false && pin10.IsStanding() == false)
         {
-            ball.ResetBowl(54);
+            ball.ResetBowl(60);
         }
         else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin8.IsStanding() == false && pin9.IsStanding() == false && pin10.IsStanding() == true)
         {
-            ball.ResetBowl(-54);
-        }
-        else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin8.IsStanding() == true && pin9.IsStanding() == false && pin10.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin8.IsStanding() == true && pin9.IsStanding() == false && pin10.IsStanding() == true)
-        {
-            randomTarget = Random.Range(0, 2);
-            if (randomTarget == 0)
-            {
-                ball.ResetBowl(54);
-            }
-            else
-            {
-                ball.ResetBowl(18);
-            }
+            ball.ResetBowl(-60);
         }
         else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin8.IsStanding() == false && pin9.IsStanding() == true && pin10.IsStanding() == false)
         {
             randomTarget = Random.Range(0, 2);
             if (randomTarget == 0)
             {
-                ball.ResetBowl(54);
+                ball.ResetBowl(60);
             }
             else
             {
-                ball.ResetBowl(-18);
+                ball.ResetBowl(-20);
             }
         }
         else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin8.IsStanding() == false && pin9.IsStanding() == false && pin10.IsStanding() == true)
@@ -6525,23 +6472,11 @@ public class Game : MonoBehaviour
             randomTarget = Random.Range(0, 2);
             if (randomTarget == 0)
             {
-                ball.ResetBowl(54);
+                ball.ResetBowl(60);
             }
             else
             {
-                ball.ResetBowl(-54);
-            }
-        }
-        else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin8.IsStanding() == true && pin9.IsStanding() == true && pin10.IsStanding() == false)
-        {
-            randomTarget = Random.Range(0, 2);
-            if (randomTarget == 0)
-            {
-                ball.ResetBowl(18);
-            }
-            else
-            {
-                ball.ResetBowl(-18);
+                ball.ResetBowl(-60);
             }
         }
         else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin8.IsStanding() == true && pin9.IsStanding() == false && pin10.IsStanding() == true)
@@ -6549,75 +6484,51 @@ public class Game : MonoBehaviour
             randomTarget = Random.Range(0, 2);
             if (randomTarget == 0)
             {
-                ball.ResetBowl(18);
+                ball.ResetBowl(20);
             }
             else
             {
-                ball.ResetBowl(-54);
-            }
-        }
-        else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin8.IsStanding() == false && pin9.IsStanding() == true && pin10.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin8.IsStanding() == false && pin9.IsStanding() == true && pin10.IsStanding() == true)
-        {
-            randomTarget = Random.Range(0, 2);
-            if (randomTarget == 0)
-            {
-                ball.ResetBowl(-18);
-            }
-            else
-            {
-                ball.ResetBowl(-54);
+                ball.ResetBowl(-60);
             }
         }
         else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin8.IsStanding() == true && pin9.IsStanding() == true && pin10.IsStanding() == false)
         {
-            randomTarget = Random.Range(0, 3);
+            randomTarget = Random.Range(0, 2);
             if (randomTarget == 0)
             {
-                ball.ResetBowl(54);
-            }
-            else if (randomTarget == 1)
-            {
-                ball.ResetBowl(18);
+                ball.ResetBowl(40);
             }
             else
             {
-                ball.ResetBowl(-18);
+                ball.ResetBowl(0);
             }
         }
         else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin8.IsStanding() == true && pin9.IsStanding() == true && pin10.IsStanding() == true)
         {
-            randomTarget = Random.Range(0, 3);
+            randomTarget = Random.Range(0, 2);
             if (randomTarget == 0)
             {
-                ball.ResetBowl(18);
-            }
-            else if (randomTarget == 1)
-            {
-                ball.ResetBowl(-18);
+                ball.ResetBowl(0);
             }
             else
             {
-                ball.ResetBowl(-54);
+                ball.ResetBowl(-40);
             }
         }
         else if (pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == true && pin8.IsStanding() == true && pin9.IsStanding() == true && pin10.IsStanding() == true)
         {
-            randomTarget = Random.Range(0, 4);
+            randomTarget = Random.Range(0, 3);
             if (randomTarget == 0)
             {
-                ball.ResetBowl(54);
+                ball.ResetBowl(40);
             }
-            else if (randomTarget == 1)
+            if (randomTarget == 1)
             {
-                ball.ResetBowl(18);
-            }
-            else if (randomTarget == 2)
-            {
-                ball.ResetBowl(-18);
+                ball.ResetBowl(0);
             }
             else
             {
-                ball.ResetBowl(-54);
+                ball.ResetBowl(-40);
             }
         }
     }

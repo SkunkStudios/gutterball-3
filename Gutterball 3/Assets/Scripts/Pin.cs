@@ -246,7 +246,7 @@ public class Pin : MonoBehaviour
 
     public void FallPinDown()
     {
-        if (game.powerUps == Game.BallPowerUps.Bomb && Vector3.Distance(ball.transform.position, transform.position) <= 128 || game.powerUps == Game.BallPowerUps.ForcePulse && Vector3.Distance(ball.transform.position, transform.position) <= 64 || game.powerUps == Game.BallPowerUps.Hyper && Vector3.Distance(ball.transform.position, transform.position) <= 32 || game.powerUps == Game.BallPowerUps.Lightning && Vector3.Distance(ball.transform.position, transform.position) <= 48)
+        if (game.powerUps == Game.BallPowerUps.Bomb && Vector3.Distance(ball.transform.position, transform.position) <= 160 || game.powerUps == Game.BallPowerUps.ForcePulse && Vector3.Distance(ball.transform.position, transform.position) <= 64 || game.powerUps == Game.BallPowerUps.Hyper && Vector3.Distance(ball.transform.position, transform.position) <= 32 || game.powerUps == Game.BallPowerUps.Lightning && Vector3.Distance(ball.transform.position, transform.position) <= 48)
         {
             isFall = true;
             if (!GameObject.FindObjectOfType<PinSetter>().isGravity)

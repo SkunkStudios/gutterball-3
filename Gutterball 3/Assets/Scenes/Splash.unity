@@ -3915,6 +3915,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0d39a04076954ff4ca79873e5df8715b, type: 3}
   - {fileID: 21300000, guid: e8fdd513e0181fa48806ab96869c9909, type: 3}
   - {fileID: 21300000, guid: a56df111d257ff442b32b90193675e85, type: 3}
+  firstPersonCam: {fileID: 8400000, guid: b248dd5aa85d83b4ea0b706f6445dbbe, type: 2}
   chooseBalls:
   - ballName: Retro 1
     lockType: 0
@@ -4296,7 +4297,7 @@ MonoBehaviour:
     spin: 40
     isLock: 0
     urlTextureBall: 
-  - ballName: Gold Ball
+  - ballName: Gold
     lockType: 3
     totalLock: 0
     CPUName: Steve CPU
@@ -4306,7 +4307,7 @@ MonoBehaviour:
     spin: 50
     isLock: 1
     urlTextureBall: 
-  - ballName: Queen Diamond
+  - ballName: Diamond
     lockType: 4
     totalLock: 40000
     CPUName: Alex CPU
@@ -4349,7 +4350,7 @@ MonoBehaviour:
   - ballName: Rebel Force
     lockType: 3
     totalLock: 0
-    CPUName: Mike CPU
+    CPUName: Lisa CPU
     ballMat: {fileID: 2100000, guid: f27917d951efe4c4b85fd8b379192f55, type: 2}
     lbs: 13
     speed: 50
@@ -4359,7 +4360,7 @@ MonoBehaviour:
   - ballName: Vegas Baby
     lockType: 4
     totalLock: 45000
-    CPUName: Genius CPU
+    CPUName: Doc CPU
     ballMat: {fileID: 2100000, guid: 06feca1296c70a14690bab75bd282fee, type: 2}
     lbs: 10
     speed: 45

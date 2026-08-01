@@ -18,8 +18,9 @@ public class GameManager : MonoBehaviour
     public Sprite[] spriteAlleys = new Sprite[9];
     public string[] AlleyNames { get { return nameAlleys; } }
 
+    public RenderTexture firstPersonCam;
     public ChooseBall[] chooseBalls;
-    public CompuObj[] compuObj = new CompuObj[17];
+    public CompuObj[] compuObj = new CompuObj[65];
     public static bool isMusic = true;
     public static bool isSound = true;
     public static bool isCrowd = true;

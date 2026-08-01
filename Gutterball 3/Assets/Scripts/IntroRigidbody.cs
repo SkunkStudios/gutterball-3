@@ -6,7 +6,6 @@ public class IntroRigidbody : MonoBehaviour
 {
     public float forceX;
     public float forceZ;
-    public float spin;
     public bool isStartForce = false;
     public bool isSleep = false;
     public bool isGravity = true;
@@ -49,7 +48,7 @@ public class IntroRigidbody : MonoBehaviour
             if (!isGravity)
             {
                 rigidBody.useGravity = false;
-                GetComponent<ConstantForce>().force = new Vector3(0, 0, -rigidBody.mass * 100);
+                GetComponent<ConstantForce>().force = new Vector3(0, 0, -rigidBody.mass * 25);
             }
         }
     }
