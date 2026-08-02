@@ -121,12 +121,24 @@ public class ObjectAnimation : MonoBehaviour
                     GameObject pop = Instantiate(fireworks, objectTarget.position, Quaternion.identity) as GameObject;
                     var main = pop.GetComponent<ParticleSystem>().main;
                     main.startColor = pop.GetComponent<Fireworks>().colorFireworks[Random.Range(0, pop.GetComponent<Fireworks>().colorFireworks.Length)];
+                    Instantiate(game.bigExplores[Random.Range(0, game.bigExplores.Length)], objectTarget.position, Quaternion.identity);
+                    if (GameManager.isSound && Game.type != Game.GameState.Menu)
+                    {
+                        GameObject.FindObjectOfType<Ball>().splashAudio.PlayOneShot(game.exploreClips[Random.Range(0, game.exploreClips.Length)]);
+                    }
+                    GameObject.FindObjectOfType<CameraShake>().Shake(20);
                 }
                 else if (fireworks != null && animList == null && GameManager.isParticle)
                 {
                     GameObject pop = Instantiate(fireworks, objectTarget.position, Quaternion.identity) as GameObject;
                     var main = pop.GetComponent<ParticleSystem>().main;
                     main.startColor = pop.GetComponent<Fireworks>().colorFireworks[Random.Range(0, pop.GetComponent<Fireworks>().colorFireworks.Length)];
+                    Instantiate(game.bigExplores[Random.Range(0, game.bigExplores.Length)], objectTarget.position, Quaternion.identity);
+                    if (GameManager.isSound && Game.type != Game.GameState.Menu)
+                    {
+                        GameObject.FindObjectOfType<Ball>().splashAudio.PlayOneShot(game.exploreClips[Random.Range(0, game.exploreClips.Length)]);
+                    }
+                    GameObject.FindObjectOfType<CameraShake>().Shake(20);
                 }
                 objectTarget.position = popPosition;
             }

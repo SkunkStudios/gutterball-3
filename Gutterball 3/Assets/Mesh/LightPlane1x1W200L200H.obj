@@ -1,0 +1,16 @@
+g LightPlane1x1W200L200H
+v 0 0 0
+v -200 0 0
+v 0 0 200
+v -200 0 200
+vt 0 0
+vt 1 0
+vt 0 1
+vt 1 1
+vn 0 1 0
+vn 0 1 0
+vn 0 1 0
+vn 0 1 0
+g LightPlane1x1W200L200H_0
+f 2/2/2 3/3/3 1/1/1
+f 2/2/2 4/4/4 3/3/3

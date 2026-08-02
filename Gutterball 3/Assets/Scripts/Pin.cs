@@ -18,18 +18,19 @@ public class Pin : MonoBehaviour
     private bool pinRaise;
     private bool isSplash;
     private bool isSpare;
+    private bool isFall;
+
+    void Awake()
+    {
+        pinStartPos = transform.position;
+        GetComponent<Rigidbody>().Sleep();
+        ball = GameObject.FindObjectOfType<Ball>();
+        isSplash = GameObject.FindObjectOfType<PinSetter>().isSplash;
+    }
 
     // Use this for initialization
     void Start ()
 	{
-        pinStartPos = transform.position;
-        transform.position = pinStartPos;
-        transform.rotation = Quaternion.identity;
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        GetComponent<Rigidbody>().Sleep();
-        ball = GameObject.FindObjectOfType<Ball>();
-        isSplash = GameObject.FindObjectOfType<PinSetter>().isSplash;
         if (GameManager.pinMode != GameManager.PinMode.Spare)
         {
             pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOn;
@@ -50,14 +51,34 @@ public class Pin : MonoBehaviour
                 transform.Translate(new Vector3(0, -distToRaise * Time.deltaTime, 0), Space.World);
             }
         }
+        if (!isFall)
+        {
+            transform.position = pinStartPos;
+            transform.rotation = Quaternion.identity;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            GetComponent<Rigidbody>().Sleep();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (isFall)
+        {
+            transform.Rotate(GetComponent<Rigidbody>().angularVelocity / 1.25f, Space.World);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Ball" && !GameObject.FindObjectOfType<PinSetter>().isGravity || collision.gameObject.tag == "Pin" && !GameObject.FindObjectOfType<PinSetter>().isGravity)
+        if (collision.gameObject.tag != "Lane")
         {
-            GetComponent<Rigidbody>().useGravity = false;
-            GetComponent<ConstantForce>().force = new Vector3(0, -15, -150);
+            isFall = true;
+            if (!GameObject.FindObjectOfType<PinSetter>().isGravity)
+            {
+                GetComponent<Rigidbody>().useGravity = false;
+                GetComponent<ConstantForce>().force = new Vector3(0, 0, -30);
+            }
         }
     }
 
@@ -65,8 +86,9 @@ public class Pin : MonoBehaviour
     {
         if (other.CompareTag("Fall") && !GameObject.FindObjectOfType<PinSetter>().isGravity)
         {
+            isFall = true;
             GetComponent<Rigidbody>().useGravity = false;
-            GetComponent<ConstantForce>().force = new Vector3(0, -15, -150);
+            GetComponent<ConstantForce>().force = new Vector3(0, 0, -30);
         }
         Vector3 splashPosition = new Vector3(transform.position.x, other.transform.position.y, transform.position.z);
         if (other.CompareTag("Fall") && isSplash || other.CompareTag("Gutter") && isSplash || other.CompareTag("Water") && isSplash)
@@ -81,7 +103,7 @@ public class Pin : MonoBehaviour
 
     public bool IsStanding()
     {
-        if (transform.position.y > pinStartPos.y - 0.5f && transform.position.y < pinStartPos.y + 0.5f)
+        if (transform.position.y > pinStartPos.y - 10f && transform.position.y < pinStartPos.y + 10f && transform.position.z > -3500)
         {
             return true;
         }
@@ -117,6 +139,7 @@ public class Pin : MonoBehaviour
     {
         if (game.throwBall < game.maxBalls)
         {
+            isFall = true;
             GetComponent<Rigidbody>().isKinematic = pinRaise;
         }
         type = PinType.PinRaise;
@@ -153,6 +176,7 @@ public class Pin : MonoBehaviour
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             GetComponent<Rigidbody>().Sleep();
+            isFall = false;
         }
         type = PinType.PinGravity;
     }
@@ -172,6 +196,7 @@ public class Pin : MonoBehaviour
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             GetComponent<Rigidbody>().Sleep();
+            isFall = false;
         }
     }
 
@@ -188,6 +213,7 @@ public class Pin : MonoBehaviour
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         GetComponent<Rigidbody>().Sleep();
+        isFall = false;
         pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOn;
     }
 
@@ -205,6 +231,7 @@ public class Pin : MonoBehaviour
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         GetComponent<Rigidbody>().Sleep();
+        isFall = false;
         if (isPinFall != 0)
         {
             gameObject.SetActive(true);
@@ -214,6 +241,19 @@ public class Pin : MonoBehaviour
         {
             gameObject.SetActive(false);
             pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOff;
+        }
+    }
+
+    public void FallPinDown()
+    {
+        if (game.powerUps == Game.BallPowerUps.Bomb && Vector3.Distance(ball.transform.position, transform.position) <= 160 || game.powerUps == Game.BallPowerUps.ForcePulse && Vector3.Distance(ball.transform.position, transform.position) <= 64 || game.powerUps == Game.BallPowerUps.Hyper && Vector3.Distance(ball.transform.position, transform.position) <= 32 || game.powerUps == Game.BallPowerUps.Lightning && Vector3.Distance(ball.transform.position, transform.position) <= 48)
+        {
+            isFall = true;
+            if (!GameObject.FindObjectOfType<PinSetter>().isGravity)
+            {
+                GetComponent<Rigidbody>().useGravity = false;
+                GetComponent<ConstantForce>().force = new Vector3(0, -7.5f, -75);
+            }
         }
     }
 }

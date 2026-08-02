@@ -261,7 +261,162 @@ ModelImporter:
     4300084: pinlights8
     4300086: pinlights9
     4300088: scooper
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lane
+    second: {fileID: 2100000, guid: 7633606a6bbee3b48bd1189ce2b5566d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lanesides
+    second: {fileID: 2100000, guid: df0e11871efbb1e4696aede366e6569a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: backgroundsky12
+    second: {fileID: 2100000, guid: 2255b7637cbc1574aa783272f7e36ef2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: backgroundsky122
+    second: {fileID: 2100000, guid: a48eed6f1bff7e74d82013e4a660cd41, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: headbehind
+    second: {fileID: 2100000, guid: 60504c40607bb3a40b979904a225a862, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: icebergDEFLECTOR
+    second: {fileID: 2100000, guid: 98c590fa24fc7374eab99c4c8fd98b28, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: iceberghand
+    second: {fileID: 2100000, guid: 91fda5fb8380f814ca6b76e0cba9f131, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: iceberghead
+    second: {fileID: 2100000, guid: 83439a64faf666c4a806bc063df6fd27, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: icebergheadmouth1
+    second: {fileID: 2100000, guid: dc22fb1353642e54bb5e9b435663d1c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: icebergheadmouth1TL
+    second: {fileID: 2100000, guid: d73e1303ee053f44d979c66af14fc1c3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: icebergheadmouth1TR
+    second: {fileID: 2100000, guid: 0a50b198f695f9e41964aee282eb8f9e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: icebergsides
+    second: {fileID: 2100000, guid: 5807ea80f8acd104aa0c1de7dae07196, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: icebergsweeperArms
+    second: {fileID: 2100000, guid: 25c1538e95fe1614cbc67ac304e50ce7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: icebergthroat
+    second: {fileID: 2100000, guid: 00a0e6723c38bd74187f59525fbc41a6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: icebergtop
+    second: {fileID: 2100000, guid: 8e108db34dba0e64e8452bd6f07ec389, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: icebergtop2
+    second: {fileID: 2100000, guid: e9d9769e4544750468e018476700f7a3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: icebergtop3
+    second: {fileID: 2100000, guid: 88afb9b1ff86714468028c288bd55fbc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: iceoff
+    second: {fileID: 2100000, guid: 7d4c523eedd7d614aaaee9eae6ad95f0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: iceon
+    second: {fileID: 2100000, guid: 8415aaf4337792b46957603d4d90e760, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lanepinboxshadow2
+    second: {fileID: 2100000, guid: 6ecf44c228657f44cae19e41d40d251b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: moon
+    second: {fileID: 2100000, guid: f27a961c04eb10d4e8032b3cef078a2e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: null
+    second: {fileID: 2100000, guid: 1d7afae4e251420479c99a9db79a8502, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pincolor1
+    second: {fileID: 2100000, guid: bfcadf13f83fddb4481f26bc5dab0ca9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pincolor2
+    second: {fileID: 2100000, guid: 81d3ba4224f32e44a950549160b886d1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pincolor3
+    second: {fileID: 2100000, guid: b999efa735bc524428ba13f7401157eb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pincolor4
+    second: {fileID: 2100000, guid: f6a674bdc76d3e74dbc0a74b30b61b4d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pincolor5
+    second: {fileID: 2100000, guid: 7ccf2ee3615eeb94698712fe851052de, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pincolor6
+    second: {fileID: 2100000, guid: d06356063ee91fe458b122df5d06ed4c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pincolor7
+    second: {fileID: 2100000, guid: d881d448b3339b242b26fe4e7a05f73d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tail
+    second: {fileID: 2100000, guid: dd785b01726b0264cb3ee31b85901ca6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: watergutter
+    second: {fileID: 2100000, guid: bc8c1595c13ddbb459c8925c69bf1a40, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

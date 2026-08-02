@@ -10,15 +10,17 @@ public class GameManager : MonoBehaviour
 {
     public enum PinMode { Tenpin, Spare }
     public static PinMode pinMode;
-    public enum Alley { Retro, Zen, Jungle, Iceberg, Wacky, Mineshaft, Barnyard, Cosmic }
+    public static PinMode pinGameMode;
+    public enum Alley { Retro, Zen, Jungle, Iceberg, Wacky, Vegas, Mineshaft, Barnyard, Cosmic }
     public static Alley chooseAlleys;
-    public int[] isLockAlleys = new int[8];
-    public string[] nameAlleys = new string[8];
-    public Sprite[] spriteAlleys = new Sprite[8];
+    public int[] isLockAlleys = new int[9];
+    public string[] nameAlleys = new string[9];
+    public Sprite[] spriteAlleys = new Sprite[9];
     public string[] AlleyNames { get { return nameAlleys; } }
 
+    public RenderTexture firstPersonCam;
     public ChooseBall[] chooseBalls;
-    public CompuObj[] compuObj = new CompuObj[17];
+    public CompuObj[] compuObj = new CompuObj[65];
     public static bool isMusic = true;
     public static bool isSound = true;
     public static bool isCrowd = true;
@@ -60,8 +62,10 @@ public class GameManager : MonoBehaviour
     public List<ScoreBowler> c_hs = new List<ScoreBowler>();
     public List<ScoreBowler> b_hs = new List<ScoreBowler>();
     public List<ScoreBowler> m_hs = new List<ScoreBowler>();
+    public List<ScoreBowler> v_hs = new List<ScoreBowler>();
     public static int moneys;
     public static int bombBalls;
+    public static int forcePulseBalls;
     public static int hyperBalls;
     public static int lightningBalls;
 
@@ -83,7 +87,10 @@ public class GameManager : MonoBehaviour
 
     void Start ()
 	{
-        urlInfoScreen = FileData.ReadListFromSAV<string>("InfoURL");
+        if (File.Exists(Application.persistentDataPath + "/Save/InfoURL.sav"))
+        {
+            urlInfoScreen = FileData.ReadListFromSAV<string>("InfoURL");
+        }
         bowler = FileData.ReadListFromSAV<PlayerObj>("SaveBowler");
         r_hs = FileData.ReadListFromSAV<ScoreBowler>("HS_Retro");
         w_hs = FileData.ReadListFromSAV<ScoreBowler>("HS_Wacky");
@@ -93,6 +100,7 @@ public class GameManager : MonoBehaviour
         c_hs = FileData.ReadListFromSAV<ScoreBowler>("HS_Cosmic");
         b_hs = FileData.ReadListFromSAV<ScoreBowler>("HS_Barnyard");
         m_hs = FileData.ReadListFromSAV<ScoreBowler>("HS_Mineshaft");
+        v_hs = FileData.ReadListFromSAV<ScoreBowler>("HS_Vegas");
         resolutions = Screen.resolutions;
         SavePrefs();
     }
@@ -113,8 +121,8 @@ public class GameManager : MonoBehaviour
         resolutionIndex = PlayerPrefs.GetInt("SaveResolution", resolutions.Length - 1);
         unlockRegister = PlayerPrefs.GetInt("UnlockRegister", lockRegistered);
         unlockBallEarn = PlayerPrefs.GetInt("SaveBallEarn", 4);
-        unlockBallScore = PlayerPrefs.GetInt("SaveBallScore", 40);
-        unlockBallSpare = PlayerPrefs.GetInt("SaveBallSpare", 50);
+        unlockBallScore = PlayerPrefs.GetInt("SaveBallScore", 45);
+        unlockBallSpare = PlayerPrefs.GetInt("SaveBallSpare", 55);
         turnNameIndex1 = PlayerPrefs.GetInt("SavePlayer1", 0);
         turnNameIndex2 = PlayerPrefs.GetInt("SavePlayer2", 1);
         turnNameIndex3 = PlayerPrefs.GetInt("SavePlayer3", 2);
@@ -149,8 +157,10 @@ public class GameManager : MonoBehaviour
         }
         chooseAlleys = (Alley)PlayerPrefs.GetInt("ChooseAlleys");
         pinMode = (PinMode)PlayerPrefs.GetInt("PinModes");
+        pinGameMode = pinMode;
         moneys = PlayerPrefs.GetInt("SaveMoney", 5000);
         bombBalls = PlayerPrefs.GetInt("SaveBomb", 3);
+        forcePulseBalls = PlayerPrefs.GetInt("SaveForcePulse", 3);
         hyperBalls = PlayerPrefs.GetInt("SaveHyper", 3);
         lightningBalls = PlayerPrefs.GetInt("SaveLightning", 3);
     }
