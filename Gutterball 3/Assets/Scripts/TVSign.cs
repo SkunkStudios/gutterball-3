@@ -10,14 +10,15 @@ public class TVSign : MonoBehaviour
 
 	public RawImage backScreen;
     public RawImage frontScreen;
-    public bool isIntro;
 
+    private Game game;
     private GameManager gameManager;
     private Texture2D[] screens;
     private int infoIndex;
 
     void Start ()
 	{
+        game = GameObject.FindObjectOfType<Game>();
         gameManager = GameObject.FindObjectOfType<GameManager>();
         screens = Resources.LoadAll<Texture2D>("TVScreen");
         BackScreenUI();
@@ -39,7 +40,7 @@ public class TVSign : MonoBehaviour
         }
         else if (infoIndex == 1)
         {
-            backScreen.texture = gameManager.firstPersonCam;
+            backScreen.texture = game.firstPersonCam;
         }
         else if (infoIndex == 2)
         {
@@ -63,7 +64,7 @@ public class TVSign : MonoBehaviour
         }
         else if (infoIndex == 1)
         {
-            frontScreen.texture = gameManager.firstPersonCam;
+            frontScreen.texture = game.firstPersonCam;
         }
         else if (infoIndex == 2)
         {

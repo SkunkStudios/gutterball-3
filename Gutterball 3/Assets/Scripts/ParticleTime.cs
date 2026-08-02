@@ -6,6 +6,6 @@ public class ParticleTime : MonoBehaviour
 {
     void Start ()
 	{
-        Destroy(gameObject, 6);
+        Destroy(gameObject, 5);
     }
 }

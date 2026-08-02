@@ -1,0 +1,29 @@
+newmtl plaqueedges
+Ks 0.000000 0.000000 0.000000
+Ns 51.200001
+map_Kd metalsilver.TIFF
+d 1.000000
+newmtl plaquefront
+Ks 0.203922 0.203922 0.203922
+Ns 69.120003
+map_Kd metalsilver.TIFF
+d 1.000000
+newmtl plaqueball
+Ks 0.000000 0.000000 0.000000
+Ns 51.200001
+map_Kd greentile.TIFF
+d 1.000000
+newmtl plaquestem
+Kd 0.027451 0.027451 0.027451
+Ks 0.000000 0.000000 0.000000
+Ns 51.200001
+d 1.000000
+newmtl BaseWood
+Ns 76.800003
+map_Kd retroLanewoodapproach.TIFF
+d 1.000000
+newmtl plaquename
+Ks 0.000000 0.000000 0.000000
+Ns 51.200001
+map_Kd greentile.TIFF
+d 1.000000

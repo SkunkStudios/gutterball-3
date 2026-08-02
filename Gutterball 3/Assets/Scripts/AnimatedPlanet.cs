@@ -20,14 +20,6 @@ public class AnimatedPlanet : MonoBehaviour
 	{
         CurrX += Time.deltaTime * SpeedX;
         CurrY += Time.deltaTime * SpeedY;
-        if (CurrX <= -1 || CurrX >= 1)
-        {
-            CurrX = 0;
-        }
-        if (CurrY <= -1 || CurrY >= 1)
-        {
-            CurrY = 0;
-        }
         GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(CurrX, CurrY));
         GetComponent<Renderer>().material.SetTextureOffset("_BumpMap", new Vector2(CurrX, CurrY));
     }
