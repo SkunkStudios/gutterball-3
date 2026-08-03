@@ -70,17 +70,17 @@ public class Monkey : MonoBehaviour
         }
         if (isJumpOut && transform.position.z <= -3000)
         {
-            JumpOut();
+            JumpOut(50);
         }
     }
 
-    void JumpOut()
+    void JumpOut(float jump)
     {
         MonkeyRoll(true);
         monkeyBall.SetActive(false);
         transform.position = new Vector3(ball.position.x, ball.position.y + 40, ball.position.z);
-        animList.PlayAnim(6, 45);
-        fall = new Vector3(Random.Range(-300, 300), 45, 75);
+        animList.PlayAnim(6, jump);
+        fall = new Vector3(Random.Range(-300, 300), jump, 50);
         isJump = true;
         isJumpOut = false;
     }
@@ -166,7 +166,7 @@ public class Monkey : MonoBehaviour
     {
         if (other.CompareTag("Ball"))
         {
-            if (ball.GetComponent<Rigidbody>().velocity.sqrMagnitude > 150000)
+            if (ball.GetComponent<Rigidbody>().velocity.sqrMagnitude > 320000)
             {
                 isRoll = true;
             }
