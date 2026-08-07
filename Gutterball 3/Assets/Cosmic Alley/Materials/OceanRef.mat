@@ -113,4 +113,4 @@ Material:
     - _HorizonColor: {r: 0.172, g: 0.463, b: 0.435, a: 1}
     - _ReflectColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _RefrColor: {r: 0, g: 0.003921569, b: 0.7058824, a: 1}
-    - _SpecColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+    - _SpecColor: {r: 0.2509804, g: 0.2509804, b: 0.2509804, a: 1}
