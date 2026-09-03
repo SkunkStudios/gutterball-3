@@ -11,7 +11,8 @@ public class CameraFollow : MonoBehaviour
 
     private Vector3 fallMove;
     private Coroutine replayCoroutine;
-    private float reactMove;
+    private float reactMoveX;
+    private float reactMoveZ;
 
     void Update()
     {
@@ -109,7 +110,7 @@ public class CameraFollow : MonoBehaviour
         }
         else if (game.camType == Game.CameraType.ReactCam)
         {
-            transform.Translate(Vector3.right * reactMove * Time.fixedDeltaTime, Space.World);
+            transform.Translate(new Vector3(reactMoveX, 0, reactMoveZ) * Time.fixedDeltaTime, Space.World);
         }
         else if (game.camType == Game.CameraType.Replay2)
         {
@@ -146,10 +147,15 @@ public class CameraFollow : MonoBehaviour
 
     public void React(int index)
     {
-        reactMove = Random.Range(-10, 10) / 3;
         game.camType = Game.CameraType.ReactCam;
         transform.position = GameObject.FindObjectOfType<PinSetter>().reacts[index].position;
         transform.rotation = GameObject.FindObjectOfType<PinSetter>().reacts[index].rotation;
+    }
+
+    public void ReactMove()
+    {
+        reactMoveX = Random.Range(-10, 10) / 3;
+        reactMoveZ = Random.Range(-10, 10) / 3;
     }
 
     public void Reset()

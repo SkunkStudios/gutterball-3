@@ -39,7 +39,9 @@ public class PinSetter : MonoBehaviour
     public AnimationScript[] turkeyAnimations;
     public BoxCollider gutter;
     public Material pinOn;
+    public Material pinOnHalloweenXmas;
     public Material pinOff;
+    public bool isHalloweenXmas;
     public GameObject pin1;
     public GameObject pin2;
     public GameObject pin3;

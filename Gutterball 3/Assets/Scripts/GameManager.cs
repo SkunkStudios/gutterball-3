@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public string[] nameAlleys = new string[9];
     public Sprite[] spriteAlleys = new Sprite[9];
     public string[] AlleyNames { get { return nameAlleys; } }
+    public enum GameDistribution { None, Steam, Agame, Kizi }
+    public GameDistribution gameDistribution;
 
     public RenderTexture firstPersonCam;
     public ChooseBall[] chooseBalls;
@@ -33,7 +35,6 @@ public class GameManager : MonoBehaviour
     public static bool isHighScore = false;
     public static int qualityIndex;
     public static int resolutionIndex;
-    public int lockRegistered;
     public List<string> urlInfoScreen = new List<string>();
     public static bool isOpening = true;
     public static int startBall = 0;
@@ -87,9 +88,9 @@ public class GameManager : MonoBehaviour
 
     void Start ()
 	{
-        if (File.Exists(Application.persistentDataPath + "/Save/InfoURL.sav"))
+        if (File.Exists("InfoURL.ini") && Application.platform == RuntimePlatform.WindowsPlayer)
         {
-            urlInfoScreen = FileData.ReadListFromSAV<string>("InfoURL");
+            urlInfoScreen = FileData.InfoURL<string>();
         }
         bowler = FileData.ReadListFromSAV<PlayerObj>("SaveBowler");
         r_hs = FileData.ReadListFromSAV<ScoreBowler>("HS_Retro");
@@ -119,7 +120,14 @@ public class GameManager : MonoBehaviour
         isShake = (PlayerPrefs.GetInt("SaveShake") == 0);
         qualityIndex = PlayerPrefs.GetInt("SaveQuality", QualitySettings.GetQualityLevel());
         resolutionIndex = PlayerPrefs.GetInt("SaveResolution", resolutions.Length - 1);
-        unlockRegister = PlayerPrefs.GetInt("UnlockRegister", lockRegistered);
+        if (gameDistribution == GameDistribution.None)
+        {
+            unlockRegister = PlayerPrefs.GetInt("UnlockRegister", 1);
+        }
+        else
+        {
+            unlockRegister = PlayerPrefs.GetInt("UnlockRegister", 0);
+        }
         unlockBallEarn = PlayerPrefs.GetInt("SaveBallEarn", 4);
         unlockBallScore = PlayerPrefs.GetInt("SaveBallScore", 45);
         unlockBallSpare = PlayerPrefs.GetInt("SaveBallSpare", 55);

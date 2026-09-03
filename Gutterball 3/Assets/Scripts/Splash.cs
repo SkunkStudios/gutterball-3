@@ -9,15 +9,25 @@ public class Splash : MonoBehaviour
 	public GameObject ronkatScreen;
 	public GameObject warningScreen;
 	public GameObject loadScreen;
+    public GameObject websiteText;
+    public GameObject presentsText;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
 	{
 		StartCoroutine(StartSplash());
-	}
-	
-	// Update is called once per frame
-	void Update ()
+        if (GameObject.FindObjectOfType<GameManager>().gameDistribution == GameManager.GameDistribution.None)
+        {
+            websiteText.SetActive(true);
+        }
+        else
+        {
+            presentsText.SetActive(true);
+        }
+    }
+
+    // Update is called once per frame
+    void Update ()
 	{
 		
 	}
@@ -35,7 +45,7 @@ public class Splash : MonoBehaviour
         yield return new WaitForSeconds(18f);
         warningScreen.SetActive(false);
         loadScreen.SetActive(true);
-        if (PlayerPrefs.GetInt("IntroSkip") == 0)
+        if (PlayerPrefs.GetInt("IntroSkip") == 0 && Application.platform != RuntimePlatform.WebGLPlayer)
         {
             SceneManager.LoadScene("Intro");
         }

@@ -2,14 +2,15 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: OceanRef
-  m_Shader: {fileID: 4800000, guid: 9ca0df34aaf0b794d8fd1a3271cd7415, type: 3}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 4800000, guid: 35575065a00820941bbb32895e86cf96, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -20,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 22d8cce690bb47749a6ce57dd6ea4f28, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Cube:
@@ -48,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 5ecbf7daddd30d9498ea3e18f4323d13, type: 3}
+        m_Texture: {fileID: 2800000, guid: 83d9f9e6dcf48134c948e5e5a5441a49, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -72,7 +73,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ReflectiveColorCube:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 8900000, guid: e4794483ac0caa34181b68719b2d3bfb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RefractionTex:
@@ -83,6 +84,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -98,19 +100,20 @@ Material:
     - _PlaneReflectionBumpClamp: 0.05
     - _PlaneReflectionBumpScale: 0.4
     - _PlaneReflectionIntensityScale: 1
-    - _ReflDistort: 0.44
-    - _RefrDistort: 0.4
+    - _ReflDistort: 4.4
+    - _RefrDistort: 4
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _WaveScale: 0.063
+    - _WaveScale: 0.0118
     - _ZWrite: 1
     m_Colors:
-    - WaveSpeed: {r: 19, g: 9, b: -16, a: -7}
+    - WaveSpeed: {r: 90, g: 45, b: -80, a: -35}
     - _Color: {r: 0, g: 0.003921569, b: 0.7058824, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HorizonColor: {r: 0.172, g: 0.463, b: 0.435, a: 1}
+    - _HorizonColor: {r: 0, g: 0.003921569, b: 0.7058824, a: 1}
     - _ReflectColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _RefrColor: {r: 0, g: 0.003921569, b: 0.7058824, a: 1}
     - _SpecColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  m_BuildTextureStacks: []

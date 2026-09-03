@@ -7,9 +7,13 @@ using UnityEngine;
 public class VoiceClip
 {
 	public string[] voices;
+    [HideInInspector]
 	public int voiceIndex;
+    [HideInInspector]
     public int voiceRandom;
+    [HideInInspector]
     public int[] voiceCount;
+    [HideInInspector]
     public int nextVoice;
 }
 

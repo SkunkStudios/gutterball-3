@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
-    public Transform cam;
     private GameManager gameManager;
     private float shakeHit;
 
@@ -19,13 +18,13 @@ public class CameraShake : MonoBehaviour
     {
         if (shakeHit > 0)
         {
-            shakeHit -= Time.deltaTime * 10;
+            shakeHit -= Time.deltaTime * 15;
         }
         else if (shakeHit < 0)
         {
             shakeHit = 0;
         }
-        transform.position = new Vector3(cam.position.x + Random.Range(-shakeHit, shakeHit), cam.position.y + Random.Range(-shakeHit, shakeHit), cam.position.z + Random.Range(-shakeHit, shakeHit));
+        transform.localPosition = new Vector3(Random.Range(-shakeHit, shakeHit), Random.Range(-shakeHit, shakeHit), Random.Range(-shakeHit, shakeHit));
     }
 
     public void Shake(float setShake)

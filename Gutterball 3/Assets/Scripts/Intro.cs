@@ -33,7 +33,7 @@ public class Intro : MonoBehaviour
         {
             particles.SetActive(GameManager.isParticle);
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             IntroSkip();
         }

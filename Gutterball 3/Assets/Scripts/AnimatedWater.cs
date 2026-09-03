@@ -19,8 +19,8 @@ public class AnimatedWater : MonoBehaviour
 
     void FixedUpdate ()
 	{
-        curX += Time.deltaTime * speedX;
-        curY += Time.deltaTime * speedY;
+        curX += Time.deltaTime * speedX / 3;
+        curY += Time.deltaTime * speedY / 3;
         if (curX >= 1)
         {
             curX = 0;

@@ -1,0 +1,262 @@
+fileFormatVersion: 2
+guid: 7ad6f34255b79b14f8a95913fb8be32b
+ModelImporter:
+  serializedVersion: 21300
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lane
+    second: {fileID: 2100000, guid: 36e2346774537aa4890461c8346976fe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mineshaft_Alley-Mineshaft_FloorTex
+    second: {fileID: 2100000, guid: f4aa84ce7a9c538418a1017780bcbd09, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mineshaft_Alley-Mineshaft_FrontRockTex
+    second: {fileID: 2100000, guid: 09fd1289762ac204baad903e1f7d3df3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mineshaft_Alley-Mineshaft_RailTex
+    second: {fileID: 2100000, guid: fdc615ca0ef3e1d44a05b6112ef33da1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mineshaft_Alley-Mineshaft_RockTex
+    second: {fileID: 2100000, guid: 6e29e25db334e1e4fa96961a860d4f13, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mineshaft_Wood
+    second: {fileID: 2100000, guid: 183bbdba64044ce4fb6da3db1fc43fab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mineshaft_planksdiff
+    second: {fileID: 2100000, guid: 66d89cbac283d0d47b571f869ec6fb32, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Water_Fall
+    second: {fileID: 2100000, guid: cd3a15b947323ac42b707d7ff8a3c29e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Water_Fall.001
+    second: {fileID: 2100000, guid: 14914e5377d649a4fa874735d49d9546, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ballReturnrpart1
+    second: {fileID: 2100000, guid: da8495abefbdbb749af66777ee132a4f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ballReturnrpart2
+    second: {fileID: 2100000, guid: da8495abefbdbb749af66777ee132a4f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gutterl
+    second: {fileID: 2100000, guid: cb908cfdce6f1124b93e65e80eeec0f1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mineoff
+    second: {fileID: 2100000, guid: a34e0552b61dfa4469c44653cc3d3ca6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mineon
+    second: {fileID: 2100000, guid: beaeb3e7802c1b1468f4ec4cfc1e01df, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinjungle
+    second: {fileID: 2100000, guid: e6b48f1ed422eff43a0da0e9eba6fea6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinretroBTM
+    second: {fileID: 2100000, guid: b48d42b3340d14e4f9ef338533fcdb49, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinretrobacksliver
+    second: {fileID: 2100000, guid: 58f03c9fb9539b646850bf09053a708f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinstripes
+    second: {fileID: 2100000, guid: 2fde19dcaf202a24dbaf1e19d3071000, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: returnend
+    second: {fileID: 2100000, guid: 33f3808e628f19b48adc2e5887168b61, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: returnrchannel
+    second: {fileID: 2100000, guid: da8495abefbdbb749af66777ee132a4f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: returnrholder
+    second: {fileID: 2100000, guid: 33f3808e628f19b48adc2e5887168b61, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: returnrrampsides
+    second: {fileID: 2100000, guid: 33f3808e628f19b48adc2e5887168b61, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sweeper-armsides
+    second: {fileID: 2100000, guid: 183bbdba64044ce4fb6da3db1fc43fab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sweeper-barBTM
+    second: {fileID: 2100000, guid: 183bbdba64044ce4fb6da3db1fc43fab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sweeper-barTOP
+    second: {fileID: 2100000, guid: 183bbdba64044ce4fb6da3db1fc43fab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sweeper-edges
+    second: {fileID: 2100000, guid: f8e450e607c1c524aaa6aa2e441bbe4b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sweeper-panels
+    second: {fileID: 2100000, guid: 183bbdba64044ce4fb6da3db1fc43fab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sweeper-panelsBACK
+    second: {fileID: 2100000, guid: 183bbdba64044ce4fb6da3db1fc43fab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wackpinlightframe
+    second: {fileID: 2100000, guid: 946163edc13dac745abb854e6d93cb89, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: woodpole1
+    second: {fileID: 2100000, guid: 183bbdba64044ce4fb6da3db1fc43fab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: woodpoleends
+    second: {fileID: 2100000, guid: ab7452ea1b45e4e4488870e4e765cefc, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

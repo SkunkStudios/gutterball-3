@@ -11,6 +11,8 @@ public class IntroRigidbody : MonoBehaviour
     public bool isGravity = true;
 
     private Rigidbody rigidBody;
+    private bool isPortal;
+    private float portalGravity;
 
     void Awake()
     {
@@ -33,7 +35,15 @@ public class IntroRigidbody : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (isPortal)
+        {
+            portalGravity -= Time.deltaTime * rigidBody.mass * 100;
+            GetComponent<ConstantForce>().force = new Vector3(0, 0, portalGravity);
+        }
+        else
+        {
+            portalGravity = 0;
+        }
     }
 
     private void FixedUpdate()
@@ -43,13 +53,23 @@ public class IntroRigidbody : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Ball" || collision.gameObject.tag == "Pin")
+        if (collision.gameObject.tag == "Ball" && rigidBody.useGravity || collision.gameObject.tag == "Pin" && rigidBody.useGravity)
         {
             if (!isGravity)
             {
+                isPortal = true;
                 rigidBody.useGravity = false;
-                GetComponent<ConstantForce>().force = new Vector3(0, 0, -rigidBody.mass * 25);
             }
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Gravity"))
+        {
+            isPortal = false;
+            GetComponent<Rigidbody>().useGravity = false;
+            GetComponent<ConstantForce>().force = new Vector3(0, -5 * rigidBody.mass, 0);
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +20,8 @@ public class Pin : MonoBehaviour
     private bool isSplash;
     private bool isSpare;
     private bool isFall;
+    private bool isPortal;
+    private float portalGravity;
 
     void Awake()
     {
@@ -33,13 +36,29 @@ public class Pin : MonoBehaviour
 	{
         if (GameManager.pinMode != GameManager.PinMode.Spare)
         {
-            pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOn;
+            if (DateTime.Now.Month == 10 && GameObject.FindObjectOfType<PinSetter>().isHalloweenXmas || DateTime.Now.Month == 12 && GameObject.FindObjectOfType<PinSetter>().isHalloweenXmas)
+            {
+                pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOnHalloweenXmas;
+            }
+            else
+            {
+                pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOn;
+            }
         }
     }
 
     // Update is called once per frame
     void Update ()
 	{
+        if (isPortal)
+        {
+            portalGravity -= Time.deltaTime * 30f;
+            GetComponent<ConstantForce>().force = new Vector3(0, 0, portalGravity);
+        }
+        else
+        {
+            portalGravity = 0;
+        }
         if (GetComponent<Rigidbody>().isKinematic && pinRaise && !game.isCurrentReplay)
         {
             if (type == PinType.PinRaise)
@@ -71,24 +90,38 @@ public class Pin : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag != "Lane")
+        if (collision.gameObject.tag == "Scooper")
+        {
+            GetComponent<Rigidbody>().AddForce(0, 0, -1500);
+        }
+        if (collision.gameObject.tag != "Lane" && GetComponent<Rigidbody>().useGravity)
         {
             isFall = true;
             if (!GameObject.FindObjectOfType<PinSetter>().isGravity)
             {
+                isPortal = true;
                 GetComponent<Rigidbody>().useGravity = false;
-                GetComponent<ConstantForce>().force = new Vector3(0, 0, -30);
+                GetComponent<ConstantForce>().force = new Vector3(0, 0, -10);
             }
+        }
+    }
+
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Scooper")
+        {
+            GetComponent<Rigidbody>().AddForce(0, 0, -175);
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Fall") && !GameObject.FindObjectOfType<PinSetter>().isGravity)
+        if (other.CompareTag("Gravity") && !GameObject.FindObjectOfType<PinSetter>().isGravity)
         {
             isFall = true;
+            isPortal = false;
             GetComponent<Rigidbody>().useGravity = false;
-            GetComponent<ConstantForce>().force = new Vector3(0, 0, -30);
+            GetComponent<ConstantForce>().force = new Vector3(0, -5 * 0.3f, 0);
         }
         Vector3 splashPosition = new Vector3(transform.position.x, other.transform.position.y, transform.position.z);
         if (other.CompareTag("Fall") && isSplash || other.CompareTag("Gutter") && isSplash || other.CompareTag("Water") && isSplash)
@@ -103,7 +136,7 @@ public class Pin : MonoBehaviour
 
     public bool IsStanding()
     {
-        if (transform.position.y > pinStartPos.y - 10f && transform.position.y < pinStartPos.y + 10f && transform.position.z > -3500)
+        if (transform.position.y > pinStartPos.y - 0.5f && transform.position.y < pinStartPos.y + 0.5f && transform.position.z > -3500)
         {
             return true;
         }
@@ -127,7 +160,14 @@ public class Pin : MonoBehaviour
     {
         if (pinRaise)
         {
-            pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOn;
+            if (DateTime.Now.Month == 10 && GameObject.FindObjectOfType<PinSetter>().isHalloweenXmas || DateTime.Now.Month == 12 && GameObject.FindObjectOfType<PinSetter>().isHalloweenXmas)
+            {
+                pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOnHalloweenXmas;
+            }
+            else
+            {
+                pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOn;
+            }
         }
         else
         {
@@ -165,6 +205,7 @@ public class Pin : MonoBehaviour
     {
         if (GameObject.FindObjectOfType<PinSetter>().isGravity)
         {
+            isPortal = false;
             GetComponent<Rigidbody>().useGravity = true;
             GetComponent<ConstantForce>().force = new Vector3(0, 0, 0);
         }
@@ -183,6 +224,7 @@ public class Pin : MonoBehaviour
 
     public void OutOfPin()
     {
+        isPortal = false;
         GetComponent<Rigidbody>().useGravity = true;
         GetComponent<ConstantForce>().force = new Vector3(0, 0, 0);
         GetComponent<Rigidbody>().isKinematic = false;
@@ -203,6 +245,7 @@ public class Pin : MonoBehaviour
     public void Reset()
     {
         gameObject.SetActive(true);
+        isPortal = false;
         GetComponent<Rigidbody>().useGravity = true;
         GetComponent<ConstantForce>().force = new Vector3(0, 0, 0);
         GetComponent<Rigidbody>().isKinematic = false;
@@ -214,11 +257,19 @@ public class Pin : MonoBehaviour
         GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         GetComponent<Rigidbody>().Sleep();
         isFall = false;
-        pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOn;
+        if (DateTime.Now.Month == 10 && GameObject.FindObjectOfType<PinSetter>().isHalloweenXmas || DateTime.Now.Month == 12 && GameObject.FindObjectOfType<PinSetter>().isHalloweenXmas)
+        {
+            pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOnHalloweenXmas;
+        }
+        else
+        {
+            pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOn;
+        }
     }
 
     public void ResetFall(int isPinFall)
     {
+        isPortal = false;
         GetComponent<Rigidbody>().useGravity = true;
         GetComponent<ConstantForce>().force = new Vector3(0, 0, 0);
         isHitOne = false;
@@ -235,7 +286,14 @@ public class Pin : MonoBehaviour
         if (isPinFall != 0)
         {
             gameObject.SetActive(true);
-            pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOn;
+            if (DateTime.Now.Month == 10 && GameObject.FindObjectOfType<PinSetter>().isHalloweenXmas || DateTime.Now.Month == 12 && GameObject.FindObjectOfType<PinSetter>().isHalloweenXmas)
+            {
+                pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOnHalloweenXmas;
+            }
+            else
+            {
+                pinLight.material = GameObject.FindObjectOfType<PinSetter>().pinOn;
+            }
         }
         else
         {
@@ -246,13 +304,14 @@ public class Pin : MonoBehaviour
 
     public void FallPinDown()
     {
-        if (game.powerUps == Game.BallPowerUps.Bomb && Vector3.Distance(ball.transform.position, transform.position) <= 160 || game.powerUps == Game.BallPowerUps.ForcePulse && Vector3.Distance(ball.transform.position, transform.position) <= 64 || game.powerUps == Game.BallPowerUps.Hyper && Vector3.Distance(ball.transform.position, transform.position) <= 32 || game.powerUps == Game.BallPowerUps.Lightning && Vector3.Distance(ball.transform.position, transform.position) <= 48)
+        if (game.powerUps == Game.BallPowerUps.Bomb && Vector3.Distance(ball.transform.position, transform.position) <= 160 || game.powerUps == Game.BallPowerUps.ForcePulse && Vector3.Distance(ball.transform.position, transform.position) <= 80 || game.powerUps == Game.BallPowerUps.Hyper && Vector3.Distance(ball.transform.position, transform.position) <= 32 || game.powerUps == Game.BallPowerUps.Lightning && Vector3.Distance(ball.transform.position, transform.position) <= 48)
         {
             isFall = true;
             if (!GameObject.FindObjectOfType<PinSetter>().isGravity)
             {
+                isPortal = false;
                 GetComponent<Rigidbody>().useGravity = false;
-                GetComponent<ConstantForce>().force = new Vector3(0, -7.5f, -75);
+                GetComponent<ConstantForce>().force = new Vector3(0, 0, -7.5f);
             }
         }
     }

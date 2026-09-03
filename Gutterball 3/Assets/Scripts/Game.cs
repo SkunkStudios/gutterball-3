@@ -131,15 +131,19 @@ public class Game : MonoBehaviour
     public GameObject customBallButton;
     public GameObject startButton;
     public GameObject menuRegisterButton;
+    public GameObject menuDownloadButton;
     public GameObject[] ballsRegisterButton;
+    public GameObject[] ballsDownloadButton;
     public GameObject[] nextButton;
     public GameObject[] bowlButton;
     public GameObject alleyRegistered;
+    public GameObject alleyDownloaded;
     public GameObject ballLocked;
     public GameObject ballNeed;
     public GameObject ballUnlock;
     public GameObject ballUnlocked;
     public GameObject ballRegistered;
+    public GameObject ballDownloaded;
     public GameObject bowlerUIElement;
     public Transform bowlerWrapper;
     public GameObject scoreUIElement;
@@ -193,6 +197,7 @@ public class Game : MonoBehaviour
     public GameObject menuAlleyUI;
     public GameObject highScoreUI;
     public GameObject registerUI;
+    public GameObject downloadUI;
     public GameObject lockAlleyUI;
     public GameObject unlockAlleyUI;
     public GameObject unlockedText;
@@ -242,10 +247,17 @@ public class Game : MonoBehaviour
     public GameObject[] explores;
     public GameObject[] bigExplores;
     public Button playSongButton;
+    public Button spareButton;
     [HideInInspector]
     public int randomTarget;
     [HideInInspector]
     public bool isPinTarget = false;
+    public GameObject agame;
+    public GameObject kizi;
+    public GameObject fullOptions;
+    public GameObject fullGameOptions;
+    public GameObject demoOptions;
+    public GameObject[] threeButtons = new GameObject[3];
 
     private ExtensionFilter[] extensions = new[] { new ExtensionFilter("PNG", "png" ), new ExtensionFilter("JPEG", "jpg", "jpeg", "jpe", "jfif", "exif"), new ExtensionFilter("WebP", "webp"), new ExtensionFilter("DirectDraw Surface (DDS)", "dds"), new ExtensionFilter("TIFF", "tiff", "tif"), new ExtensionFilter("GIF", "gif"), new ExtensionFilter("BMP", "bmp", "dib", "rle"), new ExtensionFilter("TGA", "tga") };
     private AudioSource music;
@@ -283,7 +295,7 @@ public class Game : MonoBehaviour
     private int replayIndex;
     private int reactIndex;
     private float replayTime = 0;
-    private int rainIndex = 0;
+    private bool isRain = true;
     private bool isAnim = false;
     private int chargeBallIndex;
     private bool isResetPins = false;
@@ -296,6 +308,34 @@ public class Game : MonoBehaviour
     // Use this for initialization
     void Start ()
 	{
+        if (GameObject.FindObjectOfType<GameManager>().gameDistribution == GameManager.GameDistribution.Agame)
+        {
+            agame.SetActive(true);
+        }
+        else if (GameObject.FindObjectOfType<GameManager>().gameDistribution == GameManager.GameDistribution.Kizi)
+        {
+            kizi.SetActive(true);
+        }
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            demoOptions.SetActive(true);
+        }
+        else
+        {
+            if (GameObject.FindObjectOfType<GameManager>().gameDistribution == GameManager.GameDistribution.None)
+            {
+                threeButtons[0].SetActive(true);
+                threeButtons[1].SetActive(true);
+                threeButtons[2].SetActive(true);
+            }
+            else
+            {
+                threeButtons[0].SetActive(true);
+                threeButtons[2].SetActive(true);
+            }
+            fullOptions.SetActive(true);
+            fullGameOptions.SetActive(true);
+        }
         pinCounter.Reset();
         music = GameObject.FindGameObjectWithTag("Music").GetComponent<AudioSource>();
         crowdAudio = GameObject.Find("Crowd").GetComponent<AudioSource>();
@@ -372,9 +412,12 @@ public class Game : MonoBehaviour
             }
         }
 
-        if (gameManager.r_hs[0].playerScore >= 300 && gameManager.w_hs[0].playerScore >= 300 && gameManager.i_hs[0].playerScore >= 300 && gameManager.j_hs[0].playerScore >= 300 && gameManager.z_hs[0].playerScore >= 300 && gameManager.c_hs[0].playerScore >= 300 && gameManager.b_hs[0].playerScore >= 300 && gameManager.m_hs[0].playerScore >= 300 && gameManager.v_hs[0].playerScore >= 300)
+        if (gameManager.r_hs.Count > 0 && gameManager.w_hs.Count > 0 && gameManager.i_hs.Count > 0 && gameManager.j_hs.Count > 0 && gameManager.z_hs.Count > 0 && gameManager.c_hs.Count > 0 && gameManager.b_hs.Count > 0 && gameManager.m_hs.Count > 0 && gameManager.v_hs.Count > 0)
         {
-            playSongButton.interactable = true;
+            if (gameManager.r_hs[0].playerScore >= 300 && gameManager.w_hs[0].playerScore >= 300 && gameManager.i_hs[0].playerScore >= 300 && gameManager.j_hs[0].playerScore >= 300 && gameManager.z_hs[0].playerScore >= 300 && gameManager.c_hs[0].playerScore >= 300 && gameManager.b_hs[0].playerScore >= 300 && gameManager.m_hs[0].playerScore >= 300 && gameManager.v_hs[0].playerScore >= 300)
+            {
+                playSongButton.interactable = true;
+            }
         }
         else
         {
@@ -454,14 +497,18 @@ public class Game : MonoBehaviour
         }
         if (GameManager.isHighScore)
         {
-            if (GameManager.unlockRegister == 0)
+            if (GameManager.unlockRegister == 0 && Application.platform != RuntimePlatform.WebGLPlayer)
             {
                 highScoreUI.SetActive(true);
                 ShowAlleyScores();
             }
-            else if (GameManager.unlockRegister == 1)
+            else if (GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer)
             {
                 registerUI.SetActive(true);
+            }
+            else if (Application.platform == RuntimePlatform.WebGLPlayer)
+            {
+                downloadUI.SetActive(true);
             }
         }
         else
@@ -578,6 +625,14 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update ()
 	{
+        if (GameManager.unlockRegister == 0 && Application.platform != RuntimePlatform.WebGLPlayer)
+        {
+            spareButton.interactable = true;
+        }
+        else
+        {
+            spareButton.interactable = false;
+        }
         if (timer < maxTimer && isWaitPin)
         {
             timer += Time.deltaTime;
@@ -587,11 +642,6 @@ public class Game : MonoBehaviour
             b = StartCoroutine(PinTimeB());
             isWaitPin = false;
         }
-        PlayerPrefs.SetInt("SaveMoney", GameManager.moneys);
-        PlayerPrefs.SetInt("SaveBomb", GameManager.bombBalls);
-        PlayerPrefs.SetInt("SaveForcePulse", GameManager.forcePulseBalls);
-        PlayerPrefs.SetInt("SaveHyper", GameManager.hyperBalls);
-        PlayerPrefs.SetInt("SaveLightning", GameManager.lightningBalls);
         moneyText.text = "$" + GameManager.moneys;
         bombBallText.text = bombShopText.text = GameManager.bombBalls + "x";
         forcePulseBallText.text = forcePulseShopText.text = GameManager.forcePulseBalls + "x";
@@ -920,7 +970,7 @@ public class Game : MonoBehaviour
                 GameManager.chooseBallIndex = gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex;
                 playerNameText.text = gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].CPUName;
             }
-            if (GameManager.chooseBallIndex < gameManager.chooseBalls.Length)
+            if (GameManager.chooseBallIndex < gameManager.chooseBalls.Length && !isEndGame)
             {
                 ball.ChargeBall(gameManager.chooseBalls[GameManager.chooseBallIndex].ballMat, gameManager.chooseBalls[GameManager.chooseBallIndex].lbs, gameManager.chooseBalls[GameManager.chooseBallIndex].speed, gameManager.chooseBalls[GameManager.chooseBallIndex].spin);
             }
@@ -969,13 +1019,22 @@ public class Game : MonoBehaviour
         {
             if (playerTurn == 0)
             {
-                if (gameManager.bowler.Count != 1)
+                if (GameManager.pinMode == GameManager.PinMode.Spare)
                 {
-                    arrowBowler.SetActive(true);
+                    bowlerText.enabled = false;
+                    arrowBowler.SetActive(false);
                 }
                 else
                 {
-                    arrowBowler.SetActive(false);
+                    bowlerText.enabled = true;
+                    if (gameManager.bowler.Count != 1)
+                    {
+                        arrowBowler.SetActive(true);
+                    }
+                    else
+                    {
+                        arrowBowler.SetActive(false);
+                    }
                 }
                 if (gameManager.bowler.Count >= 1)
                 {
@@ -1040,7 +1099,7 @@ public class Game : MonoBehaviour
                 {
                     ballUnlock.GetComponent<Text>().text = "Earn $" + gameManager.chooseBalls[GameManager.turnBalls1].totalLock * 0.001f + ",000 to unlock";
                 }
-                if (GameManager.turnBalls1 >= 5 && GameManager.unlockRegister == 1)
+                if (GameManager.turnBalls1 >= 5 && GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls1 >= 5 && Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     ballRender.material = gameManager.lockBallMat;
                 }
@@ -1122,7 +1181,7 @@ public class Game : MonoBehaviour
                 {
                     ballUnlock.GetComponent<Text>().text = "Earn $" + gameManager.chooseBalls[GameManager.turnBalls2].totalLock * 0.001f + ",000 to unlock";
                 }
-                if (GameManager.turnBalls2 >= 5 && GameManager.unlockRegister == 1)
+                if (GameManager.turnBalls2 >= 5 && GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls2 >= 5 && Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     ballRender.material = gameManager.lockBallMat;
                 }
@@ -1204,7 +1263,7 @@ public class Game : MonoBehaviour
                 {
                     ballUnlock.GetComponent<Text>().text = "Earn $" + gameManager.chooseBalls[GameManager.turnBalls3].totalLock * 0.001f + ",000 to unlock";
                 }
-                if (GameManager.turnBalls3 >= 5 && GameManager.unlockRegister == 1)
+                if (GameManager.turnBalls3 >= 5 && GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls3 >= 5 && Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     ballRender.material = gameManager.lockBallMat;
                 }
@@ -1286,7 +1345,7 @@ public class Game : MonoBehaviour
                 {
                     ballUnlock.GetComponent<Text>().text = "Earn $" + gameManager.chooseBalls[GameManager.turnBalls4].totalLock * 0.001f + ",000 to unlock";
                 }
-                if (GameManager.turnBalls4 >= 5 && GameManager.unlockRegister == 1)
+                if (GameManager.turnBalls4 >= 5 && GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls4 >= 5 && Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     ballRender.material = gameManager.lockBallMat;
                 }
@@ -1304,7 +1363,7 @@ public class Game : MonoBehaviour
                 ballNeed.SetActive(false);
                 ballUnlock.SetActive(false);
                 ballUnlocked.SetActive(false);
-                if (GameManager.unlockRegister == 0 || GameManager.turnBallsCPU < 2 && GameManager.unlockRegister == 1)
+                if (GameManager.unlockRegister == 0 && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBallsCPU < 2 && GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     ballRender.material = gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].ballMat;
                     if (gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].lockType != ChooseBall.LockType.Custom)
@@ -1316,7 +1375,7 @@ public class Game : MonoBehaviour
                         customBallButton.SetActive(true);
                     }
                 }
-                if (GameManager.turnBallsCPU >= 2 && GameManager.unlockRegister == 1)
+                if (GameManager.turnBallsCPU >= 2 && GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBallsCPU >= 2 && Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     customBallButton.SetActive(false);
                     ballRender.material = gameManager.lockBallMat;
@@ -1327,13 +1386,15 @@ public class Game : MonoBehaviour
                 ballDataText.text = gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].lbs + "lbs.  speed:" + gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].speed + "  spin:" + gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].spin;
                 ballDataMenuText.text = gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].lbs + "lbs.  speed:" + gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].speed + "  spin:" + gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].spin;
             }
-            if (GameManager.unlockRegister == 0 || GameManager.turnBalls1 < 5 && GameManager.unlockRegister == 1 && playerTurn == 0 || GameManager.turnBalls2 < 5 && GameManager.unlockRegister == 1 && playerTurn == 1 || GameManager.turnBalls3 < 5 && GameManager.unlockRegister == 1 && playerTurn == 2 || GameManager.turnBalls4 < 5 && GameManager.unlockRegister == 1 && playerTurn == 3 || GameManager.turnBallsCPU < 2 && GameManager.unlockRegister == 1 && playerTurn == 4)
+            if (GameManager.unlockRegister == 0 && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls1 < 5 && GameManager.unlockRegister == 1 && playerTurn == 0 && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls2 < 5 && GameManager.unlockRegister == 1 && playerTurn == 1 && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls3 < 5 && GameManager.unlockRegister == 1 && playerTurn == 2 && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls4 < 5 && GameManager.unlockRegister == 1 && playerTurn == 3 && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBallsCPU < 2 && GameManager.unlockRegister == 1 && playerTurn == 4 && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls1 < 5 && playerTurn == 0 && Application.platform == RuntimePlatform.WebGLPlayer || GameManager.turnBalls2 < 5 && playerTurn == 1 && Application.platform == RuntimePlatform.WebGLPlayer || GameManager.turnBalls3 < 5 && playerTurn == 2 && Application.platform == RuntimePlatform.WebGLPlayer || GameManager.turnBalls4 < 5 && playerTurn == 3 && Application.platform == RuntimePlatform.WebGLPlayer || GameManager.turnBallsCPU < 2 && playerTurn == 4 && Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 ballRegistered.SetActive(false);
+                ballDownloaded.SetActive(false);
                 ballsRegisterButton[i].SetActive(false);
+                ballsDownloadButton[i].SetActive(false);
                 SetAlwaysBowlReg(true);
             }
-            else if (GameManager.turnBalls1 >= 5 && GameManager.unlockRegister == 1 && playerTurn == 0 || GameManager.turnBalls2 >= 5 && GameManager.unlockRegister == 1 && playerTurn == 1 || GameManager.turnBalls3 >= 5 && GameManager.unlockRegister == 1 && playerTurn == 2 || GameManager.turnBalls4 >= 5 && GameManager.unlockRegister == 1 && playerTurn == 3 || GameManager.turnBallsCPU >= 2 && GameManager.unlockRegister == 1 && playerTurn == 4)
+            else if (GameManager.turnBalls1 >= 5 && GameManager.unlockRegister == 1 && playerTurn == 0 && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls2 >= 5 && GameManager.unlockRegister == 1 && playerTurn == 1 && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls3 >= 5 && GameManager.unlockRegister == 1 && playerTurn == 2 && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls4 >= 5 && GameManager.unlockRegister == 1 && playerTurn == 3 && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBallsCPU >= 2 && GameManager.unlockRegister == 1 && playerTurn == 4 && Application.platform != RuntimePlatform.WebGLPlayer)
             {
                 customBallButton.SetActive(false);
                 ballLocked.SetActive(false);
@@ -1342,6 +1403,17 @@ public class Game : MonoBehaviour
                 ballUnlocked.SetActive(false);
                 ballRegistered.SetActive(true);
                 ballsRegisterButton[i].SetActive(true);
+                SetAlwaysBowlReg(false);
+            }
+            else if (GameManager.turnBalls1 >= 5 && playerTurn == 0 && Application.platform == RuntimePlatform.WebGLPlayer || GameManager.turnBalls2 >= 5 && playerTurn == 1 && Application.platform == RuntimePlatform.WebGLPlayer || GameManager.turnBalls3 >= 5 && playerTurn == 2 && Application.platform == RuntimePlatform.WebGLPlayer || GameManager.turnBalls4 >= 5 && playerTurn == 3 && Application.platform == RuntimePlatform.WebGLPlayer || GameManager.turnBallsCPU >= 2  && playerTurn == 4 && Application.platform == RuntimePlatform.WebGLPlayer)
+            {
+                customBallButton.SetActive(false);
+                ballLocked.SetActive(false);
+                ballNeed.SetActive(false);
+                ballUnlock.SetActive(false);
+                ballUnlocked.SetActive(false);
+                ballDownloaded.SetActive(true);
+                ballsDownloadButton[i].SetActive(true);
                 SetAlwaysBowlReg(false);
             }
         }
@@ -1380,10 +1452,6 @@ public class Game : MonoBehaviour
         if (pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin8.IsStanding() == false && pin9.IsStanding() == false && pin10.IsStanding() == false)
         {
             pin1.isHitOne = true;
-        }
-        if (rainIndex == 8)
-        {
-            rainIndex = 0;
         }
         if (!commentatorAudio.isPlaying && commentatorIndex == 1)
         {
@@ -1573,7 +1641,7 @@ public class Game : MonoBehaviour
                     {
                         VoiceDouble();
                     }
-                    RainCountdown();
+                    StartCoroutine(RainCountdown());
                 }
                 if (scoreDisplay[turns].strikes == ScoreDisplay.Strikes.Turkey)
                 {
@@ -1582,7 +1650,7 @@ public class Game : MonoBehaviour
                     {
                         VoiceTurkey();
                     }
-                    RainCountdown();
+                    StartCoroutine(RainCountdown());
                 }
                 if (pinCounts == 10)
                 {
@@ -1731,6 +1799,7 @@ public class Game : MonoBehaviour
         if (gutterAnimation == 0 && animations == AnimationScenes.Off)
         {
             cameraFollow.React(reactIndex);
+            cameraFollow.ReactMove();
         }
         else if (animations == AnimationScenes.Strike)
         {
@@ -2043,7 +2112,10 @@ public class Game : MonoBehaviour
                     spareBalls++;
                     spareExtraBalls = 1;
                 }
-                hintCount = 0;
+                if (!isComputer)
+                {
+                    hintCount = 0;
+                }
             }
             if (spareBalls < 0)
             {
@@ -3844,7 +3916,7 @@ public class Game : MonoBehaviour
                     unlockedBallBeat.SetActive(true);
                     PlayerPrefs.SetInt("SaveBalls" + gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex, 0);
                 }
-                if (score1 >= gameManager.chooseBalls[GameManager.unlockBallScore].totalLock && gameManager.chooseBalls[GameManager.unlockBallScore].isLock == 1 && gameManager.chooseBalls[GameManager.unlockBallScore].lockType == ChooseBall.LockType.Score)
+                if (score1 >= gameManager.chooseBalls[GameManager.unlockBallScore].totalLock && gameManager.chooseBalls[GameManager.unlockBallScore].isLock == 1 && gameManager.chooseBalls[GameManager.unlockBallScore].lockType == ChooseBall.LockType.Score && GameManager.unlockRegister == 0 && Application.platform != RuntimePlatform.WebGLPlayer)
                 {
                     unlockedText.SetActive(true);
                     unlockedBallScore.SetActive(true);
@@ -3894,7 +3966,7 @@ public class Game : MonoBehaviour
                     unlockedAlley.SetActive(true);
                     PlayerPrefs.SetInt("SaveAlleys" + (int)alleyLockType, 2);
                 }
-                if (score2 >= gameManager.chooseBalls[GameManager.unlockBallScore].totalLock && gameManager.chooseBalls[GameManager.unlockBallScore].isLock == 1 && gameManager.chooseBalls[GameManager.unlockBallScore].lockType == ChooseBall.LockType.Score)
+                if (score2 >= gameManager.chooseBalls[GameManager.unlockBallScore].totalLock && gameManager.chooseBalls[GameManager.unlockBallScore].isLock == 1 && gameManager.chooseBalls[GameManager.unlockBallScore].lockType == ChooseBall.LockType.Score && GameManager.unlockRegister == 0 && Application.platform != RuntimePlatform.WebGLPlayer)
                 {
                     unlockedText.SetActive(true);
                     unlockedBallScore.SetActive(true);
@@ -3944,7 +4016,7 @@ public class Game : MonoBehaviour
                     unlockedAlley.SetActive(true);
                     PlayerPrefs.SetInt("SaveAlleys" + (int)alleyLockType, 2);
                 }
-                if (score3 >= gameManager.chooseBalls[GameManager.unlockBallScore].totalLock && gameManager.chooseBalls[GameManager.unlockBallScore].isLock == 1 && gameManager.chooseBalls[GameManager.unlockBallScore].lockType == ChooseBall.LockType.Score)
+                if (score3 >= gameManager.chooseBalls[GameManager.unlockBallScore].totalLock && gameManager.chooseBalls[GameManager.unlockBallScore].isLock == 1 && gameManager.chooseBalls[GameManager.unlockBallScore].lockType == ChooseBall.LockType.Score && GameManager.unlockRegister == 0 && Application.platform != RuntimePlatform.WebGLPlayer)
                 {
                     unlockedText.SetActive(true);
                     unlockedBallScore.SetActive(true);
@@ -3994,7 +4066,7 @@ public class Game : MonoBehaviour
                     unlockedAlley.SetActive(true);
                     PlayerPrefs.SetInt("SaveAlleys" + (int)alleyLockType, 2);
                 }
-                if (score4 >= gameManager.chooseBalls[GameManager.unlockBallScore].totalLock && gameManager.chooseBalls[GameManager.unlockBallScore].isLock == 1 && gameManager.chooseBalls[GameManager.unlockBallScore].lockType == ChooseBall.LockType.Score)
+                if (score4 >= gameManager.chooseBalls[GameManager.unlockBallScore].totalLock && gameManager.chooseBalls[GameManager.unlockBallScore].isLock == 1 && gameManager.chooseBalls[GameManager.unlockBallScore].lockType == ChooseBall.LockType.Score && GameManager.unlockRegister == 0 && Application.platform != RuntimePlatform.WebGLPlayer)
                 {
                     unlockedText.SetActive(true);
                     unlockedBallScore.SetActive(true);
@@ -4041,7 +4113,7 @@ public class Game : MonoBehaviour
             }
             foreach (PlayerObj playerEarn in gameManager.bowler)
             {
-                if (playerEarn.playerMoney >= gameManager.chooseBalls[GameManager.unlockBallEarn].totalLock && gameManager.chooseBalls[GameManager.unlockBallEarn].isLock == 1 && gameManager.chooseBalls[GameManager.unlockBallEarn].lockType == ChooseBall.LockType.Earn)
+                if (playerEarn.playerMoney >= gameManager.chooseBalls[GameManager.unlockBallEarn].totalLock && gameManager.chooseBalls[GameManager.unlockBallEarn].isLock == 1 && gameManager.chooseBalls[GameManager.unlockBallEarn].lockType == ChooseBall.LockType.Earn && GameManager.unlockRegister == 0 && Application.platform != RuntimePlatform.WebGLPlayer)
                 {
                     unlockedText.SetActive(true);
                     unlockedBallEarn.SetActive(true);
@@ -4055,12 +4127,20 @@ public class Game : MonoBehaviour
                         PlayerPrefs.SetInt("SaveBallEarn", 89);
                     }
                 }
+                else if (playerEarn.playerMoney >= gameManager.chooseBalls[4].totalLock && gameManager.chooseBalls[4].isLock == 1 && gameManager.chooseBalls[4].lockType == ChooseBall.LockType.Earn && GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || playerEarn.playerMoney >= gameManager.chooseBalls[4].totalLock && gameManager.chooseBalls[4].isLock == 1 && gameManager.chooseBalls[4].lockType == ChooseBall.LockType.Earn && Application.platform == RuntimePlatform.WebGLPlayer)
+                {
+                    unlockedText.SetActive(true);
+                    unlockedBallEarn.SetActive(true);
+                    PlayerPrefs.SetInt("SaveBalls" + GameManager.unlockBallEarn, 0);
+                    PlayerPrefs.SetInt("SaveBallEarn", 9);
+                }
             }
             if (GameManager.pinGameMode != GameManager.PinMode.Spare)
             {
                 FileData.SaveToSAV<PlayerObj>(gameManager.bowler, "SaveBowler");
             }
             GameManager.moneys += addCash;
+            PlayerPrefs.SetInt("SaveMoney", GameManager.moneys);
         }
         else
         {
@@ -4339,15 +4419,15 @@ public class Game : MonoBehaviour
         }
     }
 
-    public void RainCountdown()
+    IEnumerator RainCountdown()
     {
-        if (rainIndex == 0 && GameObject.FindObjectOfType<PinSetter>().isRain)
+        if (isRain == true && GameObject.FindObjectOfType<PinSetter>().isRain)
         {
             if (GameObject.FindObjectOfType<PinSetter>().psDrop != null && GameManager.isWeather)
             {
                 GameObject.FindObjectOfType<PinSetter>().psDrop.Play();
             }
-            if (GameObject.FindObjectOfType<PinSetter>().isThunder && GameManager.isWeather)
+            if (GameObject.FindObjectOfType<PinSetter>().isThunder)
             {
                 if (sfx != null && gameManager != null && GameManager.isSound && type != GameState.Menu)
                 {
@@ -4358,23 +4438,19 @@ public class Game : MonoBehaviour
                     rainPorch.Play();
                 }
                 thunderAnimation.Play();
+                isRain = false;
             }
-        }
-        else if (rainIndex == 5)
-        {
+            yield return new WaitForSeconds(60);
             if (GameObject.FindObjectOfType<PinSetter>().psDrop != null)
             {
                 GameObject.FindObjectOfType<PinSetter>().psDrop.Stop();
             }
-            if (GameObject.FindObjectOfType<PinSetter>().isThunder)
+            if (GameObject.FindObjectOfType<PinSetter>().isThunder && GameManager.isSound && type != GameState.Menu)
             {
-                if (rainPorch != null)
-                {
-                    rainPorch.Stop();
-                }
+                rainPorch.Stop();
             }
+            isRain = true;
         }
-        rainIndex++;
     }
 
     public void PlayClip(string clipName)
@@ -4438,6 +4514,10 @@ public class Game : MonoBehaviour
 
     public void PlayGame()
     {
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            GameDistribution.Instance.ShowAd();
+        }
         GameManager.isHighScore = false;
         VoiceStop();
         AudioStop();
@@ -4803,26 +4883,37 @@ public class Game : MonoBehaviour
     public void RandomChargeBall()
     {
         chargeBallIndex = Random.Range(0, gameManager.chooseBalls.Length);
-        if (chargeBallIndex == 50)
+        if (chargeBallIndex == 47)
         {
+            ball.earthCloudBall.SetActive(true);
+            ball.saturnRingBall.SetActive(false);
+            ball.uranusRingBall.SetActive(false);
+            ball.sunBall.SetActive(false);
+        }
+        else if (chargeBallIndex == 50)
+        {
+            ball.earthCloudBall.SetActive(false);
             ball.saturnRingBall.SetActive(true);
             ball.uranusRingBall.SetActive(false);
             ball.sunBall.SetActive(false);
         }
         else if (chargeBallIndex == 51)
         {
+            ball.earthCloudBall.SetActive(false);
             ball.saturnRingBall.SetActive(false);
             ball.uranusRingBall.SetActive(true);
             ball.sunBall.SetActive(false);
         }
         else if (chargeBallIndex == 54)
         {
+            ball.earthCloudBall.SetActive(false);
             ball.saturnRingBall.SetActive(false);
             ball.uranusRingBall.SetActive(false);
             ball.sunBall.SetActive(true);
         }
         else
         {
+            ball.earthCloudBall.SetActive(false);
             ball.saturnRingBall.SetActive(false);
             ball.uranusRingBall.SetActive(false);
             ball.sunBall.SetActive(false);
@@ -4947,17 +5038,9 @@ public class Game : MonoBehaviour
         GameManager.pinMode = GameManager.PinMode.Tenpin;
     }
 
-    public void Spare(GameObject setObject)
+    public void Spare()
     {
-        if (GameManager.unlockRegister == 0)
-        {
-            setObject.SetActive(true);
-            GameManager.pinMode = GameManager.PinMode.Spare;
-        }
-        else if (GameManager.unlockRegister == 1)
-        {
-            registerUI.SetActive(true);
-        }
+        GameManager.pinMode = GameManager.PinMode.Spare;
     }
 
     public void PrevAlleys()
@@ -5092,82 +5175,82 @@ public class Game : MonoBehaviour
         {
             if (GameManager.turnBalls1 < 0)
             {
-                if (GameManager.unlockRegister == 0)
+                if (GameManager.unlockRegister == 0 && Application.platform != RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls1 = gameManager.chooseBalls.Length - 1;
                 }
-                else if (GameManager.unlockRegister == 1)
+                else if (GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls1 = 4;
                 }
             }
             else if (GameManager.turnBalls2 < 0)
             {
-                if (GameManager.unlockRegister == 0)
+                if (GameManager.unlockRegister == 0 && Application.platform != RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls2 = gameManager.chooseBalls.Length - 1;
                 }
-                else if (GameManager.unlockRegister == 1)
+                else if (GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls2 = 4;
                 }
             }
             else if (GameManager.turnBalls3 < 0)
             {
-                if (GameManager.unlockRegister == 0)
+                if (GameManager.unlockRegister == 0 && Application.platform != RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls3 = gameManager.chooseBalls.Length - 1;
                 }
-                else if (GameManager.unlockRegister == 1)
+                else if (GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls3 = 4;
                 }
             }
             else if (GameManager.turnBalls4 < 0)
             {
-                if (GameManager.unlockRegister == 0)
+                if (GameManager.unlockRegister == 0 && Application.platform != RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls4 = gameManager.chooseBalls.Length - 1;
                 }
-                else if (GameManager.unlockRegister == 1)
+                else if (GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls4 = 4;
                 }
             }
             for (int i = 0; i < gameManager.chooseBalls.Length; i++)
             {
-                if (playerTurn == 0 && GameManager.unlockRegister == 0 && gameManager.chooseBalls[GameManager.turnBalls1].isLock == 1)
+                if (playerTurn == 0 && GameManager.unlockRegister == 0 && gameManager.chooseBalls[GameManager.turnBalls1].isLock == 1 && Application.platform != RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls1 -= gameManager.chooseBalls[i].isLock;
                 }
-                else if (playerTurn == 1 && GameManager.unlockRegister == 0 && gameManager.chooseBalls[GameManager.turnBalls2].isLock == 1)
+                else if (playerTurn == 1 && GameManager.unlockRegister == 0 && gameManager.chooseBalls[GameManager.turnBalls2].isLock == 1 && Application.platform != RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls2 -= gameManager.chooseBalls[i].isLock;
                 }
-                else if (playerTurn == 2 && GameManager.unlockRegister == 0 && gameManager.chooseBalls[GameManager.turnBalls3].isLock == 1)
+                else if (playerTurn == 2 && GameManager.unlockRegister == 0 && gameManager.chooseBalls[GameManager.turnBalls3].isLock == 1 && Application.platform != RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls3 -= gameManager.chooseBalls[i].isLock;
                 }
-                else if (playerTurn == 3 && GameManager.unlockRegister == 0 && gameManager.chooseBalls[GameManager.turnBalls4].isLock == 1)
+                else if (playerTurn == 3 && GameManager.unlockRegister == 0 && gameManager.chooseBalls[GameManager.turnBalls4].isLock == 1 && Application.platform != RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls4 -= gameManager.chooseBalls[i].isLock;
                 }
             }
             for (int i = 0; i < 5; i++)
             {
-                if (playerTurn == 0 && GameManager.unlockRegister == 1 && gameManager.chooseBalls[GameManager.turnBalls1].isLock == 1)
+                if (playerTurn == 0 && GameManager.unlockRegister == 1 && gameManager.chooseBalls[GameManager.turnBalls1].isLock == 1 && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls1 -= gameManager.chooseBalls[i].isLock;
                 }
-                else if (playerTurn == 1 && GameManager.unlockRegister == 1 && gameManager.chooseBalls[GameManager.turnBalls2].isLock == 1)
+                else if (playerTurn == 1 && GameManager.unlockRegister == 1 && gameManager.chooseBalls[GameManager.turnBalls2].isLock == 1 && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls2 -= gameManager.chooseBalls[i].isLock;
                 }
-                else if (playerTurn == 2 && GameManager.unlockRegister == 1 && gameManager.chooseBalls[GameManager.turnBalls3].isLock == 1)
+                else if (playerTurn == 2 && GameManager.unlockRegister == 1 && gameManager.chooseBalls[GameManager.turnBalls3].isLock == 1 && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls3 -= gameManager.chooseBalls[i].isLock;
                 }
-                else if (playerTurn == 3 && GameManager.unlockRegister == 1 && gameManager.chooseBalls[GameManager.turnBalls4].isLock == 1)
+                else if (playerTurn == 3 && GameManager.unlockRegister == 1 && gameManager.chooseBalls[GameManager.turnBalls4].isLock == 1 && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls4 -= gameManager.chooseBalls[i].isLock;
                 }
@@ -5394,19 +5477,19 @@ public class Game : MonoBehaviour
         }
         if (type != GameState.Menu)
         {
-            if (GameManager.turnBalls1 >= gameManager.chooseBalls.Length || GameManager.turnBalls1 >= 5 && GameManager.unlockRegister == 1)
+            if (GameManager.turnBalls1 >= gameManager.chooseBalls.Length && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls1 >= 5 && GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 GameManager.turnBalls1 = 0;
             }
-            else if (GameManager.turnBalls2 >= gameManager.chooseBalls.Length || GameManager.turnBalls2 >= 5 && GameManager.unlockRegister == 1)
+            else if (GameManager.turnBalls2 >= gameManager.chooseBalls.Length && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls2 >= 5 && GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 GameManager.turnBalls2 = 0;
             }
-            else if (GameManager.turnBalls3 >= gameManager.chooseBalls.Length || GameManager.turnBalls3 >= 5 && GameManager.unlockRegister == 1)
+            else if (GameManager.turnBalls3 >= gameManager.chooseBalls.Length && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls3 >= 5 && GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 GameManager.turnBalls3 = 0;
             }
-            else if (GameManager.turnBalls4 >= gameManager.chooseBalls.Length || GameManager.turnBalls4 >= 5 && GameManager.unlockRegister == 1)
+            else if (GameManager.turnBalls4 >= gameManager.chooseBalls.Length && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls4 >= 5 && GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 GameManager.turnBalls4 = 0;
             }
@@ -5428,19 +5511,19 @@ public class Game : MonoBehaviour
                 {
                     GameManager.turnBalls4 += gameManager.chooseBalls[i].isLock;
                 }
-                if (GameManager.turnBalls1 >= gameManager.chooseBalls.Length || GameManager.turnBalls1 >= 5 && GameManager.unlockRegister == 1)
+                if (GameManager.turnBalls1 >= gameManager.chooseBalls.Length && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls1 >= 5 && GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls1 = 0;
                 }
-                else if (GameManager.turnBalls2 >= gameManager.chooseBalls.Length || GameManager.turnBalls2 >= 5 && GameManager.unlockRegister == 1)
+                else if (GameManager.turnBalls2 >= gameManager.chooseBalls.Length && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls2 >= 5 && GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls2 = 0;
                 }
-                else if (GameManager.turnBalls3 >= gameManager.chooseBalls.Length || GameManager.turnBalls3 >= 5 && GameManager.unlockRegister == 1)
+                else if (GameManager.turnBalls3 >= gameManager.chooseBalls.Length && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls3 >= 5 && GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls3 = 0;
                 }
-                else if (GameManager.turnBalls4 >= gameManager.chooseBalls.Length || GameManager.turnBalls4 >= 5 && GameManager.unlockRegister == 1)
+                else if (GameManager.turnBalls4 >= gameManager.chooseBalls.Length && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls4 >= 5 && GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer)
                 {
                     GameManager.turnBalls4 = 0;
                 }
@@ -5743,9 +5826,9 @@ public class Game : MonoBehaviour
         }
     }
 
-    public void WebURL()
+    public void WebURL(string url)
     {
-        Application.OpenURL("www.skunkstudios.com");
+        Application.OpenURL(url);
     }
 
     public void QuitGame()
@@ -6086,7 +6169,7 @@ public class Game : MonoBehaviour
 
     public void AlleyRegister()
     {
-        if (gameManager.isLockAlleys[(int)GameManager.chooseAlleys] == 0 && GameManager.unlockRegister == 0)
+        if (gameManager.isLockAlleys[(int)GameManager.chooseAlleys] == 0 && GameManager.unlockRegister == 0 && Application.platform != RuntimePlatform.WebGLPlayer)
         {
             alleyRegistered.SetActive(false);
             startButton.SetActive(true);
@@ -6095,7 +6178,7 @@ public class Game : MonoBehaviour
             lockAlleyUI.SetActive(false);
             unlockAlleyUI.SetActive(false);
         }
-        else if (gameManager.isLockAlleys[(int)GameManager.chooseAlleys] == 1 && GameManager.unlockRegister == 0)
+        else if (gameManager.isLockAlleys[(int)GameManager.chooseAlleys] == 1 && GameManager.unlockRegister == 0 && Application.platform != RuntimePlatform.WebGLPlayer)
         {
             alleyRegistered.SetActive(false);
             startButton.SetActive(true);
@@ -6104,7 +6187,7 @@ public class Game : MonoBehaviour
             unlockAlleyUI.SetActive(false);
             lockAlleyUI.SetActive(true);
         }
-        else if (gameManager.isLockAlleys[(int)GameManager.chooseAlleys] == 2 && GameManager.unlockRegister == 0)
+        else if (gameManager.isLockAlleys[(int)GameManager.chooseAlleys] == 2 && GameManager.unlockRegister == 0 && Application.platform != RuntimePlatform.WebGLPlayer)
         {
             alleyRegistered.SetActive(false);
             startButton.SetActive(true);
@@ -6113,17 +6196,25 @@ public class Game : MonoBehaviour
             lockAlleyUI.SetActive(false);
             unlockAlleyUI.SetActive(true);
         }
-        if ((int)GameManager.chooseAlleys == 0 && GameManager.unlockRegister == 1)
+        if ((int)GameManager.chooseAlleys == 0 && GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer || (int)GameManager.chooseAlleys == 0 && Application.platform == RuntimePlatform.WebGLPlayer)
         {
             alleyRegistered.SetActive(false);
+            alleyDownloaded.SetActive(false);
             startButton.SetActive(true);
             menuRegisterButton.SetActive(false);
+            menuDownloadButton.SetActive(false);
         }
-        else if ((int)GameManager.chooseAlleys >= 1 && GameManager.unlockRegister == 1)
+        else if ((int)GameManager.chooseAlleys >= 1 && GameManager.unlockRegister == 1 && Application.platform != RuntimePlatform.WebGLPlayer)
         {
             alleyRegistered.SetActive(true);
             startButton.SetActive(false);
             menuRegisterButton.SetActive(true);
+        }
+        else if ((int)GameManager.chooseAlleys >= 1 && Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            alleyDownloaded.SetActive(true);
+            startButton.SetActive(false);
+            menuDownloadButton.SetActive(true);
         }
     }
 
@@ -6322,7 +6413,9 @@ public class Game : MonoBehaviour
         if (GameManager.moneys >= 1000)
         {
             GameManager.bombBalls++;
+            PlayerPrefs.SetInt("SaveBomb", GameManager.bombBalls);
             GameManager.moneys -= 1000;
+            PlayerPrefs.SetInt("SaveMoney", GameManager.moneys);
             PlayClip("buy_powerups");
         }
         else
@@ -6336,7 +6429,9 @@ public class Game : MonoBehaviour
         if (GameManager.moneys >= 750)
         {
             GameManager.forcePulseBalls++;
+            PlayerPrefs.SetInt("SaveForcePulse", GameManager.forcePulseBalls);
             GameManager.moneys -= 750;
+            PlayerPrefs.SetInt("SaveMoney", GameManager.moneys);
             PlayClip("buy_powerups");
         }
         else
@@ -6350,7 +6445,9 @@ public class Game : MonoBehaviour
         if (GameManager.moneys >= 500)
         {
             GameManager.hyperBalls++;
+            PlayerPrefs.SetInt("SaveHyper", GameManager.hyperBalls);
             GameManager.moneys -= 500;
+            PlayerPrefs.SetInt("SaveMoney", GameManager.moneys);
             PlayClip("buy_powerups");
         }
         else
@@ -6364,7 +6461,9 @@ public class Game : MonoBehaviour
         if (GameManager.moneys >= 250)
         {
             GameManager.lightningBalls++;
+            PlayerPrefs.SetInt("SaveLightning", GameManager.lightningBalls);
             GameManager.moneys -= 250;
+            PlayerPrefs.SetInt("SaveMoney", GameManager.moneys);
             PlayClip("buy_powerups");
         }
         else
