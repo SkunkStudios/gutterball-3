@@ -90,8 +90,9 @@ public class Pin : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Scooper")
+        if (collision.gameObject.tag == "Scooper" && !GetComponent<Rigidbody>().isKinematic)
         {
+            transform.position = new Vector3(transform.position.x, transform.position.y, collision.contacts[0].point.z - 16);
             GetComponent<Rigidbody>().AddForce(0, 0, -1500);
         }
         if (collision.gameObject.tag != "Lane" && GetComponent<Rigidbody>().useGravity)
@@ -108,8 +109,9 @@ public class Pin : MonoBehaviour
 
     void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.tag == "Scooper")
+        if (collision.gameObject.tag == "Scooper" && !GetComponent<Rigidbody>().isKinematic)
         {
+            transform.position = new Vector3(transform.position.x, transform.position.y, collision.contacts[0].point.z - 16);
             GetComponent<Rigidbody>().AddForce(0, 0, -175);
         }
     }

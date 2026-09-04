@@ -30523,7 +30523,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: www.agame.com/game/bomb-it-3.html?utm_source=brandedgames&utm_medium=gutterball-3-world-champion
+          m_StringArgument: www.agame.com/game/bomb-it-3.html
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &90438848
@@ -46816,7 +46816,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: www.agame.com/game/bomb-it-7.html?utm_source=brandedgames&utm_medium=gutterball-3-world-champion
+          m_StringArgument: www.agame.com/game/bomb-it-7.html
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &164625390
@@ -53783,7 +53783,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: www.agame.com/game/bomb-it.html?utm_source=brandedgames&utm_medium=gutterball-3-world-champion
+          m_StringArgument: www.agame.com/game/bomb-it.html
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &178911161
@@ -55710,14 +55710,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2113552612}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
-        m_MethodName: WebURL
-        m_Mode: 5
+        m_MethodName: DownloadApp
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://skunk-studios.itch.io/gutterball-3-world-champion
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &188606304
@@ -57346,14 +57346,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2113552612}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
-        m_MethodName: WebURL
-        m_Mode: 5
+        m_MethodName: DownloadApp
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://skunk-studios.itch.io/gutterball-3-world-champion
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &200374786
@@ -58946,7 +58946,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: www.kizi.com/?utm_source=brandedgames&utm_medium=gutterball-3-world-champion
+          m_StringArgument: www.kizi.com/
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &211105194
@@ -77981,14 +77981,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2113552612}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
-        m_MethodName: WebURL
-        m_Mode: 5
+        m_MethodName: DownloadApp
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://skunk-studios.itch.io/gutterball-3-world-champion
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &275036188
@@ -90878,7 +90878,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: www.agame.com/game/bomb-it-5.html?utm_source=brandedgames&utm_medium=gutterball-3-world-champion
+          m_StringArgument: www.agame.com/game/bomb-it-5.html
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &324603496
@@ -116382,14 +116382,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2113552612}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
-        m_MethodName: WebURL
-        m_Mode: 5
+        m_MethodName: DownloadApp
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://skunk-studios.itch.io/gutterball-3-world-champion
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &392776827
@@ -158101,14 +158101,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2113552612}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
-        m_MethodName: WebURL
-        m_Mode: 5
+        m_MethodName: DownloadApp
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://skunk-studios.itch.io/gutterball-3-world-champion
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &533081357
@@ -185496,14 +185496,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2113552612}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
-        m_MethodName: WebURL
-        m_Mode: 5
+        m_MethodName: DownloadApp
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://skunk-studios.itch.io/gutterball-3-world-champion
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &585916149
@@ -190871,14 +190871,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2113552612}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
-        m_MethodName: WebURL
-        m_Mode: 5
+        m_MethodName: DownloadApp
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://skunk-studios.itch.io/gutterball-3-world-champion
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &590079845
@@ -205004,7 +205004,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: www.agame.com/game/bomb-it-2.html?utm_source=brandedgames&utm_medium=gutterball-3-world-champion
+          m_StringArgument: www.agame.com/game/bomb-it-2.html
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &677169048
@@ -237904,14 +237904,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2113552612}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
-        m_MethodName: WebURL
-        m_Mode: 5
+        m_MethodName: DownloadApp
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://skunk-studios.itch.io/gutterball-3-world-champion
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &825912556
@@ -240702,15 +240702,15 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2113552612}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: WebURL
-        m_Mode: 5
+        m_TargetAssemblyTypeName: Game, Assembly-CSharp
+        m_MethodName: Website
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: www.skunkstudios.com
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &845165341
@@ -279497,14 +279497,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2113552612}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
-        m_MethodName: WebURL
-        m_Mode: 5
+        m_MethodName: DownloadApp
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://skunk-studios.itch.io/gutterball-3-world-champion
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &942932807
@@ -336479,7 +336479,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: www.agame.com/?utm_source=brandedgames&utm_medium=gutterball-3-world-champion
+          m_StringArgument: www.agame.com/
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1195865953
@@ -336674,7 +336674,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: www.agame.com/game/bomb-it-6.html?utm_source=brandedgames&utm_medium=gutterball-3-world-champion
+          m_StringArgument: www.agame.com/game/bomb-it-6.html
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1196489380
@@ -373309,14 +373309,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2113552612}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
-        m_MethodName: WebURL
-        m_Mode: 5
+        m_MethodName: DownloadApp
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://skunk-studios.itch.io/gutterball-3-world-champion
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1354721075
@@ -415753,14 +415753,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2113552612}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
-        m_MethodName: WebURL
-        m_Mode: 5
+        m_MethodName: DownloadApp
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://skunk-studios.itch.io/gutterball-3-world-champion
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1577099964
@@ -451748,14 +451748,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2113552612}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
-        m_MethodName: WebURL
-        m_Mode: 5
+        m_MethodName: DownloadApp
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://skunk-studios.itch.io/gutterball-3-world-champion
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1756778394
@@ -460767,7 +460767,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: www.agame.com/game/bomb-it-4.html?utm_source=brandedgames&utm_medium=gutterball-3-world-champion
+          m_StringArgument: www.agame.com/game/bomb-it-4.html
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1814324810
@@ -480229,14 +480229,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2113552612}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
-        m_MethodName: WebURL
-        m_Mode: 5
+        m_MethodName: DownloadApp
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://skunk-studios.itch.io/gutterball-3-world-champion
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1879080919
@@ -495468,14 +495468,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2113552612}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
-        m_MethodName: WebURL
-        m_Mode: 5
+        m_MethodName: DownloadApp
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://skunk-studios.itch.io/gutterball-3-world-champion
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1970797627
@@ -504196,14 +504196,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2113552612}
         m_TargetAssemblyTypeName: Game, Assembly-CSharp
-        m_MethodName: WebURL
-        m_Mode: 5
+        m_MethodName: DownloadApp
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://skunk-studios.itch.io/gutterball-3-world-champion
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2029807588

@@ -16,7 +16,7 @@ public class Splash : MonoBehaviour
     void Start ()
 	{
 		StartCoroutine(StartSplash());
-        if (GameObject.FindObjectOfType<GameManager>().gameDistribution == GameManager.GameDistribution.None)
+        if (GameObject.FindObjectOfType<GameManager>().gameDistribution == GameManager.GameDistribution.None && Application.platform != RuntimePlatform.WebGLPlayer)
         {
             websiteText.SetActive(true);
         }

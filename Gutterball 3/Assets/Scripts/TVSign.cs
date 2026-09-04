@@ -27,21 +27,21 @@ public class TVSign : MonoBehaviour
     {
         if (gameManager.urlInfoScreen.Count == 0)
         {
-            infoIndex = Random.Range(0, 4);
+            infoIndex = Random.Range(0, 5);
         }
         else if (gameManager.urlInfoScreen.Count > 0)
         {
-            infoIndex = Random.Range(0, 5);
+            infoIndex = Random.Range(0, 6);
         }
-        if (infoIndex == 0 || infoIndex == 1 || infoIndex == 2)
+        if (infoIndex == 0 || infoIndex == 1 || infoIndex == 2 || infoIndex == 3)
         {
             backScreen.texture = screens[Random.Range(0, screens.Length)];
         }
-        else if (infoIndex == 3)
+        else if (infoIndex == 4)
         {
             backScreen.texture = gameManager.firstPersonCam;
         }
-        else if (infoIndex == 4)
+        else if (infoIndex == 5)
         {
             StartCoroutine(DownloadImage(gameManager.urlInfoScreen[Random.Range(0, gameManager.urlInfoScreen.Count)], backScreen));
         }
@@ -51,21 +51,21 @@ public class TVSign : MonoBehaviour
     {
         if (gameManager.urlInfoScreen.Count == 0)
         {
-            infoIndex = Random.Range(0, 4);
+            infoIndex = Random.Range(0, 5);
         }
         else if (gameManager.urlInfoScreen.Count > 0)
         {
-            infoIndex = Random.Range(0, 5);
+            infoIndex = Random.Range(0, 6);
         }
-        if (infoIndex == 0 || infoIndex == 1 || infoIndex == 2)
+        if (infoIndex == 0 || infoIndex == 1 || infoIndex == 2 || infoIndex == 3)
         {
             frontScreen.texture = screens[Random.Range(0, screens.Length)];
         }
-        else if (infoIndex == 3)
+        else if (infoIndex == 4)
         {
             frontScreen.texture = gameManager.firstPersonCam;
         }
-        else if (infoIndex == 4)
+        else if (infoIndex == 5)
         {
             StartCoroutine(DownloadImage(gameManager.urlInfoScreen[Random.Range(0, gameManager.urlInfoScreen.Count)], frontScreen));
         }
