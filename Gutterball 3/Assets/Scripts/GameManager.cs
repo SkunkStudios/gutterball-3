@@ -50,7 +50,6 @@ public class GameManager : MonoBehaviour
     public static int turnNameIndex4;
     public static Resolution[] resolutions;
     public Material lockBallMat;
-    public static int unlockRegister;
     public static int unlockBallEarn;
     public static int unlockBallScore;
     public static int unlockBallSpare;
@@ -120,14 +119,6 @@ public class GameManager : MonoBehaviour
         isShake = (PlayerPrefs.GetInt("SaveShake") == 0);
         qualityIndex = PlayerPrefs.GetInt("SaveQuality", QualitySettings.GetQualityLevel());
         resolutionIndex = PlayerPrefs.GetInt("SaveResolution", resolutions.Length - 1);
-        if (gameDistribution == GameDistribution.None)
-        {
-            unlockRegister = PlayerPrefs.GetInt("UnlockRegister", 1);
-        }
-        else
-        {
-            unlockRegister = PlayerPrefs.GetInt("UnlockRegister", 0);
-        }
         unlockBallEarn = PlayerPrefs.GetInt("SaveBallEarn", 4);
         unlockBallScore = PlayerPrefs.GetInt("SaveBallScore", 45);
         unlockBallSpare = PlayerPrefs.GetInt("SaveBallSpare", 55);
