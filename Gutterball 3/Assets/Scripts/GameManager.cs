@@ -44,10 +44,10 @@ public class GameManager : MonoBehaviour
     public static int turnBalls3 = 0;
     public static int turnBalls4 = 0;
     public static int turnBallsCPU = 0;
-    public static int turnNameIndex1;
-    public static int turnNameIndex2;
-    public static int turnNameIndex3;
-    public static int turnNameIndex4;
+    public static int turnNameIndex1 = 0;
+    public static int turnNameIndex2 = 1;
+    public static int turnNameIndex3 = 2;
+    public static int turnNameIndex4 = 3;
     public static Resolution[] resolutions;
     public Material lockBallMat;
     public static int unlockBallEarn;
@@ -122,30 +122,6 @@ public class GameManager : MonoBehaviour
         unlockBallEarn = PlayerPrefs.GetInt("SaveBallEarn", 4);
         unlockBallScore = PlayerPrefs.GetInt("SaveBallScore", 45);
         unlockBallSpare = PlayerPrefs.GetInt("SaveBallSpare", 55);
-        turnNameIndex1 = PlayerPrefs.GetInt("SavePlayer1", 0);
-        turnNameIndex2 = PlayerPrefs.GetInt("SavePlayer2", 1);
-        turnNameIndex3 = PlayerPrefs.GetInt("SavePlayer3", 2);
-        turnNameIndex4 = PlayerPrefs.GetInt("SavePlayer4", 3);
-        if (turnNameIndex1 >= bowler.Count)
-        {
-            turnNameIndex1 = 0;
-            PlayerPrefs.SetInt("SavePlayer1", 0);
-        }
-        if (turnNameIndex2 >= bowler.Count)
-        {
-            turnNameIndex2 = 1;
-            PlayerPrefs.SetInt("SavePlayer2", 1);
-        }
-        if (turnNameIndex3 >= bowler.Count)
-        {
-            turnNameIndex3 = 2;
-            PlayerPrefs.SetInt("SavePlayer3", 2);
-        }
-        if (turnNameIndex4 >= bowler.Count)
-        {
-            turnNameIndex4 = 3;
-            PlayerPrefs.SetInt("SavePlayer4", 3);
-        }
         for (int prefsAlleys = 0; prefsAlleys < isLockAlleys.Length; prefsAlleys++)
         {
             isLockAlleys[prefsAlleys] = PlayerPrefs.GetInt("SaveAlleys" + prefsAlleys, isLockAlleys[prefsAlleys]);

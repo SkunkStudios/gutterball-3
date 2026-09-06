@@ -5080,10 +5080,6 @@ public class Game : MonoBehaviour
         {
             GameManager.turnNameIndex4 = gameManager.bowler.Count - 1;
         }
-        PlayerPrefs.SetInt("SavePlayer1", GameManager.turnNameIndex1);
-        PlayerPrefs.SetInt("SavePlayer2", GameManager.turnNameIndex2);
-        PlayerPrefs.SetInt("SavePlayer3", GameManager.turnNameIndex3);
-        PlayerPrefs.SetInt("SavePlayer4", GameManager.turnNameIndex4);
     }
 
     public void NextBowler()
@@ -5120,10 +5116,6 @@ public class Game : MonoBehaviour
         {
             GameManager.turnNameIndex4 = 0;
         }
-        PlayerPrefs.SetInt("SavePlayer1", GameManager.turnNameIndex1);
-        PlayerPrefs.SetInt("SavePlayer2", GameManager.turnNameIndex2);
-        PlayerPrefs.SetInt("SavePlayer3", GameManager.turnNameIndex3);
-        PlayerPrefs.SetInt("SavePlayer4", GameManager.turnNameIndex4);
     }
 
     public void PrevBalls()
