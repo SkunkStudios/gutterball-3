@@ -178,7 +178,6 @@ public class CameraFollow : MonoBehaviour
         game.camType = Game.CameraType.ComputerCam;
         transform.position = new Vector3(-GameObject.FindObjectOfType<PinSetter>().compuPos.x, GameObject.FindObjectOfType<PinSetter>().compuPos.y, GameObject.FindObjectOfType<PinSetter>().compuPos.z);
         transform.rotation = Quaternion.Euler(-GameObject.FindObjectOfType<PinSetter>().compuRot.x, 180 - GameObject.FindObjectOfType<PinSetter>().compuRot.y, 0);
-        StartCoroutine(ComputerFollowThrow());
     }
 
     public void EndCam()
@@ -197,9 +196,9 @@ public class CameraFollow : MonoBehaviour
         fallMove = camMove;
     }
 
-    IEnumerator ComputerFollowThrow()
+    public IEnumerator ComputerFollowThrow()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.75f);
         if (game.camType == Game.CameraType.ComputerCam)
         {
             if (GameManager.chooseAlleys == GameManager.Alley.Wacky)

@@ -509137,16 +509137,6 @@ MonoBehaviour:
     isPin6: 0
     isPin7: 0
     isPin8: 0
-    isPin9: 1
-    isPin10: 0
-  - isPin1: 1
-    isPin2: 1
-    isPin3: 0
-    isPin4: 0
-    isPin5: 0
-    isPin6: 0
-    isPin7: 0
-    isPin8: 0
     isPin9: 0
     isPin10: 1
   - isPin1: 1
@@ -509167,16 +509157,6 @@ MonoBehaviour:
     isPin6: 0
     isPin7: 1
     isPin8: 0
-    isPin9: 0
-    isPin10: 0
-  - isPin1: 1
-    isPin2: 0
-    isPin3: 1
-    isPin4: 0
-    isPin5: 0
-    isPin6: 0
-    isPin7: 0
-    isPin8: 1
     isPin9: 0
     isPin10: 0
   - isPin1: 1

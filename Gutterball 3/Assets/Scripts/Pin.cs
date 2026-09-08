@@ -112,7 +112,7 @@ public class Pin : MonoBehaviour
         if (collision.gameObject.tag == "Scooper" && !GetComponent<Rigidbody>().isKinematic)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, collision.contacts[0].point.z - 16);
-            GetComponent<Rigidbody>().AddForce(0, 0, -175);
+            GetComponent<Rigidbody>().AddForce(0, 0, -200);
         }
     }
 

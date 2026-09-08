@@ -406,6 +406,11 @@ public class Game : MonoBehaviour
             }
         }
 
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            spareButton.interactable = false;
+        }
+
         if (gameManager.r_hs.Count > 0 && gameManager.w_hs.Count > 0 && gameManager.i_hs.Count > 0 && gameManager.j_hs.Count > 0 && gameManager.z_hs.Count > 0 && gameManager.c_hs.Count > 0 && gameManager.b_hs.Count > 0 && gameManager.m_hs.Count > 0 && gameManager.v_hs.Count > 0)
         {
             if (gameManager.r_hs[0].playerScore >= 300 && gameManager.w_hs[0].playerScore >= 300 && gameManager.i_hs[0].playerScore >= 300 && gameManager.j_hs[0].playerScore >= 300 && gameManager.z_hs[0].playerScore >= 300 && gameManager.c_hs[0].playerScore >= 300 && gameManager.b_hs[0].playerScore >= 300 && gameManager.m_hs[0].playerScore >= 300 && gameManager.v_hs[0].playerScore >= 300)
@@ -619,14 +624,6 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update ()
 	{
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
-        {
-            spareButton.interactable = false;
-        }
-        else
-        {
-            spareButton.interactable = true;
-        }
         if (timer < maxTimer && isWaitPin)
         {
             timer += Time.deltaTime;
