@@ -79,12 +79,11 @@ public class TVSign : MonoBehaviour
 
             if (uwr.isNetworkError || uwr.isHttpError)
             {
-                Debug.Log(uwr.error);
+                screen.texture = screens[Random.Range(0, screens.Length)];
             }
             else
             {
-                var uwrTexture = DownloadHandlerTexture.GetContent(uwr);
-                screen.texture = uwrTexture;
+                screen.texture = DownloadHandlerTexture.GetContent(uwr);
             }
         }
     }

@@ -209,7 +209,6 @@ public class Game : MonoBehaviour
     public Slider customBallSpin;
     public InputField bowlerField;
     public InputField customBallFileField;
-    public InputField infoFileField;
     public GameObject[] pins;
     public GameObject sendingEmail;
     public GameObject emailSent;
@@ -6327,21 +6326,6 @@ public class Game : MonoBehaviour
             PlayerPrefs.SetString("CustomBallURL" + gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex, gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].urlTextureBall);
             StartCoroutine(gameManager.DownloadTexture(customBallFileField.text, gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].ballMat));
         }
-    }
-
-    public void CancelFileInfo()
-    {
-        infoFileField.text = "";
-    }
-
-    public void AddFileInfo()
-    {
-        if (infoFileField.text != "")
-        {
-            gameManager.urlInfoScreen.Add(infoFileField.text);
-        }
-        infoFileField.text = "";
-        FileData.SaveToSAV<string>(gameManager.urlInfoScreen, "InfoURL");
     }
 
     public void FileOpen()

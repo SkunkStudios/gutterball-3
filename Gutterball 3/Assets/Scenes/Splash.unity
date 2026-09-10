@@ -2756,22 +2756,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1024, y: 1024}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!111 &1422511448
-Animation:
+--- !u!95 &1422511448
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1422511446}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: bb864415e1c224944ae6892929dc1d57, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: bb864415e1c224944ae6892929dc1d57, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8cf8eddc11078ca4db495961429dfecd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1468132254
 GameObject:
   m_ObjectHideFlags: 0
@@ -4410,7 +4415,7 @@ MonoBehaviour:
   - ballName: Strawberry
     lockType: 4
     totalLock: 35000
-    CPUName: Alice CPU
+    CPUName: Milly CPU
     ballMat: {fileID: 2100000, guid: b8a03c101c30b6046bfd43f513201d8d, type: 2}
     lbs: 10
     speed: 50

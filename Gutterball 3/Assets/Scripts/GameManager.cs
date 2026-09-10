@@ -156,8 +156,7 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        var uwrTexture = DownloadHandlerTexture.GetContent(uwr);
-                        ballMat.mainTexture = uwrTexture;
+                        ballMat.mainTexture = DownloadHandlerTexture.GetContent(uwr);
                     }
                 }
             }

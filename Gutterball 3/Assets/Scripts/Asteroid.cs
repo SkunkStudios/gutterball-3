@@ -10,6 +10,7 @@ public class Asteroid : MonoBehaviour
 
     private float speed;
     private float size;
+    private Vector3 rotate;
 
     // Start is called before the first frame update
     void Start()
@@ -19,12 +20,14 @@ public class Asteroid : MonoBehaviour
         speed = Random.Range(0, maxSpeed);
         size = Random.Range(0, maxSize);
         transform.localScale = new Vector3(size, size, size);
+        rotate = new Vector3(Random.Range(-30, 30), Random.Range(-30, 30), Random.Range(-30, 30));
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.Translate(Vector3.right * speed / 5 * Time.deltaTime, Space.World);
+        transform.Rotate(rotate * Time.deltaTime, Space.World);
         if (transform.localPosition.x >= maxPosition.x)
         {
             transform.localPosition = new Vector3(minPosition.x, Random.Range(minPosition.y, maxPosition.y), Random.Range(minPosition.z, maxPosition.z));
@@ -32,6 +35,7 @@ public class Asteroid : MonoBehaviour
             speed = Random.Range(0, maxSpeed);
             size = Random.Range(0, maxSize);
             transform.localScale = new Vector3(size, size, size);
+            rotate = new Vector3(Random.Range(-30, 30), Random.Range(-30, 30), Random.Range(-30, 30));
         }
     }
 }

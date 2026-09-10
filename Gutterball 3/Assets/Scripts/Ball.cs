@@ -346,7 +346,7 @@ public class Ball : MonoBehaviour
                 GameObject.FindObjectOfType<PinSetter>().gutter.enabled = true;
             }
         }
-        if (collision.gameObject.tag == "Pin" && collision.relativeVelocity.magnitude > rigidBody.mass * 10 && !game.isPin && !isBackWall && game.ballType == Game.BallType.SpinBall)
+        if (collision.gameObject.tag == "Pin" && collision.relativeVelocity.magnitude > 2000 / rigidBody.mass && !game.isPin && !isBackWall && game.ballType == Game.BallType.SpinBall)
         {
             rollAudio.Stop();
             gutterAudio.Stop();
@@ -544,7 +544,7 @@ public class Ball : MonoBehaviour
             game.PinTimeA(6);
         }
 
-        if (collision.gameObject.tag == "Backwall" && collision.relativeVelocity.magnitude > rigidBody.mass * 7.5f && !isBackWall)
+        if (collision.gameObject.tag == "Backwall" && collision.relativeVelocity.magnitude > 1000 / rigidBody.mass && !isBackWall)
         {
             rollAudio.Stop();
             gutterAudio.Stop();
@@ -552,7 +552,7 @@ public class Ball : MonoBehaviour
             isBackWall = true;
             if (!isNet)
             {
-                if (collision.relativeVelocity.magnitude > rigidBody.mass * 30)
+                if (collision.relativeVelocity.magnitude > 425)
                 {
                     game.isReplay = true;
                 }
