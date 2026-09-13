@@ -18,6 +18,8 @@ TagManager:
   - Replay
   - Chars
   - Particles
+  - Gravity
+  - Scooper
   layers:
   - Default
   - TransparentFX

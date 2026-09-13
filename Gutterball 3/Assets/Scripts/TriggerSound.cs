@@ -60,7 +60,7 @@ public class TriggerSound : MonoBehaviour
             if (hitParticles != null && GameManager.isParticle)
             {
                 Vector3 splashPosition = new Vector3(other.transform.position.x, other.transform.position.y, transform.position.z);
-                Instantiate(hitParticles, splashPosition, Quaternion.Euler(0, 180, 0));
+                Instantiate(hitParticles, splashPosition, Quaternion.identity);
             }
             shakeTime = maxShake;
             if (audioSource != null && GameManager.isSound && Game.type != Game.GameState.Menu)

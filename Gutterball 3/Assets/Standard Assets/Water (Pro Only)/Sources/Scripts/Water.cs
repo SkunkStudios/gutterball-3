@@ -183,13 +183,13 @@ public class Water : MonoBehaviour
 		Vector4 waveScale4 = new Vector4(waveScale, waveScale, waveScale * 0.4f, waveScale * 0.45f);
 		
 		// Time since level load, and do intermediate calculations with doubles
-		double t = Time.timeSinceLevelLoad / 20.0;
+		double t = Time.timeSinceLevelLoad / 60.0;
 		Vector4 offsetClamped = new Vector4(
-			(float)System.Math.IEEERemainder(waveSpeed.x * waveScale4.x * t, 1.0),
-			(float)System.Math.IEEERemainder(waveSpeed.y * waveScale4.y * t, 1.0),
-			(float)System.Math.IEEERemainder(waveSpeed.z * waveScale4.z * t, 1.0),
-			(float)System.Math.IEEERemainder(waveSpeed.w * waveScale4.w * t, 1.0)
-		);
+			(float)System.Math.IEEERemainder(waveSpeed.x * waveScale4.x * t, 1.0) / 3,
+			(float)System.Math.IEEERemainder(waveSpeed.y * waveScale4.y * t, 1.0) / 3,
+			(float)System.Math.IEEERemainder(waveSpeed.z * waveScale4.z * t, 1.0) / 3,
+			(float)System.Math.IEEERemainder(waveSpeed.w * waveScale4.w * t, 1.0) / 3
+        );
 		
 		mat.SetVector( "_WaveOffset", offsetClamped );
 		mat.SetVector( "_WaveScale4", waveScale4 );

@@ -50,6 +50,21 @@ public static class FileData
 
     }
 
+    public static List<T> InfoURL<T>()
+    {
+        string content = ReadFile("InfoURL.ini");
+
+        if (string.IsNullOrEmpty(content) || content == "{}")
+        {
+            return new List<T>();
+        }
+
+        List<T> res = JsonHelper.FromJson<T>(content).ToList();
+
+        return res;
+
+    }
+
     private static string GetPath(string filename)
     {
         Directory.CreateDirectory(Application.persistentDataPath + "/Save/");

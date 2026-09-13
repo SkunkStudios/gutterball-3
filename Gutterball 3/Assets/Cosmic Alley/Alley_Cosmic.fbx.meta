@@ -1,139 +1,395 @@
 fileFormatVersion: 2
 guid: c2a1c8f144f79d74fb6f2473699dc715
-timeCreated: 1720276881
-licenseType: Pro
 ModelImporter:
-  serializedVersion: 22
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: ALLEYframe2xtrareturns
-    100004: approach
-    100006: cosmicdeflector
-    100008: Engine
-    100010: Gate
-    100012: gutterl
-    100014: gutterr
-    100016: lane
-    100018: pinlights1
-    100020: pinlights10
-    100022: pinlights2
-    100024: pinlights3
-    100026: pinlights4
-    100028: pinlights5
-    100030: pinlights6
-    100032: pinlights7
-    100034: pinlights8
-    100036: pinlights9
-    100038: pinlightscosmicholder
-    100040: returnchannelr
-    100042: Ship
-    100044: Camera
-    100046: Light
-    400000: //RootNode
-    400002: ALLEYframe2xtrareturns
-    400004: approach
-    400006: cosmicdeflector
-    400008: Engine
-    400010: Gate
-    400012: gutterl
-    400014: gutterr
-    400016: lane
-    400018: pinlights1
-    400020: pinlights10
-    400022: pinlights2
-    400024: pinlights3
-    400026: pinlights4
-    400028: pinlights5
-    400030: pinlights6
-    400032: pinlights7
-    400034: pinlights8
-    400036: pinlights9
-    400038: pinlightscosmicholder
-    400040: returnchannelr
-    400042: Ship
-    400044: Camera
-    400046: Light
-    2000000: Camera
-    2100000: CosmicAlleyMain
-    2100002: gutterl
-    2100004: returnrrampsides2
-    2100006: returnneonpanel1
-    2100008: returnneoncapper1
-    2100010: ballReturnrpart1
-    2100012: ballReturnrpart2
-    2100014: returnrchannel
-    2100016: wackpinlightframe
-    2100018: cosmicon
-    2100020: cosmicoff
-    2100022: cosmicdeflector
-    2100024: CosmicAlleyEngine
-    2100026: CosmicAlleyGate
-    2100028: CosmicAlleyMain.001
-    2100030: CosmicAlleyGlass
-    2300000: ALLEYframe2xtrareturns
-    2300002: approach
-    2300004: cosmicdeflector
-    2300006: Engine
-    2300008: Gate
-    2300010: gutterl
-    2300012: gutterr
-    2300014: lane
-    2300016: pinlights1
-    2300018: pinlights10
-    2300020: pinlights2
-    2300022: pinlights3
-    2300024: pinlights4
-    2300026: pinlights5
-    2300028: pinlights6
-    2300030: pinlights7
-    2300032: pinlights8
-    2300034: pinlights9
-    2300036: pinlightscosmicholder
-    2300038: returnchannelr
-    2300040: Ship
-    3300000: ALLEYframe2xtrareturns
-    3300002: approach
-    3300004: cosmicdeflector
-    3300006: Engine
-    3300008: Gate
-    3300010: gutterl
-    3300012: gutterr
-    3300014: lane
-    3300016: pinlights1
-    3300018: pinlights10
-    3300020: pinlights2
-    3300022: pinlights3
-    3300024: pinlights4
-    3300026: pinlights5
-    3300028: pinlights6
-    3300030: pinlights7
-    3300032: pinlights8
-    3300034: pinlights9
-    3300036: pinlightscosmicholder
-    3300038: returnchannelr
-    3300040: Ship
-    4300000: Ship
-    4300002: lane
-    4300004: gutterl
-    4300006: gutterr
-    4300008: returnchannelr
-    4300010: ALLEYframe2xtrareturns
-    4300012: approach
-    4300014: pinlightscosmicholder
-    4300016: pinlights1
-    4300018: pinlights2
-    4300020: pinlights3
-    4300022: pinlights4
-    4300024: pinlights5
-    4300026: pinlights6
-    4300028: pinlights8
-    4300030: pinlights7
-    4300032: pinlights10
-    4300034: pinlights9
-    4300036: cosmicdeflector
-    4300038: Engine
-    4300040: Gate
-    10800000: Light
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: ALLEYframe2xtrareturns
+  - first:
+      1: 100004
+    second: approach
+  - first:
+      1: 100006
+    second: cosmicdeflector
+  - first:
+      1: 100008
+    second: Engine
+  - first:
+      1: 100010
+    second: Gate
+  - first:
+      1: 100012
+    second: gutterl
+  - first:
+      1: 100014
+    second: gutterr
+  - first:
+      1: 100016
+    second: lane
+  - first:
+      1: 100018
+    second: pinlights1
+  - first:
+      1: 100020
+    second: pinlights10
+  - first:
+      1: 100022
+    second: pinlights2
+  - first:
+      1: 100024
+    second: pinlights3
+  - first:
+      1: 100026
+    second: pinlights4
+  - first:
+      1: 100028
+    second: pinlights5
+  - first:
+      1: 100030
+    second: pinlights6
+  - first:
+      1: 100032
+    second: pinlights7
+  - first:
+      1: 100034
+    second: pinlights8
+  - first:
+      1: 100036
+    second: pinlights9
+  - first:
+      1: 100038
+    second: pinlightscosmicholder
+  - first:
+      1: 100040
+    second: returnchannelr
+  - first:
+      1: 100042
+    second: Ship
+  - first:
+      1: 100044
+    second: Camera
+  - first:
+      1: 100046
+    second: Light
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: ALLEYframe2xtrareturns
+  - first:
+      4: 400004
+    second: approach
+  - first:
+      4: 400006
+    second: cosmicdeflector
+  - first:
+      4: 400008
+    second: Engine
+  - first:
+      4: 400010
+    second: Gate
+  - first:
+      4: 400012
+    second: gutterl
+  - first:
+      4: 400014
+    second: gutterr
+  - first:
+      4: 400016
+    second: lane
+  - first:
+      4: 400018
+    second: pinlights1
+  - first:
+      4: 400020
+    second: pinlights10
+  - first:
+      4: 400022
+    second: pinlights2
+  - first:
+      4: 400024
+    second: pinlights3
+  - first:
+      4: 400026
+    second: pinlights4
+  - first:
+      4: 400028
+    second: pinlights5
+  - first:
+      4: 400030
+    second: pinlights6
+  - first:
+      4: 400032
+    second: pinlights7
+  - first:
+      4: 400034
+    second: pinlights8
+  - first:
+      4: 400036
+    second: pinlights9
+  - first:
+      4: 400038
+    second: pinlightscosmicholder
+  - first:
+      4: 400040
+    second: returnchannelr
+  - first:
+      4: 400042
+    second: Ship
+  - first:
+      4: 400044
+    second: Camera
+  - first:
+      4: 400046
+    second: Light
+  - first:
+      20: 2000000
+    second: Camera
+  - first:
+      21: 2100000
+    second: CosmicAlleyMain
+  - first:
+      21: 2100002
+    second: gutterl
+  - first:
+      21: 2100004
+    second: returnrrampsides2
+  - first:
+      21: 2100006
+    second: returnneonpanel1
+  - first:
+      21: 2100008
+    second: returnneoncapper1
+  - first:
+      21: 2100010
+    second: ballReturnrpart1
+  - first:
+      21: 2100012
+    second: ballReturnrpart2
+  - first:
+      21: 2100014
+    second: returnrchannel
+  - first:
+      21: 2100016
+    second: wackpinlightframe
+  - first:
+      21: 2100018
+    second: cosmicon
+  - first:
+      21: 2100020
+    second: cosmicoff
+  - first:
+      21: 2100022
+    second: cosmicdeflector
+  - first:
+      21: 2100024
+    second: CosmicAlleyEngine
+  - first:
+      21: 2100026
+    second: CosmicAlleyGate
+  - first:
+      21: 2100028
+    second: CosmicAlleyMain.001
+  - first:
+      21: 2100030
+    second: CosmicAlleyGlass
+  - first:
+      23: 2300000
+    second: ALLEYframe2xtrareturns
+  - first:
+      23: 2300002
+    second: approach
+  - first:
+      23: 2300004
+    second: cosmicdeflector
+  - first:
+      23: 2300006
+    second: Engine
+  - first:
+      23: 2300008
+    second: Gate
+  - first:
+      23: 2300010
+    second: gutterl
+  - first:
+      23: 2300012
+    second: gutterr
+  - first:
+      23: 2300014
+    second: lane
+  - first:
+      23: 2300016
+    second: pinlights1
+  - first:
+      23: 2300018
+    second: pinlights10
+  - first:
+      23: 2300020
+    second: pinlights2
+  - first:
+      23: 2300022
+    second: pinlights3
+  - first:
+      23: 2300024
+    second: pinlights4
+  - first:
+      23: 2300026
+    second: pinlights5
+  - first:
+      23: 2300028
+    second: pinlights6
+  - first:
+      23: 2300030
+    second: pinlights7
+  - first:
+      23: 2300032
+    second: pinlights8
+  - first:
+      23: 2300034
+    second: pinlights9
+  - first:
+      23: 2300036
+    second: pinlightscosmicholder
+  - first:
+      23: 2300038
+    second: returnchannelr
+  - first:
+      23: 2300040
+    second: Ship
+  - first:
+      33: 3300000
+    second: ALLEYframe2xtrareturns
+  - first:
+      33: 3300002
+    second: approach
+  - first:
+      33: 3300004
+    second: cosmicdeflector
+  - first:
+      33: 3300006
+    second: Engine
+  - first:
+      33: 3300008
+    second: Gate
+  - first:
+      33: 3300010
+    second: gutterl
+  - first:
+      33: 3300012
+    second: gutterr
+  - first:
+      33: 3300014
+    second: lane
+  - first:
+      33: 3300016
+    second: pinlights1
+  - first:
+      33: 3300018
+    second: pinlights10
+  - first:
+      33: 3300020
+    second: pinlights2
+  - first:
+      33: 3300022
+    second: pinlights3
+  - first:
+      33: 3300024
+    second: pinlights4
+  - first:
+      33: 3300026
+    second: pinlights5
+  - first:
+      33: 3300028
+    second: pinlights6
+  - first:
+      33: 3300030
+    second: pinlights7
+  - first:
+      33: 3300032
+    second: pinlights8
+  - first:
+      33: 3300034
+    second: pinlights9
+  - first:
+      33: 3300036
+    second: pinlightscosmicholder
+  - first:
+      33: 3300038
+    second: returnchannelr
+  - first:
+      33: 3300040
+    second: Ship
+  - first:
+      43: 4300000
+    second: Ship
+  - first:
+      43: 4300002
+    second: lane
+  - first:
+      43: 4300004
+    second: gutterl
+  - first:
+      43: 4300006
+    second: gutterr
+  - first:
+      43: 4300008
+    second: returnchannelr
+  - first:
+      43: 4300010
+    second: ALLEYframe2xtrareturns
+  - first:
+      43: 4300012
+    second: approach
+  - first:
+      43: 4300014
+    second: pinlightscosmicholder
+  - first:
+      43: 4300016
+    second: pinlights1
+  - first:
+      43: 4300018
+    second: pinlights2
+  - first:
+      43: 4300020
+    second: pinlights3
+  - first:
+      43: 4300022
+    second: pinlights4
+  - first:
+      43: 4300024
+    second: pinlights5
+  - first:
+      43: 4300026
+    second: pinlights6
+  - first:
+      43: 4300028
+    second: pinlights8
+  - first:
+      43: 4300030
+    second: pinlights7
+  - first:
+      43: 4300032
+    second: pinlights10
+  - first:
+      43: 4300034
+    second: pinlights9
+  - first:
+      43: 4300036
+    second: cosmicdeflector
+  - first:
+      43: 4300038
+    second: Engine
+  - first:
+      43: 4300040
+    second: Gate
+  - first:
+      108: 10800000
+    second: Light
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -155,6 +411,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: CosmicAlleyMain
     second: {fileID: 2100000, guid: c5ac7a499ed9cea439a9d34b97dcdedd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lane
+    second: {fileID: 2100000, guid: 5f73cd57eee88e24b9c5243273f4df95, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -188,6 +449,21 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: pinBTM
+    second: {fileID: 2100000, guid: 2702bff53cde0cf45aed52fc1293061c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinjungle
+    second: {fileID: 2100000, guid: f2c0cf3bfb7786e4dad2796122273dca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinjungleback
+    second: {fileID: 2100000, guid: e7d514b2618d9e64599615fa52c87ab8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: returnneoncapper1
     second: {fileID: 2100000, guid: 9d7c053a7541af0488e003e56c0f1016, type: 2}
   - first:
@@ -208,10 +484,45 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: scooperbtmbar
+    second: {fileID: 2100000, guid: e1a8fd5a2cd1b18439d635090761eab8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: scooperlogoPanel
+    second: {fileID: 2100000, guid: 87ea8c674bc126442a8ef131fe617afc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: scoopertopbar
+    second: {fileID: 2100000, guid: 5c1166a8fa42d2d40a8d856b3b4ce68b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sweeper-armsides
+    second: {fileID: 2100000, guid: 03abc4cb39ecbfc4999c8c9db7dd45cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sweeper-edges
+    second: {fileID: 2100000, guid: 38462bcd22d942c42bb8037c49dc96c4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sweeper-panelsL
+    second: {fileID: 2100000, guid: 458dc93b6dd9d454a9bab523af967dc2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sweeper-panelsR
+    second: {fileID: 2100000, guid: 736728c9b5be03e4b80de7e71f992512, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: wackpinlightframe
     second: {fileID: 2100000, guid: 0f0837c421d798f4da295bf3818e3ea3, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -228,6 +539,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -242,17 +554,23 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
@@ -264,10 +582,13 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -277,14 +598,16 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 0
   humanoidOversampling: 1
+  avatarSetup: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

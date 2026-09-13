@@ -10,15 +10,14 @@ public class TVSign : MonoBehaviour
 
 	public RawImage backScreen;
     public RawImage frontScreen;
+    public bool isIntro;
 
-    private Game game;
     private GameManager gameManager;
     private Texture2D[] screens;
     private int infoIndex;
 
     void Start ()
 	{
-        game = GameObject.FindObjectOfType<Game>();
         gameManager = GameObject.FindObjectOfType<GameManager>();
         screens = Resources.LoadAll<Texture2D>("TVScreen");
         BackScreenUI();
@@ -28,21 +27,21 @@ public class TVSign : MonoBehaviour
     {
         if (gameManager.urlInfoScreen.Count == 0)
         {
-            infoIndex = Random.Range(0, 2);
+            infoIndex = Random.Range(0, 5);
         }
         else if (gameManager.urlInfoScreen.Count > 0)
         {
-            infoIndex = Random.Range(0, 3);
+            infoIndex = Random.Range(0, 6);
         }
-        if (infoIndex == 0)
+        if (infoIndex == 0 || infoIndex == 1 || infoIndex == 2 || infoIndex == 3)
         {
             backScreen.texture = screens[Random.Range(0, screens.Length)];
         }
-        else if (infoIndex == 1)
+        else if (infoIndex == 4)
         {
-            backScreen.texture = game.firstPersonCam;
+            backScreen.texture = gameManager.firstPersonCam;
         }
-        else if (infoIndex == 2)
+        else if (infoIndex == 5)
         {
             StartCoroutine(DownloadImage(gameManager.urlInfoScreen[Random.Range(0, gameManager.urlInfoScreen.Count)], backScreen));
         }
@@ -52,21 +51,21 @@ public class TVSign : MonoBehaviour
     {
         if (gameManager.urlInfoScreen.Count == 0)
         {
-            infoIndex = Random.Range(0, 2);
+            infoIndex = Random.Range(0, 5);
         }
         else if (gameManager.urlInfoScreen.Count > 0)
         {
-            infoIndex = Random.Range(0, 3);
+            infoIndex = Random.Range(0, 6);
         }
-        if (infoIndex == 0)
+        if (infoIndex == 0 || infoIndex == 1 || infoIndex == 2 || infoIndex == 3)
         {
             frontScreen.texture = screens[Random.Range(0, screens.Length)];
         }
-        else if (infoIndex == 1)
+        else if (infoIndex == 4)
         {
-            frontScreen.texture = game.firstPersonCam;
+            frontScreen.texture = gameManager.firstPersonCam;
         }
-        else if (infoIndex == 2)
+        else if (infoIndex == 5)
         {
             StartCoroutine(DownloadImage(gameManager.urlInfoScreen[Random.Range(0, gameManager.urlInfoScreen.Count)], frontScreen));
         }
@@ -80,12 +79,11 @@ public class TVSign : MonoBehaviour
 
             if (uwr.isNetworkError || uwr.isHttpError)
             {
-                Debug.Log(uwr.error);
+                screen.texture = screens[Random.Range(0, screens.Length)];
             }
             else
             {
-                var uwrTexture = DownloadHandlerTexture.GetContent(uwr);
-                screen.texture = uwrTexture;
+                screen.texture = DownloadHandlerTexture.GetContent(uwr);
             }
         }
     }

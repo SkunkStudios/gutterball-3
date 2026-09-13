@@ -14,8 +14,10 @@ public class PinSetter : MonoBehaviour
     public float rot;
     public CamReplay[] replays;
     public Transform[] reacts;
+    public Vector3 compuPos;
+    public Vector2 compuRot;
     public Vector3 winPos;
-    public Vector3 winRot;
+    public Vector2 winRot;
     public Vector3 scordCardPos;
     public float rotSetX;
     public float rotOffset;
@@ -37,7 +39,19 @@ public class PinSetter : MonoBehaviour
     public AnimationScript[] turkeyAnimations;
     public BoxCollider gutter;
     public Material pinOn;
+    public Material pinOnHalloweenXmas;
     public Material pinOff;
+    public bool isHalloweenXmas;
+    public GameObject pin1;
+    public GameObject pin2;
+    public GameObject pin3;
+    public GameObject pin4;
+    public GameObject pin5;
+    public GameObject pin6;
+    public GameObject pin7;
+    public GameObject pin8;
+    public GameObject pin9;
+    public GameObject pin10;
 
     private Animator animator;
 
@@ -141,21 +155,13 @@ public class PinSetter : MonoBehaviour
         foreach (Pin pin in GameObject.FindObjectsOfType<Pin>())
         {
             pin.pinLight.material = pinOff;
-            pin.ResetFall(Random.Range(-1, 1));
+            pin.ResetFall(Random.Range(-1, 2));
         }
     }
 
     public void PerformAction(ActionMasterOld.Action action)
     {
         if (action == ActionMasterOld.Action.EndGame)
-        {
-            throw new UnityException("Don't know how to handle end game yet");
-        }
-    }
-
-    public void PerformAction3(ActionMasterOldBall3.Action action)
-    {
-        if (action == ActionMasterOldBall3.Action.EndGame)
         {
             throw new UnityException("Don't know how to handle end game yet");
         }

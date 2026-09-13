@@ -10,15 +10,19 @@ public class GameManager : MonoBehaviour
 {
     public enum PinMode { Tenpin, Spare }
     public static PinMode pinMode;
+    public static PinMode pinGameMode;
     public enum Alley { Retro, Zen, Jungle, Iceberg, Wacky, Vegas, Mineshaft, Barnyard, Cosmic }
     public static Alley chooseAlleys;
     public int[] isLockAlleys = new int[9];
     public string[] nameAlleys = new string[9];
     public Sprite[] spriteAlleys = new Sprite[9];
     public string[] AlleyNames { get { return nameAlleys; } }
+    public enum GameDistribution { None, Steam, Agame, Kizi }
+    public GameDistribution gameDistribution;
 
+    public RenderTexture firstPersonCam;
     public ChooseBall[] chooseBalls;
-    public CompuObj[] compuObj = new CompuObj[17];
+    public CompuObj[] compuObj = new CompuObj[65];
     public static bool isMusic = true;
     public static bool isSound = true;
     public static bool isCrowd = true;
@@ -31,7 +35,6 @@ public class GameManager : MonoBehaviour
     public static bool isHighScore = false;
     public static int qualityIndex;
     public static int resolutionIndex;
-    public int lockRegistered;
     public List<string> urlInfoScreen = new List<string>();
     public static bool isOpening = true;
     public static int startBall = 0;
@@ -41,13 +44,12 @@ public class GameManager : MonoBehaviour
     public static int turnBalls3 = 0;
     public static int turnBalls4 = 0;
     public static int turnBallsCPU = 0;
-    public static int turnNameIndex1;
-    public static int turnNameIndex2;
-    public static int turnNameIndex3;
-    public static int turnNameIndex4;
+    public static int turnNameIndex1 = 0;
+    public static int turnNameIndex2 = 1;
+    public static int turnNameIndex3 = 2;
+    public static int turnNameIndex4 = 3;
     public static Resolution[] resolutions;
     public Material lockBallMat;
-    public static int unlockRegister;
     public static int unlockBallEarn;
     public static int unlockBallScore;
     public static int unlockBallSpare;
@@ -63,6 +65,7 @@ public class GameManager : MonoBehaviour
     public List<ScoreBowler> v_hs = new List<ScoreBowler>();
     public static int moneys;
     public static int bombBalls;
+    public static int forcePulseBalls;
     public static int hyperBalls;
     public static int lightningBalls;
 
@@ -84,9 +87,9 @@ public class GameManager : MonoBehaviour
 
     void Start ()
 	{
-        if (File.Exists(Application.persistentDataPath + "/Save/InfoURL.sav"))
+        if (File.Exists("InfoURL.ini") && Application.platform == RuntimePlatform.WindowsPlayer)
         {
-            urlInfoScreen = FileData.ReadListFromSAV<string>("InfoURL");
+            urlInfoScreen = FileData.InfoURL<string>();
         }
         bowler = FileData.ReadListFromSAV<PlayerObj>("SaveBowler");
         r_hs = FileData.ReadListFromSAV<ScoreBowler>("HS_Retro");
@@ -116,34 +119,9 @@ public class GameManager : MonoBehaviour
         isShake = (PlayerPrefs.GetInt("SaveShake") == 0);
         qualityIndex = PlayerPrefs.GetInt("SaveQuality", QualitySettings.GetQualityLevel());
         resolutionIndex = PlayerPrefs.GetInt("SaveResolution", resolutions.Length - 1);
-        unlockRegister = PlayerPrefs.GetInt("UnlockRegister", lockRegistered);
         unlockBallEarn = PlayerPrefs.GetInt("SaveBallEarn", 4);
         unlockBallScore = PlayerPrefs.GetInt("SaveBallScore", 45);
         unlockBallSpare = PlayerPrefs.GetInt("SaveBallSpare", 55);
-        turnNameIndex1 = PlayerPrefs.GetInt("SavePlayer1", 0);
-        turnNameIndex2 = PlayerPrefs.GetInt("SavePlayer2", 1);
-        turnNameIndex3 = PlayerPrefs.GetInt("SavePlayer3", 2);
-        turnNameIndex4 = PlayerPrefs.GetInt("SavePlayer4", 3);
-        if (turnNameIndex1 >= bowler.Count)
-        {
-            turnNameIndex1 = 0;
-            PlayerPrefs.SetInt("SavePlayer1", 0);
-        }
-        if (turnNameIndex2 >= bowler.Count)
-        {
-            turnNameIndex2 = 1;
-            PlayerPrefs.SetInt("SavePlayer2", 1);
-        }
-        if (turnNameIndex3 >= bowler.Count)
-        {
-            turnNameIndex3 = 2;
-            PlayerPrefs.SetInt("SavePlayer3", 2);
-        }
-        if (turnNameIndex4 >= bowler.Count)
-        {
-            turnNameIndex4 = 3;
-            PlayerPrefs.SetInt("SavePlayer4", 3);
-        }
         for (int prefsAlleys = 0; prefsAlleys < isLockAlleys.Length; prefsAlleys++)
         {
             isLockAlleys[prefsAlleys] = PlayerPrefs.GetInt("SaveAlleys" + prefsAlleys, isLockAlleys[prefsAlleys]);
@@ -154,8 +132,10 @@ public class GameManager : MonoBehaviour
         }
         chooseAlleys = (Alley)PlayerPrefs.GetInt("ChooseAlleys");
         pinMode = (PinMode)PlayerPrefs.GetInt("PinModes");
+        pinGameMode = pinMode;
         moneys = PlayerPrefs.GetInt("SaveMoney", 5000);
         bombBalls = PlayerPrefs.GetInt("SaveBomb", 3);
+        forcePulseBalls = PlayerPrefs.GetInt("SaveForcePulse", 3);
         hyperBalls = PlayerPrefs.GetInt("SaveHyper", 3);
         lightningBalls = PlayerPrefs.GetInt("SaveLightning", 3);
     }
@@ -176,8 +156,7 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        var uwrTexture = DownloadHandlerTexture.GetContent(uwr);
-                        ballMat.mainTexture = uwrTexture;
+                        ballMat.mainTexture = DownloadHandlerTexture.GetContent(uwr);
                     }
                 }
             }

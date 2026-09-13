@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class SpaceBG : MonoBehaviour
 {
-	public Transform cam;
-
-	void Update ()
+	void LateUpdate ()
 	{
-		transform.position = cam.transform.position;
+		transform.position = new Vector3(0, 5000, 0);
 	}
 }
