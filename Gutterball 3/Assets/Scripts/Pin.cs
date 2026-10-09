@@ -50,12 +50,12 @@ public class Pin : MonoBehaviour
     // Update is called once per frame
     void Update ()
 	{
-        if (isPortal)
+        if (isPortal && !GetComponent<Rigidbody>().isKinematic)
         {
             portalGravity -= Time.deltaTime * 30f;
             GetComponent<ConstantForce>().force = new Vector3(0, 0, portalGravity);
         }
-        else
+        else if (!isPortal)
         {
             portalGravity = 0;
         }
@@ -80,7 +80,7 @@ public class Pin : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (isFall)
         {
@@ -90,19 +90,22 @@ public class Pin : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.tag == "Pin" && collision.relativeVelocity.magnitude > 600 && ball.isGutter && game.isPin && game.camType == Game.CameraType.MoveCam)
+        {
+            game.PinTimeA(6);
+        }
         if (collision.gameObject.tag == "Scooper" && !GetComponent<Rigidbody>().isKinematic)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, collision.contacts[0].point.z - 16);
+            transform.position = new Vector3(transform.position.x, transform.position.y, collision.contacts[0].point.z - 16.4f);
             GetComponent<Rigidbody>().AddForce(0, 0, -1500);
         }
-        if (collision.gameObject.tag != "Lane" && GetComponent<Rigidbody>().useGravity)
+        if (collision.gameObject.tag != "Lane" && !GetComponent<Rigidbody>().isKinematic && !isFall)
         {
             isFall = true;
             if (!GameObject.FindObjectOfType<PinSetter>().isGravity)
             {
                 isPortal = true;
                 GetComponent<Rigidbody>().useGravity = false;
-                GetComponent<ConstantForce>().force = new Vector3(0, 0, -10);
             }
         }
     }
@@ -111,8 +114,8 @@ public class Pin : MonoBehaviour
     {
         if (collision.gameObject.tag == "Scooper" && !GetComponent<Rigidbody>().isKinematic)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, collision.contacts[0].point.z - 16);
-            GetComponent<Rigidbody>().AddForce(0, 0, -200);
+            transform.position = new Vector3(transform.position.x, transform.position.y, collision.contacts[0].point.z - 16.4f);
+            GetComponent<Rigidbody>().AddForce(0, 0, -300);
         }
     }
 
@@ -123,7 +126,7 @@ public class Pin : MonoBehaviour
             isFall = true;
             isPortal = false;
             GetComponent<Rigidbody>().useGravity = false;
-            GetComponent<ConstantForce>().force = new Vector3(0, -5 * 0.3f, 0);
+            GetComponent<ConstantForce>().force = new Vector3(0, -1.5f, 0);
         }
         Vector3 splashPosition = new Vector3(transform.position.x, other.transform.position.y, transform.position.z);
         if (other.CompareTag("Fall") && isSplash || other.CompareTag("Gutter") && isSplash || other.CompareTag("Water") && isSplash)
@@ -311,9 +314,8 @@ public class Pin : MonoBehaviour
             isFall = true;
             if (!GameObject.FindObjectOfType<PinSetter>().isGravity)
             {
-                isPortal = false;
+                isPortal = true;
                 GetComponent<Rigidbody>().useGravity = false;
-                GetComponent<ConstantForce>().force = new Vector3(0, 0, -7.5f);
             }
         }
     }

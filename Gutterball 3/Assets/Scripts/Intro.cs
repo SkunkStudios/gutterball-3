@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Intro : MonoBehaviour
 {
     public AudioSource introMusic;
+    public AudioSource introVoice;
     public AudioSource introThrow;
     public AudioSource introRoll;
     public AudioSource introHitPin;
@@ -19,6 +20,10 @@ public class Intro : MonoBehaviour
         if (GameManager.isMusic)
         {
             introMusic.Play();
+        }
+        if (GameManager.isVoice)
+        {
+            introVoice.Play();
         }
     }
 

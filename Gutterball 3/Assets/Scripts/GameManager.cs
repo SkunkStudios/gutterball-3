@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public string[] nameAlleys = new string[9];
     public Sprite[] spriteAlleys = new Sprite[9];
     public string[] AlleyNames { get { return nameAlleys; } }
+    public enum GameState { Menu, Intro, Game, Replay, EndGame }
+    public static GameState type;
     public enum GameDistribution { None, Steam, Agame, Kizi }
     public GameDistribution gameDistribution;
 
@@ -65,6 +67,7 @@ public class GameManager : MonoBehaviour
     public List<ScoreBowler> v_hs = new List<ScoreBowler>();
     public static int moneys;
     public static int bombBalls;
+    public static int cloneBalls;
     public static int forcePulseBalls;
     public static int hyperBalls;
     public static int lightningBalls;
@@ -83,10 +86,6 @@ public class GameManager : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(gameObject);
-    }
-
-    void Start ()
-	{
         if (File.Exists("InfoURL.ini") && Application.platform == RuntimePlatform.WindowsPlayer)
         {
             urlInfoScreen = FileData.InfoURL<string>();
@@ -135,6 +134,7 @@ public class GameManager : MonoBehaviour
         pinGameMode = pinMode;
         moneys = PlayerPrefs.GetInt("SaveMoney", 5000);
         bombBalls = PlayerPrefs.GetInt("SaveBomb", 3);
+        cloneBalls = PlayerPrefs.GetInt("SaveClone", 3);
         forcePulseBalls = PlayerPrefs.GetInt("SaveForcePulse", 3);
         hyperBalls = PlayerPrefs.GetInt("SaveHyper", 3);
         lightningBalls = PlayerPrefs.GetInt("SaveLightning", 3);

@@ -6,13 +6,23 @@ public class ReflectMat : MonoBehaviour
 {
     public Material reflectOn;
     public Material reflectOff;
+    public Material reflectOffL;
+    public Material reflectOffR;
     public bool is2Renderer;
+    public bool isWebReflect;
 
     void Awake ()
 	{
         if (GetComponent<PlaneReflection>() != null)
         {
-            GetComponent<PlaneReflection>().enabled = GameManager.isReflect;
+            if (isWebReflect && Application.platform == RuntimePlatform.WebGLPlayer)
+            {
+                GetComponent<PlaneReflection>().enabled = false;
+            }
+            else
+            {
+                GetComponent<PlaneReflection>().enabled = GameManager.isReflect;
+            }
         }
         if (GetComponent<Water>() != null)
         {
@@ -21,22 +31,37 @@ public class ReflectMat : MonoBehaviour
         Material[] mats = GetComponent<Renderer>().materials;
         if (GameManager.isReflect)
         {
-            if (is2Renderer)
+            if (isWebReflect && Application.platform == RuntimePlatform.WebGLPlayer)
             {
-                mats[0] = reflectOn;
-                mats[3] = reflectOn;
+                if (is2Renderer)
+                {
+                    mats[0] = reflectOffL;
+                    mats[3] = reflectOffR;
+                }
+                else
+                {
+                    mats[0] = reflectOff;
+                }
             }
             else
             {
-                mats[0] = reflectOn;
+                if (is2Renderer)
+                {
+                    mats[0] = reflectOn;
+                    mats[3] = reflectOn;
+                }
+                else
+                {
+                    mats[0] = reflectOn;
+                }
             }
         }
         else
         {
             if (is2Renderer)
             {
-                mats[0] = reflectOff;
-                mats[3] = reflectOff;
+                mats[0] = reflectOffL;
+                mats[3] = reflectOffR;
             }
             else
             {

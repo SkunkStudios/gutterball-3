@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Comet : MonoBehaviour
 {
+    public Vector2 speed;
+
     int randomComet;
 
     // Start is called before the first frame update
@@ -22,11 +24,11 @@ public class Comet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (randomComet == 0)
         {
-            transform.Translate(-30 / 5, -15 / 5, 0 * Time.deltaTime, Space.World);
+            transform.Translate(-speed.x / 3, speed.y / 3, 0 * Time.fixedDeltaTime, Space.World);
 
             if (transform.localPosition.x <= -500)
             {
@@ -36,7 +38,7 @@ public class Comet : MonoBehaviour
         }
         else if (randomComet == 1)
         {
-            transform.Translate(30 / 5, -15 / 5, 0 * Time.deltaTime, Space.World);
+            transform.Translate(speed.x / 3, speed.y / 3, 0 * Time.fixedDeltaTime, Space.World);
 
             if (transform.localPosition.x >= 500)
             {

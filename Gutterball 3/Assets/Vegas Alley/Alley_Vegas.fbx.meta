@@ -1,9 +1,144 @@
 fileFormatVersion: 2
 guid: 75665961a505de848b05c58581ea7986
 ModelImporter:
-  serializedVersion: 19301
+  serializedVersion: 21300
   internalIDToNameTable: []
   externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Lane
+    second: {fileID: 2100000, guid: 3093581c1c275e94ea155e05c87e8eb7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LanesApproach
+    second: {fileID: 2100000, guid: bcc15ec544053a64caa4c1c2e2114138, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vegas_Alley-Vegas_Alley2Tex
+    second: {fileID: 2100000, guid: 73a41b3385b98894d8dfad12cc91c9b1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vegas_Alley-Vegas_AlleyTex
+    second: {fileID: 2100000, guid: 3624b1bc7903fc941a22c5aaf757114f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vegas_Alley-Vegas_AlleyTex Cutout
+    second: {fileID: 2100000, guid: 2b570b0cc4d7a864b8c82f8edfc1a674, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vegas_Alley-Vegas_Buildings
+    second: {fileID: 2100000, guid: 1e618c21d614db3438627786715b4f1f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vegas_Alley-Vegas_Ceiling
+    second: {fileID: 2100000, guid: d8d06497aba66c84e9a69754fcec55ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vegas_Alley-Vegas_Floor
+    second: {fileID: 2100000, guid: 5c86dee5a2657224e9af923eb15ed6b4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vegas_Alley-Vegas_Sky
+    second: {fileID: 2100000, guid: b7c306e7f5ad11f4998dca108a25142f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ballReturnrpart1
+    second: {fileID: 2100000, guid: a69ce8dcc1edb41499731206dab1098f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ballReturnrpart2
+    second: {fileID: 2100000, guid: 64e5460ce00ecc248a88cfa0b4f86dcb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gutterl
+    second: {fileID: 2100000, guid: 32b43153842a0c242a2983cf9ee70356, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinjungle
+    second: {fileID: 2100000, guid: be0b1bbcd6851de47aafc4ab5465f2fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinretroBTM
+    second: {fileID: 2100000, guid: b3f360a53abd21142a103ca224a206d4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinretrobacksliver
+    second: {fileID: 2100000, guid: afa0ad99c63774d4a8aed67bb4233993, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pinstripes
+    second: {fileID: 2100000, guid: 48bc493ea103ab0438c9624e75e9e046, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: returnneoncapper1
+    second: {fileID: 2100000, guid: eabde19e9d506e5439f3c95a28972c3f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: returnneonpanel1
+    second: {fileID: 2100000, guid: ee8d0a30393038b42804dbafddb62bf1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: returnrchannel
+    second: {fileID: 2100000, guid: 4747f342c8890ef48939590e2683928e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: returnrrampsides2
+    second: {fileID: 2100000, guid: ddf88618c678d064fb9b1276688cdcba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: scooperbtmbar
+    second: {fileID: 2100000, guid: e1a8fd5a2cd1b18439d635090761eab8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: scooperlogoPanel
+    second: {fileID: 2100000, guid: decdcae117dc1b14898529d9c50e1192, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: scoopertopbar
+    second: {fileID: 2100000, guid: 5c1166a8fa42d2d40a8d856b3b4ce68b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sweeper-armsides
+    second: {fileID: 2100000, guid: 03abc4cb39ecbfc4999c8c9db7dd45cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sweeper-edges
+    second: {fileID: 2100000, guid: 38462bcd22d942c42bb8037c49dc96c4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sweeper-panelsL
+    second: {fileID: 2100000, guid: 3856106cc17f50b4da1a7d48d1272d54, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sweeper-panelsR
+    second: {fileID: 2100000, guid: 3cadbfe5467fd0d47b4ec954905afd83, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -29,6 +164,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -58,23 +194,30 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
+    optimizeBones: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -106,6 +249,8 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

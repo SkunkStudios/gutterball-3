@@ -1,0 +1,5 @@
+Use arrow keys or WASD to move the camera
+Use mouse to look around
+Use mouse primary and secondary button to ascent-descent
+Use mouse wheel button to reset heigh
+Use mouse wheel to change camera FOV

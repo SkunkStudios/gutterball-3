@@ -24,7 +24,7 @@ public class PinSplit
 
 public class Game : MonoBehaviour
 {
-    public enum BallPowerUps { Off, Bomb, ForcePulse, Hyper, Lightning }
+    public enum BallPowerUps { Off, Bomb, Clone, ForcePulse, Hyper, Lightning }
     public BallPowerUps powerUps;
     public enum BallType { MoveX, ThrowBall, SpinBall, FallBall }
     public BallType ballType;
@@ -33,8 +33,6 @@ public class Game : MonoBehaviour
     public static GameManager.Alley alleyLockType;
     public enum Players { OnePlayer, TwoPlayer, ThreePlayer, FourPlayer, Computer }
     public static Players allPlayers;
-    public enum GameState { Menu, Intro, Game, Replay, EndGame }
-    public static GameState type;
     public enum Commentators { Baxter, Maria, Natasha, Jensen, Master }
     public static Commentators voices1;
     public static Commentators voices2;
@@ -224,22 +222,29 @@ public class Game : MonoBehaviour
     public GameObject gutterHintUI;
     public Text moneyText;
     public Text bombBallText;
+    public Text cloneBallText;
     public Text forcePulseBallText;
     public Text hyperBallText;
     public Text lightningBallText;
     public Text bombShopText;
+    public Text cloneShopText;
     public Text forcePulseShopText;
     public Text hyperShopText;
     public Text lightningShopText;
     public Button bombBallButton;
+    public Button cloneBallButton;
     public Button forcePulseBallButton;
     public Button hyperBallButton;
     public Button lightningBallButton;
+    public GameObject cloneBallTimesText;
     public AudioClip[] exploreClips;
     public GameObject[] explores;
     public GameObject[] bigExplores;
     public Button playSongButton;
     public Button spareButton;
+    public Button hundredPinButton;
+    public GameObject demoPinMode;
+    public GameObject fullPinMode;
     [HideInInspector]
     public int randomTarget;
     [HideInInspector]
@@ -250,6 +255,7 @@ public class Game : MonoBehaviour
     public GameObject fullGameOptions;
     public GameObject demoOptions;
     public GameObject[] threeButtons = new GameObject[3];
+    public Image logoLight;
 
     private ExtensionFilter[] extensions = new[] { new ExtensionFilter("PNG", "png" ), new ExtensionFilter("JPEG", "jpg", "jpeg", "jpe", "jfif", "exif"), new ExtensionFilter("WebP", "webp"), new ExtensionFilter("DirectDraw Surface (DDS)", "dds"), new ExtensionFilter("TIFF", "tiff", "tif"), new ExtensionFilter("GIF", "gif"), new ExtensionFilter("BMP", "bmp", "dib", "rle"), new ExtensionFilter("TGA", "tga") };
     private AudioSource music;
@@ -297,21 +303,64 @@ public class Game : MonoBehaviour
     public delegate void OnHighscoreListChanged(List<ScoreBowler> list);
     public static event OnHighscoreListChanged onHighscoreListChanged;
 
+    void Awake()
+    {
+        switch (GameManager.chooseAlleys)
+        {
+            case GameManager.Alley.Retro:
+                alleys[0].SetActive(true);
+                break;
+            case GameManager.Alley.Wacky:
+                alleys[1].SetActive(true);
+                break;
+            case GameManager.Alley.Iceberg:
+                alleys[2].SetActive(true);
+                break;
+            case GameManager.Alley.Jungle:
+                alleys[3].SetActive(true);
+                break;
+            case GameManager.Alley.Zen:
+                alleys[4].SetActive(true);
+                break;
+            case GameManager.Alley.Cosmic:
+                alleys[5].SetActive(true);
+                break;
+            case GameManager.Alley.Barnyard:
+                alleys[6].SetActive(true);
+                break;
+            case GameManager.Alley.Mineshaft:
+                alleys[7].SetActive(true);
+                break;
+            case GameManager.Alley.Vegas:
+                alleys[8].SetActive(true);
+                break;
+        }
+        foreach (GameObject chars in GameObject.FindGameObjectsWithTag("Chars"))
+        {
+            chars.SetActive(GameManager.isChars);
+        }
+        foreach (GameObject particles in GameObject.FindGameObjectsWithTag("Particles"))
+        {
+            particles.SetActive(GameManager.isParticle);
+        }
+    }
+
     // Use this for initialization
     void Start ()
 	{
         UnityWebRequest uwr = new UnityWebRequest();
-        if (GameObject.FindObjectOfType<GameManager>().gameDistribution == GameManager.GameDistribution.Agame && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer && uwr.url != "kizi.com/games/gutterball-3-world-champion")
+        if (GameObject.FindObjectOfType<GameManager>().gameDistribution == GameManager.GameDistribution.Agame && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer && uwr.url != "kizi.com" && uwr.url != "kizi.com/games/gutterball-3-world-champion")
         {
             agame.SetActive(true);
         }
-        else if (GameObject.FindObjectOfType<GameManager>().gameDistribution == GameManager.GameDistribution.Kizi && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer && uwr.url == "kizi.com/games/gutterball-3-world-champion")
+        else if (GameObject.FindObjectOfType<GameManager>().gameDistribution == GameManager.GameDistribution.Kizi && Application.platform != RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.WebGLPlayer && uwr.url == "kizi.com" || Application.platform == RuntimePlatform.WebGLPlayer && uwr.url == "kizi.com/games/gutterball-3-world-champion")
         {
             kizi.SetActive(true);
         }
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
             demoOptions.SetActive(true);
+            demoPinMode.SetActive(true);
         }
         else
         {
@@ -328,6 +377,7 @@ public class Game : MonoBehaviour
             }
             fullOptions.SetActive(true);
             fullGameOptions.SetActive(true);
+            fullPinMode.SetActive(true);
         }
         pinCounter.Reset();
         music = GameObject.FindGameObjectWithTag("Music").GetComponent<AudioSource>();
@@ -414,56 +464,35 @@ public class Game : MonoBehaviour
         {
             if (gameManager.r_hs[0].playerScore >= 300 && gameManager.w_hs[0].playerScore >= 300 && gameManager.i_hs[0].playerScore >= 300 && gameManager.j_hs[0].playerScore >= 300 && gameManager.z_hs[0].playerScore >= 300 && gameManager.c_hs[0].playerScore >= 300 && gameManager.b_hs[0].playerScore >= 300 && gameManager.m_hs[0].playerScore >= 300 && gameManager.v_hs[0].playerScore >= 300)
             {
-                playSongButton.interactable = true;
+                hundredPinButton.interactable = true;
             }
             else
             {
-                playSongButton.interactable = false;
+                hundredPinButton.interactable = false;
             }
         }
         else
         {
+            hundredPinButton.interactable = false;
+        }
+
+        if (PlayerPrefs.GetInt("100PinHighScore", 0) >= 3000)
+        {
+            if (!music.isPlaying)
+            {
+                music.clip = Resources.Load<AudioClip>("Music/ending");
+            }
+            playSongButton.interactable = true;
+        }
+        else
+        {
+            if (!music.isPlaying)
+            {
+                music.clip = Resources.Load<AudioClip>("Music/menu");
+            }
             playSongButton.interactable = false;
         }
 
-        switch (GameManager.chooseAlleys)
-        {
-            case GameManager.Alley.Retro:
-                alleys[0].SetActive(true);
-                break;
-            case GameManager.Alley.Wacky:
-                alleys[1].SetActive(true);
-                break;
-            case GameManager.Alley.Iceberg:
-                alleys[2].SetActive(true);
-                break;
-            case GameManager.Alley.Jungle:
-                alleys[3].SetActive(true);
-                break;
-            case GameManager.Alley.Zen:
-                alleys[4].SetActive(true);
-                break;
-            case GameManager.Alley.Cosmic:
-                alleys[5].SetActive(true);
-                break;
-            case GameManager.Alley.Barnyard:
-                alleys[6].SetActive(true);
-                break;
-            case GameManager.Alley.Mineshaft:
-                alleys[7].SetActive(true);
-                break;
-            case GameManager.Alley.Vegas:
-                alleys[8].SetActive(true);
-                break;
-        }
-        foreach (GameObject chars in GameObject.FindGameObjectsWithTag("Chars"))
-        {
-            chars.SetActive(GameManager.isChars);
-        }
-        foreach (GameObject particles in GameObject.FindGameObjectsWithTag("Particles"))
-        {
-            particles.SetActive(GameManager.isParticle);
-        }
         ball = GameObject.FindObjectOfType<Ball>();
         switch (GameManager.pinMode)
         {
@@ -521,19 +550,17 @@ public class Game : MonoBehaviour
         introAnimIndex = Random.Range(0, GameObject.FindObjectOfType<PinSetter>().introAnimations.Length);
         scoreCardCam.transform.position = new Vector3(GameObject.FindObjectOfType<PinSetter>().scordCardPos.x, GameObject.FindObjectOfType<PinSetter>().scordCardPos.y, GameObject.FindObjectOfType<PinSetter>().scordCardPos.z);
         scoreCardCam.transform.rotation = Quaternion.Euler(GameObject.FindObjectOfType<PinSetter>().rot * GameObject.FindObjectOfType<PinSetter>().rotScoreCard, 180, 0);
-        if (GameManager.isOpening && type == GameState.Menu)
+        if (GameManager.isOpening && GameManager.type == GameManager.GameState.Menu)
         {
-            music.clip = Resources.Load<AudioClip>("Music/menu");
             ChargeAlleys();
             StartChargeBalls();
             opening.Play();
         }
-        if (!music.isPlaying && GameManager.isMusic && !GameManager.isOpening && type == GameState.Menu)
+        if (!music.isPlaying && GameManager.isMusic && !GameManager.isOpening && GameManager.type == GameManager.GameState.Menu)
         {
-            music.clip = Resources.Load<AudioClip>("Music/menu");
             music.Play();
         }
-        if (type == GameState.Menu)
+        if (GameManager.type == GameManager.GameState.Menu)
         {
             menuUI.SetActive(true);
             gameCam.SetActive(false);
@@ -544,7 +571,7 @@ public class Game : MonoBehaviour
         else
         {
             AlleyTheme(GameObject.FindObjectOfType<PinSetter>().alleySong);
-            type = GameState.Intro;
+            GameManager.type = GameManager.GameState.Intro;
             gameUI.SetActive(true);
             menuCam.SetActive(false);
             chooseBallUI.SetActive(false);
@@ -623,6 +650,7 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update ()
 	{
+        logoLight.color = new Color(1, 1, 1, Random.Range(0f, 1f));
         if (timer < maxTimer && isWaitPin)
         {
             timer += Time.deltaTime;
@@ -634,6 +662,7 @@ public class Game : MonoBehaviour
         }
         moneyText.text = "$" + GameManager.moneys;
         bombBallText.text = bombShopText.text = GameManager.bombBalls + "x";
+        cloneBallText.text = cloneShopText.text = cloneBallTimesText.GetComponent<Text>().text = GameManager.cloneBalls + "x";
         forcePulseBallText.text = forcePulseShopText.text = GameManager.forcePulseBalls + "x";
         hyperBallText.text = hyperShopText.text = GameManager.hyperBalls + "x";
         lightningBallText.text = lightningShopText.text = GameManager.lightningBalls + "x";
@@ -644,6 +673,14 @@ public class Game : MonoBehaviour
         else
         {
             bombBallButton.interactable = true;
+        }
+        if (GameManager.cloneBalls <= 0)
+        {
+            cloneBallButton.interactable = false;
+        }
+        else
+        {
+            cloneBallButton.interactable = true;
         }
         if (GameManager.forcePulseBalls <= 0)
         {
@@ -706,15 +743,15 @@ public class Game : MonoBehaviour
         }
         ballDataCustomText.text = customBallLbs.value + "lbs.  speed:" + customBallSpeed.value + "  spin:" + customBallSpin.value;
         replays = GameObject.FindObjectsOfType<ActionReplay>();
-        if (spareBalls < 0)
+        if (isEndGame)
         {
             ballsText.text = "no balls";
         }
-        else if (spareBalls == 0)
+        if (spareBalls == 0 && !isEndGame)
         {
             ballsText.text = "last balls";
         }
-        else if (spareBalls > 0)
+        else if (spareBalls > 0 && !isEndGame)
         {
             ballsText.text = "balls: " + spareBalls;
         }
@@ -758,20 +795,23 @@ public class Game : MonoBehaviour
         }
         winBallRenderCPU.material = gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].ballMat;
         AlleyRegister();
-        if (GameManager.isMusic && GameManager.isOpening && opening.time >= 14)
+        if (GameManager.isOpening && opening.time >= 14)
         {
-            music.Play();
+            if (GameManager.isMusic)
+            {
+                music.Play();
+            }
             GameManager.isOpening = false;
         }
         sounds = GameObject.FindGameObjectsWithTag("Sound");
         music.mute = !GameManager.isMusic;
         foreach (GameObject sound in sounds)
         {
-            if (type != GameState.Menu)
+            if (GameManager.type != GameManager.GameState.Menu)
             {
                 sound.GetComponent<AudioSource>().mute = !GameManager.isSound;
             }
-            else if (type == GameState.Menu)
+            else if (GameManager.type == GameManager.GameState.Menu)
             {
                 sound.GetComponent<AudioSource>().mute = true;
             }
@@ -868,7 +908,7 @@ public class Game : MonoBehaviour
         {
             selectAlleysRightUI.sprite = gameManager.spriteAlleys[PlayerPrefs.GetInt("ChooseAlleys") + 1];
         }
-        if (Input.GetMouseButtonDown(0) && type == GameState.Intro && isIntro)
+        if (Input.GetMouseButtonDown(0) && GameManager.type == GameManager.GameState.Intro && isIntro)
         {
             StopCoroutine(IntroTime());
             if (isIntro)
@@ -879,7 +919,7 @@ public class Game : MonoBehaviour
                 {
                     GameObject.FindObjectOfType<PinSetter>().introAnimations[i].SkipAnimation();
                 }
-                type = GameState.Game;
+                GameManager.type = GameManager.GameState.Game;
                 camType = CameraType.MoveX;
                 ball.ResetCam();
                 isIntro = false;
@@ -933,7 +973,7 @@ public class Game : MonoBehaviour
         {
             scoreTextBall2.text = "score:" + score4;
         }
-        if (type != GameState.Menu)
+        if (GameManager.type != GameManager.GameState.Menu)
         {
             if (playerTurn == 0)
             {
@@ -1543,7 +1583,7 @@ public class Game : MonoBehaviour
             {
                 GameObject.FindObjectOfType<PinSetter>().introAnimations[i].StopAnimation();
             }
-            type = GameState.Game;
+            GameManager.type = GameManager.GameState.Game;
             camType = CameraType.MoveX;
             isIntro = false;
         }
@@ -1560,9 +1600,9 @@ public class Game : MonoBehaviour
         {
             StopCoroutine(b);
         }
-        if (type == GameState.Replay)
+        if (GameManager.type == GameManager.GameState.Replay)
         {
-            type = GameState.Game;
+            GameManager.type = GameManager.GameState.Game;
         }
     }
 
@@ -1593,9 +1633,9 @@ public class Game : MonoBehaviour
             isSplit = true;
             is710 = true;
         }
-        if (type == GameState.Game)
+        if (GameManager.type == GameManager.GameState.Game)
         {
-            type = GameState.Replay;
+            GameManager.type = GameManager.GameState.Replay;
         }
         GameObject.FindObjectOfType<PinSetter>().DownPins();
         pinCounter.PinsHaveSettled();
@@ -1606,7 +1646,7 @@ public class Game : MonoBehaviour
                 if (scoreDisplay[turns].strikes == ScoreDisplay.Strikes.Strike)
                 {
                     animations = AnimationScenes.Strike;
-                    if (type == GameState.Replay)
+                    if (GameManager.type == GameManager.GameState.Replay)
                     {
                         VoiceStrike();
                     }
@@ -1614,7 +1654,7 @@ public class Game : MonoBehaviour
                 if (scoreDisplay[turns].strikes == ScoreDisplay.Strikes.Double)
                 {
                     animations = AnimationScenes.Double;
-                    if (type == GameState.Replay)
+                    if (GameManager.type == GameManager.GameState.Replay)
                     {
                         VoiceDouble();
                     }
@@ -1623,7 +1663,7 @@ public class Game : MonoBehaviour
                 if (scoreDisplay[turns].strikes == ScoreDisplay.Strikes.Turkey)
                 {
                     animations = AnimationScenes.Turkey;
-                    if (type == GameState.Replay)
+                    if (GameManager.type == GameManager.GameState.Replay)
                     {
                         VoiceTurkey();
                     }
@@ -1671,14 +1711,14 @@ public class Game : MonoBehaviour
             animations = AnimationScenes.Spare;
             if (isSplit)
             {
-                if (type == GameState.Replay)
+                if (GameManager.type == GameManager.GameState.Replay)
                 {
                     VoiceSplitPick();
                 }
             }
             else
             {
-                if (type == GameState.Replay)
+                if (GameManager.type == GameManager.GameState.Replay)
                 {
                     VoiceSpare();
                 }
@@ -1740,7 +1780,11 @@ public class Game : MonoBehaviour
         }
         if (gutterAnimation == 0 && isReplay)
         {
-            if (type == GameState.Replay)
+            foreach (MiniBall miniBall in GameObject.FindObjectsOfType<MiniBall>())
+            {
+                miniBall.DestroyBall();
+            }
+            if (GameManager.type == GameManager.GameState.Replay)
             {
                 replayText.SetActive(true);
             }
@@ -1776,7 +1820,6 @@ public class Game : MonoBehaviour
         if (gutterAnimation == 0 && animations == AnimationScenes.Off)
         {
             cameraFollow.React(reactIndex);
-            cameraFollow.ReactMove();
         }
         else if (animations == AnimationScenes.Strike)
         {
@@ -2002,7 +2045,7 @@ public class Game : MonoBehaviour
             {
                 if (GameObject.FindObjectOfType<PinSetter>().returnPoint != null)
                 {
-                    cameraFollow.transform.position = new Vector3(GameObject.FindObjectOfType<PinSetter>().returnPoint.position.x + 100, GameObject.FindObjectOfType<PinSetter>().returnPoint.position.y + 100, GameObject.FindObjectOfType<PinSetter>().returnPoint.position.z + 400);
+                    cameraFollow.transform.position = new Vector3(GameObject.FindObjectOfType<PinSetter>().returnPoint.position.x + 100, GameObject.FindObjectOfType<PinSetter>().returnPoint.position.y + 100, GameObject.FindObjectOfType<PinSetter>().returnPoint.position.z + 300);
                     cameraFollow.transform.rotation = Quaternion.LookRotation(ball.transform.position - cameraFollow.transform.position);
                     camType = CameraType.ReturnBall;
                 }
@@ -2052,12 +2095,20 @@ public class Game : MonoBehaviour
 
     public void Bowl(int pinFall)
     {
-        if (maxBalls == 1 && type == GameState.Replay)
+        if (maxBalls == 1 && GameManager.type == GameManager.GameState.Replay)
         {
             if (PinCounter.pinCount != 0)
             {
                 CrowdCrap();
-                spareBalls--;
+                if (spareBalls == 0)
+                {
+                    wins = 0;
+                    isEndGame = true;
+                }
+                else
+                {
+                    spareBalls--;
+                }
                 if (spareCombos == 1)
                 {
                     hintCount++;
@@ -2094,13 +2145,8 @@ public class Game : MonoBehaviour
                     hintCount = 0;
                 }
             }
-            if (spareBalls < 0)
-            {
-                wins = 0;
-                isEndGame = true;
-            }
         }
-        else if (maxBalls == 2 && type == GameState.Replay)
+        else if (maxBalls == 2 && GameManager.type == GameManager.GameState.Replay)
         {
             if (allPlayers == Players.OnePlayer)
             {
@@ -2112,7 +2158,6 @@ public class Game : MonoBehaviour
                 catch
                 {
                     isEndGame = true;
-                    UnityEngine.Debug.LogWarning("Something went wrong in Bowl()");
                 }
 
                 try
@@ -2173,7 +2218,6 @@ public class Game : MonoBehaviour
                         nextTurn = 1;
                         ballTurn = 0;
                         isResetPins = true;
-                        UnityEngine.Debug.LogWarning("Something went wrong in Bowl()");
                     }
 
                     try
@@ -2230,7 +2274,6 @@ public class Game : MonoBehaviour
                     catch
                     {
                         isEndGame = true;
-                        UnityEngine.Debug.LogWarning("Something went wrong in Bowl()");
                     }
 
                     try
@@ -2291,7 +2334,6 @@ public class Game : MonoBehaviour
                         nextTurn = 1;
                         ballTurn = 0;
                         isResetPins = true;
-                        UnityEngine.Debug.LogWarning("Something went wrong in Bowl()");
                     }
 
                     try
@@ -2350,7 +2392,6 @@ public class Game : MonoBehaviour
                         nextTurn = 2;
                         ballTurn = 0;
                         isResetPins = true;
-                        UnityEngine.Debug.LogWarning("Something went wrong in Bowl()");
                     }
 
                     try
@@ -2406,7 +2447,6 @@ public class Game : MonoBehaviour
                     catch
                     {
                         isEndGame = true;
-                        UnityEngine.Debug.LogWarning("Something went wrong in Bowl()");
                     }
 
                     try
@@ -2467,7 +2507,6 @@ public class Game : MonoBehaviour
                         nextTurn = 1;
                         ballTurn = 0;
                         isResetPins = true;
-                        UnityEngine.Debug.LogWarning("Something went wrong in Bowl()");
                     }
 
                     try
@@ -2526,7 +2565,6 @@ public class Game : MonoBehaviour
                         nextTurn = 2;
                         ballTurn = 0;
                         isResetPins = true;
-                        UnityEngine.Debug.LogWarning("Something went wrong in Bowl()");
                     }
 
                     try
@@ -2584,7 +2622,6 @@ public class Game : MonoBehaviour
                         nextTurn = 3;
                         ballTurn = 0;
                         isResetPins = true;
-                        UnityEngine.Debug.LogWarning("Something went wrong in Bowl()");
                     }
 
                     try
@@ -2640,7 +2677,6 @@ public class Game : MonoBehaviour
                     catch
                     {
                         isEndGame = true;
-                        UnityEngine.Debug.LogWarning("Something went wrong in Bowl()");
                     }
 
                     try
@@ -2701,7 +2737,6 @@ public class Game : MonoBehaviour
                         nextTurn = 4;
                         ballTurn = 0;
                         isResetPins = true;
-                        UnityEngine.Debug.LogWarning("Something went wrong in Bowl()");
                     }
 
                     try
@@ -2758,7 +2793,6 @@ public class Game : MonoBehaviour
                     catch
                     {
                         isEndGame = true;
-                        UnityEngine.Debug.LogWarning("Something went wrong in Bowl()");
                     }
 
                     try
@@ -2799,11 +2833,11 @@ public class Game : MonoBehaviour
         {
             if (isSplit)
             {
-                if (is710 && type == GameState.Replay)
+                if (is710 && GameManager.type == GameManager.GameState.Replay)
                 {
                     VoiceSplit710();
                 }
-                else if (!is710 && type == GameState.Replay)
+                else if (!is710 && GameManager.type == GameManager.GameState.Replay)
                 {
                     VoiceSplit();
                 }
@@ -2818,7 +2852,7 @@ public class Game : MonoBehaviour
                 {
                     CrowdOk();
                 }
-                if (pinCounts == 0 && PinCounter.pinCount > 0 && type == GameState.Replay)
+                if (pinCounts == 0 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay)
                 {
                     if (playerTurn == 0)
                     {
@@ -2841,15 +2875,15 @@ public class Game : MonoBehaviour
                         VoiceMiss();
                     }
                 }
-                if (pinCounts == 1 && PinCounter.pinCount > 0 && type == GameState.Replay)
+                if (pinCounts == 1 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay)
                 {
                     VoiceOne();
                 }
-                if (pinCounts == 2 && PinCounter.pinCount > 0 && type == GameState.Replay || pinCounts == 3 && PinCounter.pinCount > 0 && type == GameState.Replay || pinCounts == 4 && PinCounter.pinCount > 0 && type == GameState.Replay)
+                if (pinCounts == 2 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay || pinCounts == 3 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay || pinCounts == 4 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay)
                 {
                     VoiceFew();
                 }
-                if (pinCounts == 5 && PinCounter.pinCount > 0 && type == GameState.Replay || pinCounts == 6 && PinCounter.pinCount > 0 && type == GameState.Replay || pinCounts == 7 && PinCounter.pinCount > 0 && type == GameState.Replay || pinCounts == 8 && PinCounter.pinCount > 0 && type == GameState.Replay || pinCounts == 9 && PinCounter.pinCount > 0 && type == GameState.Replay)
+                if (pinCounts == 5 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay || pinCounts == 6 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay || pinCounts == 7 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay || pinCounts == 8 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay || pinCounts == 9 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay)
                 {
                     VoiceMost();
                     crowdType = Crowds.NoCrowd;
@@ -2858,7 +2892,7 @@ public class Game : MonoBehaviour
         }
         else if (throwBall == 2)
         {
-            if (pinCounts == 0 && PinCounter.pinCount > 0 && type == GameState.Replay)
+            if (pinCounts == 0 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay)
             {
                 if (playerTurn == 0)
                 {
@@ -2881,15 +2915,15 @@ public class Game : MonoBehaviour
                     VoiceMiss();
                 }
             }
-            if (pinCounts == 1 && PinCounter.pinCount > 0 && type == GameState.Replay)
+            if (pinCounts == 1 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay)
             {
                 VoiceOne();
             }
-            if (pinCounts == 2 && PinCounter.pinCount > 0 && type == GameState.Replay || pinCounts == 3 && PinCounter.pinCount > 0 && type == GameState.Replay || pinCounts == 4 && PinCounter.pinCount > 0 && type == GameState.Replay)
+            if (pinCounts == 2 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay || pinCounts == 3 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay || pinCounts == 4 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay)
             {
                 VoiceFew();
             }
-            if (pinCounts == 5 && PinCounter.pinCount > 0 && type == GameState.Replay || pinCounts == 6 && PinCounter.pinCount > 0 && type == GameState.Replay || pinCounts == 7 && PinCounter.pinCount > 0 && type == GameState.Replay || pinCounts == 8 && PinCounter.pinCount > 0 && type == GameState.Replay || pinCounts == 9 && PinCounter.pinCount > 0 && type == GameState.Replay || pinCounts == 10 && PinCounter.pinCount > 0 && type == GameState.Replay)
+            if (pinCounts == 5 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay || pinCounts == 6 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay || pinCounts == 7 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay || pinCounts == 8 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay || pinCounts == 9 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay || pinCounts == 10 && PinCounter.pinCount > 0 && GameManager.type == GameManager.GameState.Replay)
             {
                 VoiceMost();
                 crowdAudio.Stop();
@@ -2917,7 +2951,7 @@ public class Game : MonoBehaviour
 
     public void VoiceStrike()
     {
-        if (GameManager.isVoice && type != GameState.Menu && maxBalls != 1)
+        if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Strike(commentatorAudio);
             crowdAudio.Stop();
@@ -2932,7 +2966,7 @@ public class Game : MonoBehaviour
 
     public void VoiceSpare()
     {
-        if (GameManager.isVoice && type != GameState.Menu && maxBalls != 1)
+        if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Spare(commentatorAudio);
             crowdAudio.Stop();
@@ -2947,7 +2981,7 @@ public class Game : MonoBehaviour
 
     public void VoiceGutterball()
     {
-        if (GameManager.isVoice && type != GameState.Menu && maxBalls != 1)
+        if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Gutterball(commentatorAudio);
             crowdAudio.Stop();
@@ -2962,7 +2996,7 @@ public class Game : MonoBehaviour
 
     public void VoiceDouble()
     {
-        if (GameManager.isVoice && type != GameState.Menu && maxBalls != 1)
+        if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Double(commentatorAudio);
             crowdAudio.Stop();
@@ -2977,7 +3011,7 @@ public class Game : MonoBehaviour
 
     public void VoiceTurkey()
     {
-        if (GameManager.isVoice && type != GameState.Menu && maxBalls != 1)
+        if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Turkey(commentatorAudio);
             crowdAudio.Stop();
@@ -2992,7 +3026,7 @@ public class Game : MonoBehaviour
 
     public void VoiceSplit()
     {
-        if (GameManager.isVoice && type != GameState.Menu && maxBalls != 1)
+        if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Split(commentatorAudio);
             crowdAudio.Stop();
@@ -3007,7 +3041,7 @@ public class Game : MonoBehaviour
 
     public void VoiceSplit710()
     {
-        if (GameManager.isVoice && type != GameState.Menu && maxBalls != 1)
+        if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Split710(commentatorAudio);
             crowdAudio.Stop();
@@ -3022,7 +3056,7 @@ public class Game : MonoBehaviour
 
     public void VoiceSplitPick()
     {
-        if (GameManager.isVoice && type != GameState.Menu && maxBalls != 1)
+        if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.SplitPick(commentatorAudio);
             crowdAudio.Stop();
@@ -3037,7 +3071,7 @@ public class Game : MonoBehaviour
 
     public void VoiceMost()
     {
-        if (GameManager.isVoice && type != GameState.Menu && maxBalls != 1)
+        if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Most(commentatorAudio);
             commentatorIndex = 1;
@@ -3047,7 +3081,7 @@ public class Game : MonoBehaviour
 
     public void VoiceFew()
     {
-        if (GameManager.isVoice && type != GameState.Menu && maxBalls != 1)
+        if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Few(commentatorAudio);
             crowdAudio.Stop();
@@ -3062,7 +3096,7 @@ public class Game : MonoBehaviour
 
     public void VoiceOne()
     {
-        if (GameManager.isVoice && type != GameState.Menu && maxBalls != 1)
+        if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.One(commentatorAudio);
             crowdAudio.Stop();
@@ -3077,7 +3111,7 @@ public class Game : MonoBehaviour
 
     public void VoiceMiss()
     {
-        if (GameManager.isVoice && type != GameState.Menu && maxBalls != 1)
+        if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Miss(commentatorAudio);
             crowdAudio.Stop();
@@ -3092,7 +3126,7 @@ public class Game : MonoBehaviour
 
     public void VoiceEndBad()
     {
-        if (GameManager.isVoice && type != GameState.Menu && maxBalls != 1)
+        if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.EndBad(commentatorAudio);
             commentatorIndex = 1;
@@ -3106,7 +3140,7 @@ public class Game : MonoBehaviour
 
     public void VoiceEndOk()
     {
-        if (GameManager.isVoice && type != GameState.Menu && maxBalls != 1)
+        if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.EndOk(commentatorAudio);
             commentatorIndex = 1;
@@ -3120,7 +3154,7 @@ public class Game : MonoBehaviour
 
     public void VoiceEndGood()
     {
-        if (GameManager.isVoice && type != GameState.Menu && maxBalls != 1)
+        if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.EndGood(commentatorAudio);
             commentatorIndex = 1;
@@ -3134,7 +3168,7 @@ public class Game : MonoBehaviour
 
     public void VoiceEndGreat()
     {
-        if (GameManager.isVoice && type != GameState.Menu && maxBalls != 1)
+        if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.EndGreat(commentatorAudio);
             commentatorIndex = 1;
@@ -3148,7 +3182,7 @@ public class Game : MonoBehaviour
 
     public void PerfectGame()
     {
-        if (GameManager.isVoice && type != GameState.Menu && maxBalls != 1)
+        if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentatorAudio.clip = Resources.Load<AudioClip>("Sound/crowd-perfect");
             commentatorAudio.Play();
@@ -3213,7 +3247,7 @@ public class Game : MonoBehaviour
 
     public void CheerBig()
     {
-        if (GameManager.isCrowd && type != GameState.Menu)
+        if (GameManager.isCrowd && GameManager.type != GameManager.GameState.Menu)
         {
             crowd.CheerBig(crowdAudio);
         }
@@ -3221,7 +3255,7 @@ public class Game : MonoBehaviour
 
     public void CheerMed()
     {
-        if (GameManager.isCrowd && type != GameState.Menu)
+        if (GameManager.isCrowd && GameManager.type != GameManager.GameState.Menu)
         {
             crowd.CheerMed(crowdAudio);
         }
@@ -3229,7 +3263,7 @@ public class Game : MonoBehaviour
 
     public void CrowdOk()
     {
-        if (GameManager.isCrowd && type != GameState.Menu)
+        if (GameManager.isCrowd && GameManager.type != GameManager.GameState.Menu)
         {
             crowd.CrowdOk(crowdAudio);
         }
@@ -3237,7 +3271,7 @@ public class Game : MonoBehaviour
 
     public void CrowdHohum()
     {
-        if (GameManager.isCrowd && type != GameState.Menu)
+        if (GameManager.isCrowd && GameManager.type != GameManager.GameState.Menu)
         {
             crowd.CrowdHohum(crowdAudio);
         }
@@ -3245,7 +3279,7 @@ public class Game : MonoBehaviour
 
     public void CrowdCrap()
     {
-        if (GameManager.isCrowd && type != GameState.Menu)
+        if (GameManager.isCrowd && GameManager.type != GameManager.GameState.Menu)
         {
             crowd.CrowdCrap(crowdAudio);
         }
@@ -3253,7 +3287,7 @@ public class Game : MonoBehaviour
 
     public void Laugh()
     {
-        if (GameManager.isCrowd && type != GameState.Menu)
+        if (GameManager.isCrowd && GameManager.type != GameManager.GameState.Menu)
         {
             crowd.Laugh(crowdAudio);
         }
@@ -3261,11 +3295,11 @@ public class Game : MonoBehaviour
 
     public void Roll()
     {
-        if (GameManager.isCrowd && type != GameState.Menu)
+        if (GameManager.isCrowd && GameManager.type != GameManager.GameState.Menu)
         {
             crowd.Roll(rollCrowd);
         }
-        if (!isComputer && crowd.roll.Length >= 1 && crowdType == Crowds.NoCrowd && type != GameState.Menu)
+        if (!isComputer && crowd.roll.Length >= 1 && crowdType == Crowds.NoCrowd && GameManager.type != GameManager.GameState.Menu)
         {
             crowdAudio.Stop();
         }
@@ -3273,7 +3307,7 @@ public class Game : MonoBehaviour
 
     public void Oooh()
     {
-        if (GameManager.isCrowd && type != GameState.Menu)
+        if (GameManager.isCrowd && GameManager.type != GameManager.GameState.Menu)
         {
             crowd.Oooh(crowdAudio);
         }
@@ -3281,7 +3315,7 @@ public class Game : MonoBehaviour
 
     public void GutterLaugh()
     {
-        if (GameManager.isCrowd && !GameManager.isVoice && type != GameState.Menu)
+        if (GameManager.isCrowd && !GameManager.isVoice && GameManager.type != GameManager.GameState.Menu)
         {
             crowd.Laugh(commentatorAudio);
             crowdAudio.Stop();
@@ -3362,7 +3396,7 @@ public class Game : MonoBehaviour
         }
         else if (PinCounter.pinCount == 0 || throwBall == maxBalls || isResetPins)
         {
-            if (type == GameState.Menu)
+            if (GameManager.type == GameManager.GameState.Menu)
             {
                 RandomChargeBall();
             }
@@ -3384,6 +3418,10 @@ public class Game : MonoBehaviour
         {
             bounce.Reset();
         }
+        foreach (MiniBall miniBall in GameObject.FindObjectsOfType<MiniBall>())
+        {
+            miniBall.DestroyBall();
+        }
         if (isEndGame)
         {
             if (GameManager.isParticle)
@@ -3403,7 +3441,7 @@ public class Game : MonoBehaviour
                 ballObject.SetActive(false);
             }
             cameraFollow.EndCam();
-            type = GameState.EndGame;
+            GameManager.type = GameManager.GameState.EndGame;
             CrowdStop();
             if (maxBalls == 1)
             {
@@ -4121,7 +4159,7 @@ public class Game : MonoBehaviour
         }
         else
         {
-            if (type != GameState.Menu)
+            if (GameManager.type != GameManager.GameState.Menu)
             {
                 if (nextTurn == 0)
                 {
@@ -4379,7 +4417,7 @@ public class Game : MonoBehaviour
                 ThrowBall();
                 ball.ResetCam();
             }
-            if (type == GameState.Replay)
+            if (GameManager.type == GameManager.GameState.Replay)
             {
                 if (isComputer)
                 {
@@ -4391,7 +4429,7 @@ public class Game : MonoBehaviour
                     ball.Reset();
                     ball.ResetCam();
                 }
-                type = GameState.Game;
+                GameManager.type = GameManager.GameState.Game;
             }
         }
     }
@@ -4406,11 +4444,11 @@ public class Game : MonoBehaviour
             }
             if (GameObject.FindObjectOfType<PinSetter>().isThunder)
             {
-                if (sfx != null && gameManager != null && GameManager.isSound && type != GameState.Menu)
+                if (sfx != null && gameManager != null && GameManager.isSound && GameManager.type != GameManager.GameState.Menu)
                 {
                     PlayClip("thunder");
                 }
-                if (rainPorch != null && gameManager != null && GameManager.isSound && type != GameState.Menu)
+                if (rainPorch != null && gameManager != null && GameManager.isSound && GameManager.type != GameManager.GameState.Menu)
                 {
                     rainPorch.Play();
                 }
@@ -4422,7 +4460,7 @@ public class Game : MonoBehaviour
             {
                 GameObject.FindObjectOfType<PinSetter>().psDrop.Stop();
             }
-            if (GameObject.FindObjectOfType<PinSetter>().isThunder && GameManager.isSound && type != GameState.Menu)
+            if (GameObject.FindObjectOfType<PinSetter>().isThunder && GameManager.isSound && GameManager.type != GameManager.GameState.Menu)
             {
                 rainPorch.Stop();
             }
@@ -4432,7 +4470,7 @@ public class Game : MonoBehaviour
 
     public void PlayClip(string clipName)
     {
-        if (GameManager.isSound && type != GameState.Menu)
+        if (GameManager.isSound && GameManager.type != GameManager.GameState.Menu)
         {
             sfx.PlayOneShot(Resources.Load<AudioClip>("Sound/" + clipName));
         }
@@ -4440,7 +4478,7 @@ public class Game : MonoBehaviour
 
     public void MouseDown()
     {
-        if (Input.GetMouseButtonDown(0) && type == GameState.Replay)
+        if (Input.GetMouseButtonDown(0) && GameManager.type == GameManager.GameState.Replay)
         {
             if (isAnim)
             {
@@ -4496,9 +4534,19 @@ public class Game : MonoBehaviour
         AudioStop();
         loadingUI.SetActive(true);
         SceneManager.LoadScene("Main");
-        type = GameState.Intro;
+        GameManager.type = GameManager.GameState.Intro;
         PlayerPrefs.SetInt("PinModes", (int)GameManager.pinMode);
         GameManager.pinGameMode = GameManager.pinMode;
+    }
+
+    public void HundredPinPlayGame()
+    {
+        GameManager.isHighScore = false;
+        VoiceStop();
+        AudioStop();
+        loadingUI.SetActive(true);
+        SceneManager.LoadScene("100Pin");
+        GameManager.type = GameManager.GameState.Intro;
     }
 
     public void IntroSong()
@@ -4521,7 +4569,7 @@ public class Game : MonoBehaviour
         CrowdStop();
         AudioStop();
         SceneManager.LoadScene("Main");
-        type = GameState.Menu;
+        GameManager.type = GameManager.GameState.Menu;
     }
 
     public void EndGame()
@@ -4803,7 +4851,7 @@ public class Game : MonoBehaviour
         sfx.Stop();
         rainPorch.Stop();
         SceneManager.LoadScene("Main");
-        type = GameState.Menu;
+        GameManager.type = GameManager.GameState.Menu;
     }
 
     void AddBowlerScore(List<ScoreBowler> bowlerList, ScoreBowler element, string filename)
@@ -5014,6 +5062,7 @@ public class Game : MonoBehaviour
     public void Spare()
     {
         GameManager.pinMode = GameManager.PinMode.Spare;
+        playerTurn = 0;
     }
 
     public void PrevAlleys()
@@ -5136,7 +5185,7 @@ public class Game : MonoBehaviour
         {
             GameManager.turnBallsCPU--;
         }
-        if (type != GameState.Menu)
+        if (GameManager.type != GameManager.GameState.Menu)
         {
             if (GameManager.turnBalls1 < 0)
             {
@@ -5440,7 +5489,7 @@ public class Game : MonoBehaviour
         {
             GameManager.turnBallsCPU++;
         }
-        if (type != GameState.Menu)
+        if (GameManager.type != GameManager.GameState.Menu)
         {
             if (GameManager.turnBalls1 >= gameManager.chooseBalls.Length && Application.platform != RuntimePlatform.WebGLPlayer || GameManager.turnBalls1 >= 5 && Application.platform == RuntimePlatform.WebGLPlayer)
             {
@@ -6339,10 +6388,26 @@ public class Game : MonoBehaviour
 
     public void BuyBomb()
     {
-        if (GameManager.moneys >= 1000)
+        if (GameManager.moneys >= 1250)
         {
             GameManager.bombBalls++;
             PlayerPrefs.SetInt("SaveBomb", GameManager.bombBalls);
+            GameManager.moneys -= 1250;
+            PlayerPrefs.SetInt("SaveMoney", GameManager.moneys);
+            PlayClip("buy_powerups");
+        }
+        else
+        {
+            PlayClip("not_powerups");
+        }
+    }
+
+    public void BuyClone()
+    {
+        if (GameManager.moneys >= 1000)
+        {
+            GameManager.cloneBalls++;
+            PlayerPrefs.SetInt("SaveClone", GameManager.cloneBalls);
             GameManager.moneys -= 1000;
             PlayerPrefs.SetInt("SaveMoney", GameManager.moneys);
             PlayClip("buy_powerups");
@@ -6431,9 +6496,17 @@ public class Game : MonoBehaviour
 
     public void ThrowBall()
     {
-        if (pin1.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == true && pin6.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin8.IsStanding() == true && pin9.IsStanding() == true && pin10.IsStanding() == false)
+        if (pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == true || pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == true || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == true && pin6.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin8.IsStanding() == true && pin9.IsStanding() == true && pin10.IsStanding() == false)
         {
             ball.ResetBowl(0);
+        }
+        else if (pin1.IsStanding() == true && pin2.IsStanding() == true && pin3.IsStanding() == false)
+        {
+            ball.ResetBowl(0.01f);
+        }
+        else if (pin1.IsStanding() == true && pin2.IsStanding() == false && pin3.IsStanding() == true)
+        {
+            ball.ResetBowl(-0.01f);
         }
         else if (pin1.IsStanding() == false && pin2.IsStanding() == true && pin3.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == true && pin5.IsStanding() == true && pin6.IsStanding() == false || pin1.IsStanding() == false && pin2.IsStanding() == false && pin3.IsStanding() == false && pin4.IsStanding() == false && pin5.IsStanding() == false && pin6.IsStanding() == false && pin7.IsStanding() == false && pin8.IsStanding() == true && pin9.IsStanding() == false && pin10.IsStanding() == false)
         {

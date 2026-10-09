@@ -24,7 +24,7 @@ AnimationClip:
         time: 0
         value: -1120
         inSlope: 0
-        outSlope: 23.76
+        outSlope: 24.133333
         tangentMode: 69
         weightedMode: 0
         inWeight: 0.33333334
@@ -156,7 +156,7 @@ AnimationClip:
         time: 0
         value: -1120
         inSlope: 0
-        outSlope: 23.76
+        outSlope: 24.133333
         tangentMode: 69
         weightedMode: 0
         inWeight: 0.33333334

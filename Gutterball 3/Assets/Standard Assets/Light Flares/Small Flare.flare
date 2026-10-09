@@ -7,7 +7,7 @@ Flare:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Small Flare
-  m_FlareTexture: {fileID: 2800000, guid: 51dc82ef9d11c594d000e7c9e39e7c39, type: 3}
+  m_FlareTexture: {fileID: 2800000, guid: 0547afa177457af40bfb23f2958b8767, type: 3}
   m_TextureLayout: 0
   m_Elements:
   - m_ImageIndex: 0

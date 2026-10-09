@@ -3,7 +3,7 @@
 
 Shader "FX/Water" { 
 Properties {
-	_WaveScale ("Wave scale", Range (0.0002,0.15)) = 0.063
+	_WaveScale ("Wave scale", Range (0.0002,15)) = 0.063
 	_ReflDistort ("Reflection distort", Range (0,150)) = 0.44
 	_RefrDistort ("Refraction distort", Range (0,150)) = 0.40
 	_RefrColor ("Refraction color", COLOR)  = ( .34, .85, .92, 1)

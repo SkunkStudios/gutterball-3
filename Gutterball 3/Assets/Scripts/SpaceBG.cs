@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class SpaceBG : MonoBehaviour
 {
-	void LateUpdate ()
+    void Awake()
+    {
+        transform.position = new Vector3(0, 5000, 0);
+    }
+
+    void LateUpdate ()
 	{
 		transform.position = new Vector3(0, 5000, 0);
 	}

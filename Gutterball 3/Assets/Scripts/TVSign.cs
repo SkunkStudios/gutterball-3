@@ -10,7 +10,6 @@ public class TVSign : MonoBehaviour
 
 	public RawImage backScreen;
     public RawImage frontScreen;
-    public bool isIntro;
 
     private GameManager gameManager;
     private Texture2D[] screens;

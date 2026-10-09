@@ -9,6 +9,8 @@
     "com.unity.ide.vscode": "1.2.5",
     "com.unity.postprocessing": "3.4.0",
     "com.unity.purchasing": "4.9.3",
+    "com.unity.render-pipelines.core": "12.1.15",
+    "com.unity.shadergraph": "12.1.15",
     "com.unity.test-framework": "1.1.33",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.6.5",

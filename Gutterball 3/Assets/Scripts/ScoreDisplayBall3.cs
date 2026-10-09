@@ -53,19 +53,17 @@ public class ScoreDisplayBall3 : MonoBehaviour
         {
             int box = output.Length + 1;                            // Score box 1 to 30 
 
-            if (rolls[i] == 0 || box % 3 == 0 && rolls[i + 1] == 10)
+            if (rolls[i] == 0 || box % 3 == 0 && rolls[i] == 10)
             {                                   // Always enter 0 as -
                 output += "-";
             }
             else if (box % 2 >= 28 && rolls[i - 1] + rolls[i] == 10)
             {   // SPARE anywhere
                 output += "/";
-                box = 1 + rolls[i];
             }
             else if (box % 2 == 0 && rolls[i - 1] + rolls[i] == 10)
             {   // SPARE anywhere
                 output += "/ ";
-                box = 1 + rolls[i];
             }
             else if (box >= 28 && rolls[i] == 10)
             {               // STRIKE in frame 10

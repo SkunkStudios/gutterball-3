@@ -31,6 +31,10 @@ public class CameraFollow : MonoBehaviour
                 game.camType = Game.CameraType.ComputerLook;
             }
         }
+        if (game.camType == Game.CameraType.EndCam)
+        {
+            transform.rotation = Quaternion.LookRotation(new Vector3(-transform.position.x, 120 - transform.position.y, -3298.75f - transform.position.z));
+        }
     }
 
     void FixedUpdate ()
@@ -119,7 +123,7 @@ public class CameraFollow : MonoBehaviour
         else if (game.camType == Game.CameraType.ReturnBall)
         {
             transform.Translate(-10 / 3 * Time.fixedDeltaTime, -10 / 3 * Time.fixedDeltaTime, 500 / 3 * Time.fixedDeltaTime, Space.World);
-            desiredPosition = new Vector3(ball.position.x - transform.position.x, ball.position.y - transform.position.y + 32, ball.position.z - transform.position.z);
+            desiredPosition = new Vector3(-transform.position.x, 24 - transform.position.y, -3263.75f - transform.position.z);
             Quaternion lookRotation = Quaternion.LookRotation(desiredPosition);
             transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, smoothRotSpeed * 2 * Time.fixedDeltaTime);
         }
@@ -148,14 +152,10 @@ public class CameraFollow : MonoBehaviour
     public void React(int index)
     {
         game.camType = Game.CameraType.ReactCam;
+        reactMoveX = Random.Range(-10f, 10f) / 3;
+        reactMoveZ = Random.Range(-10f, 10f) / 3;
         transform.position = GameObject.FindObjectOfType<PinSetter>().reacts[index].position;
         transform.rotation = GameObject.FindObjectOfType<PinSetter>().reacts[index].rotation;
-    }
-
-    public void ReactMove()
-    {
-        reactMoveX = Random.Range(-10, 10) / 3;
-        reactMoveZ = Random.Range(-10, 10) / 3;
     }
 
     public void Reset()
@@ -188,7 +188,7 @@ public class CameraFollow : MonoBehaviour
         }
         game.camType = Game.CameraType.EndCam;
         transform.position = new Vector3(-GameObject.FindObjectOfType<PinSetter>().winPos.x, GameObject.FindObjectOfType<PinSetter>().winPos.y, GameObject.FindObjectOfType<PinSetter>().winPos.z);
-        transform.rotation = Quaternion.Euler(-GameObject.FindObjectOfType<PinSetter>().winRot.x, 180 - GameObject.FindObjectOfType<PinSetter>().winRot.y, 0);
+        transform.rotation = Quaternion.LookRotation(new Vector3(-transform.position.x, 120 - transform.position.y, -3298.75f - transform.position.z));
     }
 
     public void FallMove(Vector3 camMove)

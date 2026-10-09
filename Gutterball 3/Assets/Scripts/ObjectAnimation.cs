@@ -122,7 +122,7 @@ public class ObjectAnimation : MonoBehaviour
                     var main = pop.GetComponent<ParticleSystem>().main;
                     main.startColor = pop.GetComponent<Fireworks>().colorFireworks[Random.Range(0, pop.GetComponent<Fireworks>().colorFireworks.Length)];
                     Instantiate(game.bigExplores[Random.Range(0, game.bigExplores.Length)], objectTarget.position, Quaternion.identity);
-                    if (GameManager.isSound && Game.type != Game.GameState.Menu)
+                    if (GameManager.isSound && GameManager.type != GameManager.GameState.Menu)
                     {
                         GameObject.FindObjectOfType<Ball>().splashAudio.PlayOneShot(game.exploreClips[Random.Range(0, game.exploreClips.Length)]);
                     }
@@ -134,7 +134,7 @@ public class ObjectAnimation : MonoBehaviour
                     var main = pop.GetComponent<ParticleSystem>().main;
                     main.startColor = pop.GetComponent<Fireworks>().colorFireworks[Random.Range(0, pop.GetComponent<Fireworks>().colorFireworks.Length)];
                     Instantiate(game.bigExplores[Random.Range(0, game.bigExplores.Length)], objectTarget.position, Quaternion.identity);
-                    if (GameManager.isSound && Game.type != Game.GameState.Menu)
+                    if (GameManager.isSound && GameManager.type != GameManager.GameState.Menu)
                     {
                         GameObject.FindObjectOfType<Ball>().splashAudio.PlayOneShot(game.exploreClips[Random.Range(0, game.exploreClips.Length)]);
                     }

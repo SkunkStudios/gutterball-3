@@ -9,6 +9,13 @@ public class Fireworks : MonoBehaviour
     // Use this for initialization
     void Start ()
 	{
-        GameObject.FindObjectOfType<Game>().PlayClip("FireworksPop");
+        if (GameObject.FindObjectOfType<Game>() != null)
+        {
+            GameObject.FindObjectOfType<Game>().PlayClip("FireworksPop");
+        }
+        if (GameObject.FindObjectOfType<GameHundredPin>() != null)
+        {
+            GameObject.FindObjectOfType<GameHundredPin>().PlayClip("FireworksPop");
+        }
     }
 }

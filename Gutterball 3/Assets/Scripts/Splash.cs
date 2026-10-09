@@ -34,16 +34,14 @@ public class Splash : MonoBehaviour
 
 	IEnumerator StartSplash()
 	{
-		yield return new WaitForSeconds(1.5f);
+        splashScreen.GetComponent<Animator>().speed = 1 / Time.timeScale;
+        yield return new WaitForSeconds(0.5f * Time.timeScale);
         splashScreen.SetActive(true);
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(10f * Time.timeScale);
         splashScreen.SetActive(false);
         ronkatScreen.SetActive(true);
-        yield return new WaitForSeconds(18f);
+        yield return new WaitForSeconds(6f * Time.timeScale);
         ronkatScreen.SetActive(false);
-        warningScreen.SetActive(true);
-        yield return new WaitForSeconds(18f);
-        warningScreen.SetActive(false);
         loadScreen.SetActive(true);
         if (PlayerPrefs.GetInt("IntroSkip") == 0 && Application.platform != RuntimePlatform.WebGLPlayer)
         {

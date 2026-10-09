@@ -2768,7 +2768,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 8cf8eddc11078ca4db495961429dfecd, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 2
+  m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -4069,7 +4069,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0d39a04076954ff4ca79873e5df8715b, type: 3}
   - {fileID: 21300000, guid: e8fdd513e0181fa48806ab96869c9909, type: 3}
   - {fileID: 21300000, guid: a56df111d257ff442b32b90193675e85, type: 3}
-  gameDistribution: 0
+  gameDistribution: 2
   firstPersonCam: {fileID: 8400000, guid: b248dd5aa85d83b4ea0b706f6445dbbe, type: 2}
   chooseBalls:
   - ballName: Retro 1
@@ -5881,7 +5881,7 @@ MonoBehaviour:
   urlInfoScreen:
   - https://cdn.ghstatic.com/images/deluxe/300x150/200162.jpg
   - https://cdn.ghstatic.com/images/deluxe/300x150/200161.jpg
-  - https://cdn.ghstatic.com/images/deluxe/300x150/200161.jpg", "https://cdn.ghstatic.com/images/deluxe/300x150/201458.jpg
+  - https://cdn.ghstatic.com/images/deluxe/300x150/201458.jpg
   lockBallMat: {fileID: 2100000, guid: 7995fe228353e6c4f92b8a1c95feee1f, type: 2}
   bowler: []
   r_hs: []
