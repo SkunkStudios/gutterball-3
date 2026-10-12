@@ -11,8 +11,8 @@ public class MiniBall : MonoBehaviour
     public Renderer meshBall;
     public GameObject poof;
     public GameObject splash;
+    public bool isSplash;
 
-    private bool isSplash;
     private bool isPortal;
     private float portalGravity;
 

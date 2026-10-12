@@ -146,6 +146,10 @@ public class GameHundredPin : MonoBehaviour
         cameraFollow.transform.eulerAngles = new Vector3(10.2f, 180, 0);
         camType = CameraType.Intro;
         StartCoroutine(IntroTime());
+        if (GameManager.startBall <= 0)
+        {
+            GameManager.startBall = 1;
+        }
         playerName.text = gameManager.bowler[GameManager.turnNameIndex1].playerName;
     }
 
@@ -425,6 +429,7 @@ public class GameHundredPin : MonoBehaviour
         }
         if (isReplay)
         {
+            camType = GameHundredPin.CameraType.Replay;
             cameraFollow.transform.position = new Vector3(0, 300, -2000);
             cameraFollow.transform.eulerAngles = new Vector3(10.21f, 180, 0);
             foreach (MiniBall miniBall in GameObject.FindObjectsOfType<MiniBall>())
@@ -617,6 +622,7 @@ public class GameHundredPin : MonoBehaviour
         }
         if (isEndGame)
         {
+            camType = GameHundredPin.CameraType.Replay;
             cameraFollow.transform.position = new Vector3(0, 300, -2000);
             cameraFollow.transform.eulerAngles = new Vector3(10.21f, 180, 0);
             if (GameManager.isParticle)
@@ -646,13 +652,11 @@ public class GameHundredPin : MonoBehaviour
                 gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 0;
                 winCrowd.clip = Resources.Load<AudioClip>("Sound/Foo05");
                 winCrowd.Play();
-                fireworksMulti.Play();
             }
             else if (score >= 1000 && score <= 1499)
             {
                 winGamePrize.text = "prize: 50";
                 gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 50;
-                fireworksMulti.Play();
             }
             else if (score >= 1500 && score <= 1999)
             {
@@ -660,7 +664,6 @@ public class GameHundredPin : MonoBehaviour
                 gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 100;
                 winCrowd.clip = Resources.Load<AudioClip>("Sound/Yea05");
                 winCrowd.Play();
-                fireworksMulti.Play();
             }
             else if (score >= 2000 && score <= 2499)
             {
@@ -668,7 +671,6 @@ public class GameHundredPin : MonoBehaviour
                 gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 500;
                 winCrowd.clip = Resources.Load<AudioClip>("Sound/Yea05");
                 winCrowd.Play();
-                fireworksMulti.Play();
             }
             else if (score >= 2500 && score <= 2999)
             {
@@ -676,7 +678,6 @@ public class GameHundredPin : MonoBehaviour
                 gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 1000;
                 winCrowd.clip = Resources.Load<AudioClip>("Sound/App01");
                 winCrowd.Play();
-                fireworksMulti.Play();
             }
             else if (score >= 3000)
             {
@@ -684,8 +685,8 @@ public class GameHundredPin : MonoBehaviour
                 gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 5000;
                 winCrowd.clip = Resources.Load<AudioClip>("Sound/end-perfect");
                 winCrowd.Play();
-                fireworksMulti.Play();
             }
+            fireworksMulti.Play();
             playerNameText.text = gameManager.bowler[GameManager.turnNameIndex1].playerName;
             ballNameText.text = gameManager.chooseBalls[GameManager.turnBalls1].ballName;
             ballDataText.text = gameManager.chooseBalls[GameManager.turnBalls1].lbs + "lbs.  speed:" + gameManager.chooseBalls[GameManager.turnBalls1].speed + "  spin:" + gameManager.chooseBalls[GameManager.turnBalls1].spin;

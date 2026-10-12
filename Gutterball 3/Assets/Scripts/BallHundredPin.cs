@@ -245,7 +245,7 @@ public class BallHundredPin : MonoBehaviour
             {
                 Instantiate(hit, collision.contacts[0].point, Quaternion.identity);
             }
-            foreach (Pin pin in GameObject.FindObjectsOfType<Pin>())
+            foreach (HundredPin pin in GameObject.FindObjectsOfType<HundredPin>())
             {
                 pin.FallPinDown();
             }
@@ -450,7 +450,6 @@ public class BallHundredPin : MonoBehaviour
             }
             rollAudio.Stop();
             gutterAudio.Stop();
-            game.rollCrowd.Stop();
             controlArrow.SetActive(false);
             game.cloneBallTimesText.SetActive(false);
             force.force = new Vector3(0, 0, 0);
@@ -485,13 +484,13 @@ public class BallHundredPin : MonoBehaviour
             gutterAudio.Stop();
             electricAudio.Stop();
             game.PlayClip("s.explosion_tnt");
-            isSplash = GameObject.FindObjectOfType<PinSetter>().isSplash;
+            isSplash = true;
             if (game.isReplayRecord)
             {
                 game.isReplay = true;
             }
             controlArrow.SetActive(false);
-            foreach (Pin pin in GameObject.FindObjectsOfType<Pin>())
+            foreach (HundredPin pin in GameObject.FindObjectsOfType<HundredPin>())
             {
                 pin.FallPinDown();
             }
@@ -525,12 +524,12 @@ public class BallHundredPin : MonoBehaviour
             game.ballType = GameHundredPin.BallType.FallBall;
             cameraFollow.FallMove(transform.position);
             game.camType = GameHundredPin.CameraType.MoveCam;
-            GameObject.FindObjectOfType<PinSetter>().StopScooper();
             game.PinTimeA(6);
         }
         if (Input.GetMouseButtonDown(1) && GameManager.cloneBalls >= 1 && game.powerUps == GameHundredPin.BallPowerUps.Clone && game.ballType == GameHundredPin.BallType.SpinBall)
         {
             GameObject miniBall = Instantiate(spawnBall, new Vector3(transform.position.x, transform.position.y + 32, transform.position.z), Quaternion.identity) as GameObject;
+            miniBall.GetComponent<MiniBall>().isSplash = true;
             miniBall.GetComponent<MiniBall>().ChargeBall(GameObject.FindObjectOfType<GameManager>().chooseBalls[GameManager.chooseBallIndex].ballMat, lbs, GameManager.chooseBallIndex);
             miniBall.GetComponent<Rigidbody>().velocity = Vector3.forward * -600;
             if (GameManager.isParticle)

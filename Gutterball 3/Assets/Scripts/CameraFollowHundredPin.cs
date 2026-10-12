@@ -76,6 +76,10 @@ public class CameraFollowHundredPin : MonoBehaviour
             smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothPosSpeed);
             transform.position = smoothedPosition;
         }
+        else if (game.camType == GameHundredPin.CameraType.MoveCam)
+        {
+            transform.Translate(-fallMove.x * 0.1f / 3 * Time.fixedDeltaTime, 10 / 3 * Time.fixedDeltaTime, 50 / 3 * Time.fixedDeltaTime, Space.World);
+        }
     }
 
     public void Reset()

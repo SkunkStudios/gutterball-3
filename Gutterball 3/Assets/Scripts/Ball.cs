@@ -799,6 +799,7 @@ public class Ball : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && GameManager.cloneBalls >= 1 && game.powerUps == Game.BallPowerUps.Clone && game.ballType == Game.BallType.SpinBall)
         {
             GameObject miniBall = Instantiate(spawnBall, new Vector3(transform.position.x, transform.position.y + 32, transform.position.z), Quaternion.identity) as GameObject;
+            miniBall.GetComponent<MiniBall>().isSplash = GameObject.FindObjectOfType<PinSetter>().isSplash;
             miniBall.GetComponent<MiniBall>().ChargeBall(GameObject.FindObjectOfType<GameManager>().chooseBalls[GameManager.chooseBallIndex].ballMat, lbs, GameManager.chooseBallIndex);
             miniBall.GetComponent<Rigidbody>().velocity = Vector3.forward * -600;
             if (GameManager.isParticle)
