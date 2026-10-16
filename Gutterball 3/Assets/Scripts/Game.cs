@@ -2951,6 +2951,10 @@ public class Game : MonoBehaviour
 
     public void VoiceStrike()
     {
+        if (GameObject.FindObjectOfType<PinSetter>().pumpkinFace != null && System.DateTime.Now.Month == 10)
+        {
+            GameObject.FindObjectOfType<PinSetter>().pumpkinFace.AngryFace();
+        }
         if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Strike(commentatorAudio);
@@ -2981,6 +2985,10 @@ public class Game : MonoBehaviour
 
     public void VoiceGutterball()
     {
+        if (GameObject.FindObjectOfType<PinSetter>().pumpkinFace != null && System.DateTime.Now.Month == 10)
+        {
+            GameObject.FindObjectOfType<PinSetter>().pumpkinFace.SmileFace();
+        }
         if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Gutterball(commentatorAudio);
@@ -2996,6 +3004,10 @@ public class Game : MonoBehaviour
 
     public void VoiceDouble()
     {
+        if (GameObject.FindObjectOfType<PinSetter>().pumpkinFace != null && System.DateTime.Now.Month == 10)
+        {
+            GameObject.FindObjectOfType<PinSetter>().pumpkinFace.AngryFace();
+        }
         if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Double(commentatorAudio);
@@ -3011,6 +3023,10 @@ public class Game : MonoBehaviour
 
     public void VoiceTurkey()
     {
+        if (GameObject.FindObjectOfType<PinSetter>().pumpkinFace != null && System.DateTime.Now.Month == 10)
+        {
+            GameObject.FindObjectOfType<PinSetter>().pumpkinFace.AngryFace();
+        }
         if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Turkey(commentatorAudio);
@@ -3026,6 +3042,10 @@ public class Game : MonoBehaviour
 
     public void VoiceSplit()
     {
+        if (GameObject.FindObjectOfType<PinSetter>().pumpkinFace != null && System.DateTime.Now.Month == 10)
+        {
+            GameObject.FindObjectOfType<PinSetter>().pumpkinFace.SmileFace();
+        }
         if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Split(commentatorAudio);
@@ -3041,6 +3061,10 @@ public class Game : MonoBehaviour
 
     public void VoiceSplit710()
     {
+        if (GameObject.FindObjectOfType<PinSetter>().pumpkinFace != null && System.DateTime.Now.Month == 10)
+        {
+            GameObject.FindObjectOfType<PinSetter>().pumpkinFace.SmileFace();
+        }
         if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Split710(commentatorAudio);
@@ -3056,6 +3080,10 @@ public class Game : MonoBehaviour
 
     public void VoiceSplitPick()
     {
+        if (GameObject.FindObjectOfType<PinSetter>().pumpkinFace != null && System.DateTime.Now.Month == 10)
+        {
+            GameObject.FindObjectOfType<PinSetter>().pumpkinFace.AngryFace();
+        }
         if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.SplitPick(commentatorAudio);
@@ -3071,6 +3099,10 @@ public class Game : MonoBehaviour
 
     public void VoiceMost()
     {
+        if (GameObject.FindObjectOfType<PinSetter>().pumpkinFace != null && System.DateTime.Now.Month == 10)
+        {
+            GameObject.FindObjectOfType<PinSetter>().pumpkinFace.AngryFace();
+        }
         if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Most(commentatorAudio);
@@ -3111,6 +3143,10 @@ public class Game : MonoBehaviour
 
     public void VoiceMiss()
     {
+        if (GameObject.FindObjectOfType<PinSetter>().pumpkinFace != null && System.DateTime.Now.Month == 10)
+        {
+            GameObject.FindObjectOfType<PinSetter>().pumpkinFace.GutterFace();
+        }
         if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Miss(commentatorAudio);
