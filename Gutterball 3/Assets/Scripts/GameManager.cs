@@ -8,6 +8,8 @@ using UnityEngine.UI;
 //Skunk Studios by Upload to Github
 public class GameManager : MonoBehaviour
 {
+    public enum Difficulty { Easy, Normal, Hard, Extreme }
+    public static Difficulty difficulty;
     public enum PinMode { Tenpin, Spare }
     public static PinMode pinMode;
     public static PinMode pinGameMode;
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
     public RenderTexture firstPersonCam;
     public ChooseBall[] chooseBalls;
     public CompuObj[] compuObj = new CompuObj[65];
+    public CountriesObj[] countriesObj = new CountriesObj[90];
     public static bool isMusic = true;
     public static bool isSound = true;
     public static bool isCrowd = true;
@@ -71,6 +74,12 @@ public class GameManager : MonoBehaviour
     public static int forcePulseBalls;
     public static int hyperBalls;
     public static int lightningBalls;
+    public static int tournamentFirst2;
+    public static int tournamentFirst3;
+    public static int tournamentFirst4;
+    public static int tournamentFirstWin;
+    public static int tournamentSemiFinal;
+    public static int tournamentSemiFinalWin;
 
     private static GameManager instance;
 

@@ -99,7 +99,10 @@ public class BallRotate : MonoBehaviour
 
     public void RollBall()
     {
-        isRollBall = true;
+        if (Input.GetMouseButtonDown(0))
+        {
+            isRollBall = true;
+        }
     }
 
     public void ResetAxis()

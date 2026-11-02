@@ -4458,7 +4458,7 @@ MonoBehaviour:
     CPUName: Steve CPU
     ballMat: {fileID: 2100000, guid: 734723fdd4567ed4491c4b68d51d6091, type: 2}
     lbs: 13
-    speed: 50
+    speed: 65
     spin: 50
     isLock: 1
     urlTextureBall: 
@@ -4762,16 +4762,6 @@ MonoBehaviour:
     spin: 50
     isLock: 0
     urlTextureBall: 
-  - ballName: America
-    lockType: 0
-    totalLock: 0
-    CPUName: 
-    ballMat: {fileID: 2100000, guid: 7225403c20881fd4f9a2aafd3afed71b, type: 2}
-    lbs: 12
-    speed: 65
-    spin: 50
-    isLock: 0
-    urlTextureBall: 
   - ballName: Block Head
     lockType: 0
     totalLock: 0
@@ -4799,16 +4789,6 @@ MonoBehaviour:
     ballMat: {fileID: 2100000, guid: b9c90ff30d6000e4eb567499b7dfb60d, type: 2}
     lbs: 11
     speed: 45
-    spin: 30
-    isLock: 0
-    urlTextureBall: 
-  - ballName: Cross
-    lockType: 0
-    totalLock: 0
-    CPUName: 
-    ballMat: {fileID: 2100000, guid: 7991d6385bfcd4046896a41464b32802, type: 2}
-    lbs: 11
-    speed: 50
     spin: 30
     isLock: 0
     urlTextureBall: 
@@ -4850,16 +4830,6 @@ MonoBehaviour:
     lbs: 15
     speed: 75
     spin: 25
-    isLock: 0
-    urlTextureBall: 
-  - ballName: Kingdom
-    lockType: 0
-    totalLock: 0
-    CPUName: 
-    ballMat: {fileID: 2100000, guid: 58c4b730f7f45084ba605934af2e4b01, type: 2}
-    lbs: 12
-    speed: 70
-    spin: 35
     isLock: 0
     urlTextureBall: 
   - ballName: Rock
@@ -4942,6 +4912,16 @@ MonoBehaviour:
     spin: 30
     isLock: 0
     urlTextureBall: 
+  - ballName: Switzerland
+    lockType: 0
+    totalLock: 0
+    CPUName: 
+    ballMat: {fileID: 2100000, guid: 7991d6385bfcd4046896a41464b32802, type: 2}
+    lbs: 11
+    speed: 50
+    spin: 30
+    isLock: 0
+    urlTextureBall: 
   - ballName: Target
     lockType: 0
     totalLock: 0
@@ -4950,6 +4930,26 @@ MonoBehaviour:
     lbs: 16
     speed: 80
     spin: 60
+    isLock: 0
+    urlTextureBall: 
+  - ballName: UK
+    lockType: 0
+    totalLock: 0
+    CPUName: 
+    ballMat: {fileID: 2100000, guid: 58c4b730f7f45084ba605934af2e4b01, type: 2}
+    lbs: 12
+    speed: 70
+    spin: 35
+    isLock: 0
+    urlTextureBall: 
+  - ballName: USA
+    lockType: 0
+    totalLock: 0
+    CPUName: 
+    ballMat: {fileID: 2100000, guid: 7225403c20881fd4f9a2aafd3afed71b, type: 2}
+    lbs: 12
+    speed: 65
+    spin: 50
     isLock: 0
     urlTextureBall: 
   - ballName: Skunk Studios
@@ -5878,6 +5878,547 @@ MonoBehaviour:
     strikes: 0
     spares: 0
     gutters: 0
+  countriesObj:
+  - name: Afghanistan
+    ballName: Afghanistan
+    ballMat: {fileID: 2100000, guid: d242e48425b3e3c49ad1e8ce4d1523c9, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Albania
+    ballName: Albania
+    ballMat: {fileID: 2100000, guid: 8941e75c8c920884784350d50ab02b5c, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Algeria
+    ballName: Algeria
+    ballMat: {fileID: 2100000, guid: 18ad60f36d579b040a2288f389fdf862, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Argentina
+    ballName: Argentina
+    ballMat: {fileID: 2100000, guid: 12746653b9364dd42b28d5422bf0d554, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Armenia
+    ballName: Armenia
+    ballMat: {fileID: 2100000, guid: bca3bbbf31aed9d4b91cdc7859c2ab5e, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Australia
+    ballName: Australia
+    ballMat: {fileID: 2100000, guid: f7ff40cc1f06cfc4c9b7c0f40626fca3, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Austria
+    ballName: Austria
+    ballMat: {fileID: 2100000, guid: c55ff958b48feea40b37076024a92241, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Bahrain
+    ballName: Bahrain
+    ballMat: {fileID: 2100000, guid: e9f85556a741d7d4ca106ac17eb847f5, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Belgium
+    ballName: Belgium
+    ballMat: {fileID: 2100000, guid: 88dd5416741829449b803bdef65888f2, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Bolivia
+    ballName: Bolivia
+    ballMat: {fileID: 2100000, guid: 279426cb4a29ddb4eaa04ea644d7b883, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Bosnia
+    ballName: Bosnia
+    ballMat: {fileID: 2100000, guid: 1622b44371d97f1419db4f92fe0cf04f, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Brazil
+    ballName: Brazil
+    ballMat: {fileID: 2100000, guid: 568e6386f99a1964bbf2d7aee95ad68a, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Bulgaria
+    ballName: Bulgaria
+    ballMat: {fileID: 2100000, guid: 863bb82f282fa964daa22c421856821f, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Cameroon
+    ballName: Cameroon
+    ballMat: {fileID: 2100000, guid: 996b5a7bdcf1dcd41b3d7c91c6baac8b, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Canada
+    ballName: Canada
+    ballMat: {fileID: 2100000, guid: 4717ab5ddcda5ad4191463521cf6cef1, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Chile
+    ballName: Chile
+    ballMat: {fileID: 2100000, guid: 10d764cd49fd74d48b44ba97e44a0a12, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: China
+    ballName: China
+    ballMat: {fileID: 2100000, guid: 7af3cecea0330964ead71d206413d84b, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Colombia
+    ballName: Colombia
+    ballMat: {fileID: 2100000, guid: 69de1098ca4f5ea4998c0cf64a874b8b, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Costa Rica
+    ballName: Costa Rica
+    ballMat: {fileID: 2100000, guid: c4a82ec9d3ed0884e812400dccdd5860, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: "Co\u0302te d\u2019Ivoire"
+    ballName: "Co\u0302te d\u2019Ivoire"
+    ballMat: {fileID: 2100000, guid: 9b3f873506e5128429571ea152e4f413, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Croatia
+    ballName: Croatia
+    ballMat: {fileID: 2100000, guid: 8bc55670416f8ec4d9a22ccad50dface, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Cuba
+    ballName: Cuba
+    ballMat: {fileID: 2100000, guid: d93e986e6c225b34d92845dd78ba66ee, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Cyprus
+    ballName: Cyprus
+    ballMat: {fileID: 2100000, guid: aadcadc454f42af4db4830aad946bdee, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Czech Republic
+    ballName: Czech Republic
+    ballMat: {fileID: 2100000, guid: b53a5ee9c06bdf743b12f3eccb81fa8b, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Denmark
+    ballName: Denmark
+    ballMat: {fileID: 2100000, guid: d6ad63215bc956e44bd65999a9def14b, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Ecuador
+    ballName: Ecuador
+    ballMat: {fileID: 2100000, guid: e6041385f89828e41adad8745b0a18cd, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Egypt
+    ballName: Egypt
+    ballMat: {fileID: 2100000, guid: 674d258c2c20acc4c89723e241ce5697, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: England
+    ballName: England
+    ballMat: {fileID: 2100000, guid: afe287c2c5f293443819965daa1d1870, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Estonia
+    ballName: Estonia
+    ballMat: {fileID: 2100000, guid: ec4ac18e32d719448ae178724641fb01, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Finland
+    ballName: Finland
+    ballMat: {fileID: 2100000, guid: f20ffac285157f448a62631a03a66fd0, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: France
+    ballName: France
+    ballMat: {fileID: 2100000, guid: fb0d5732df3962f40a5eda49426976eb, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: German
+    ballName: German
+    ballMat: {fileID: 2100000, guid: 5e1d2b3a97d918c44b5a6e8f1e953e1e, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Ghana
+    ballName: Ghana
+    ballMat: {fileID: 2100000, guid: dbd5f31048065404fa9c2c57939a1f87, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Greece
+    ballName: Greece
+    ballMat: {fileID: 2100000, guid: e9d25102d39e1d046a09f82f1f5e6680, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Haiti
+    ballName: Haiti
+    ballMat: {fileID: 2100000, guid: 1fc77829fc84ec64b820aafc9a5091fe, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Honduras
+    ballName: Honduras
+    ballMat: {fileID: 2100000, guid: de2a569afa6071d4db4bea50a8af70b0, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Hungary
+    ballName: Hungary
+    ballMat: {fileID: 2100000, guid: 809225e277975024eb2ed76b398324c2, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: India
+    ballName: India
+    ballMat: {fileID: 2100000, guid: 8863d9912349b6d40ae2ed4a484fd9fc, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Indonesia
+    ballName: Indonesia
+    ballMat: {fileID: 2100000, guid: 874dcfc617d7eff48a1ee785990534c5, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Iran
+    ballName: Iran
+    ballMat: {fileID: 2100000, guid: 8081d30b5eff09c48942302ef0812644, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Ireland
+    ballName: Ireland
+    ballMat: {fileID: 2100000, guid: 1b4436b6640c2f5459b23110a7a6dfcf, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Italy
+    ballName: Italy
+    ballMat: {fileID: 2100000, guid: 226b2974b8b91b443857cde6f112d1e6, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Jamaica
+    ballName: Jamaica
+    ballMat: {fileID: 2100000, guid: 57b13cfb81c9af74b926a32de0cd9865, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Japan
+    ballName: Japan
+    ballMat: {fileID: 2100000, guid: 1c4d9e8966944454e8d62f7ced7cddae, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Jordan
+    ballName: Jordan
+    ballMat: {fileID: 2100000, guid: 68d82004407133549bdeb3b366e57fe4, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Latvia
+    ballName: Latvia
+    ballMat: {fileID: 2100000, guid: f45949e5118e9d349ba2b45fee9b66d9, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Lebanon
+    ballName: Lebanon
+    ballMat: {fileID: 2100000, guid: 10deaeed82bae3d42836faedbe629643, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Lithuania
+    ballName: Lithuania
+    ballMat: {fileID: 2100000, guid: 3e20e21f26e11a242a792448d5a074f2, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Macedonia
+    ballName: Macedonia
+    ballMat: {fileID: 2100000, guid: 5ad16b3d886885742ae92ee70ecbf362, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Malaysia
+    ballName: Malaysia
+    ballMat: {fileID: 2100000, guid: 08c977907041ba940a7798171a058fb7, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Mexico
+    ballName: Mexico
+    ballMat: {fileID: 2100000, guid: 4a7beb6f3ea1e7e419f2c0e3b976dc74, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Monaco
+    ballName: Monaco
+    ballMat: {fileID: 2100000, guid: a37780a4301df214db701e0685b2d119, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Morocco
+    ballName: Morocco
+    ballMat: {fileID: 2100000, guid: a48c832f9bb6ac742958ccf455bcd390, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Netherlands
+    ballName: Netherlands
+    ballMat: {fileID: 2100000, guid: 354328443e90b5149a0e6a63dad1a799, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: New Zealand
+    ballName: New Zealand
+    ballMat: {fileID: 2100000, guid: 2d3327d2a0430f64ca284a411b6ef51e, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Nicaragua
+    ballName: Nicaragua
+    ballMat: {fileID: 2100000, guid: a561c3043dc94224090fb518caabf112, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Nigeria
+    ballName: Nigeria
+    ballMat: {fileID: 2100000, guid: 09e176de3998adf4fa471ad83537b0ae, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: North Korea
+    ballName: North Korea
+    ballMat: {fileID: 2100000, guid: 1dec5a8ad0edc4c469610cbd6661252a, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Norway
+    ballName: Norway
+    ballMat: {fileID: 2100000, guid: 121b872d69969594b8489da044c159f9, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Pakistan
+    ballName: Pakistan
+    ballMat: {fileID: 2100000, guid: c5f751aadd12fbc4d9db35c92023980f, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Panama
+    ballName: Panama
+    ballMat: {fileID: 2100000, guid: a7665c932b8d83648b74c336640ddf28, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Paraguay
+    ballName: Paraguay
+    ballMat: {fileID: 2100000, guid: f15b41bb6b51b044db5cde33612e2f78, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Peru
+    ballName: Peru
+    ballMat: {fileID: 2100000, guid: d8cdc8d38be4ac94e82bc2d457e4699f, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Philippine
+    ballName: Philippine
+    ballMat: {fileID: 2100000, guid: f7f14472531d20643952634b19c04ff3, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Poland
+    ballName: Poland
+    ballMat: {fileID: 2100000, guid: aef9c1de1f87e4140afdec8a67a96ec9, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Portugal
+    ballName: Portugal
+    ballMat: {fileID: 2100000, guid: 1a1b165dc04440642950a72bf9878ee4, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Qatar
+    ballName: Qatar
+    ballMat: {fileID: 2100000, guid: 2639899cee0861848b8c4bc5d966cd6b, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Romania
+    ballName: Romania
+    ballMat: {fileID: 2100000, guid: 5f340d8c09859fe4693579455c30ed58, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Russia
+    ballName: Russia
+    ballMat: {fileID: 2100000, guid: b8bc39f7538ac4347b26f5e60dc7d99c, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Saudi Arabia
+    ballName: Saudi Arabia
+    ballMat: {fileID: 2100000, guid: be970d63acfda7f4b9bbe3061c5ac9e9, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Scotland
+    ballName: Scotland
+    ballMat: {fileID: 2100000, guid: c1a077d2f9fb56f46a6ca40f4600a473, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Serbia
+    ballName: Serbia
+    ballMat: {fileID: 2100000, guid: 6c8df5ee7cdf0a84a98c4879da6613f7, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Singapore
+    ballName: Singapore
+    ballMat: {fileID: 2100000, guid: 361291ccfde9d7949b4886d32b15e719, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Slovakia
+    ballName: Slovakia
+    ballMat: {fileID: 2100000, guid: 205f6844a71d28c4784fb450fbb700f6, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: South Africa
+    ballName: South Africa
+    ballMat: {fileID: 2100000, guid: f7d25803f4e4149449e782d80d2344cb, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: South Korea
+    ballName: South Korea
+    ballMat: {fileID: 2100000, guid: 57b1ecce29a490e4b92adc4a145c04a1, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Spain
+    ballName: Spain
+    ballMat: {fileID: 2100000, guid: a678188cefd0a17429d0c8ea913e0a13, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Sweden
+    ballName: Sweden
+    ballMat: {fileID: 2100000, guid: abcd72ba2178c8f428aa2eb3d81698d5, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Switzerland
+    ballName: Switzerland
+    ballMat: {fileID: 2100000, guid: 7991d6385bfcd4046896a41464b32802, type: 2}
+    lbs: 11
+    speed: 50
+    spin: 30
+  - name: Taiwan
+    ballName: Taiwan
+    ballMat: {fileID: 2100000, guid: 814305f638135ac458e9f84ed690e430, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Thailand
+    ballName: Thailand
+    ballMat: {fileID: 0}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Turkey
+    ballName: Turkey
+    ballMat: {fileID: 2100000, guid: ce810a1ae5e901045af84a38bd381437, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Ukraine
+    ballName: Ukraine
+    ballMat: {fileID: 2100000, guid: 7ba06c59b43a06c48a8993393a8a760d, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: United Arab Emirates
+    ballName: UAE
+    ballMat: {fileID: 2100000, guid: 687c3f49c8fb64e4c83086aeac77d26d, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: 'United Kingdom '
+    ballName: UK
+    ballMat: {fileID: 2100000, guid: 58c4b730f7f45084ba605934af2e4b01, type: 2}
+    lbs: 12
+    speed: 70
+    spin: 35
+  - name: United States
+    ballName: USA
+    ballMat: {fileID: 2100000, guid: 7225403c20881fd4f9a2aafd3afed71b, type: 2}
+    lbs: 12
+    speed: 65
+    spin: 50
+  - name: Uruguay
+    ballName: Uruguay
+    ballMat: {fileID: 2100000, guid: 3d002c9ea73debe4d93ff6faff774d82, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Venezuela
+    ballName: Venezuela
+    ballMat: {fileID: 2100000, guid: fef35813cf9fd2d4e9024da5c99d026f, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Vietnam
+    ballName: Vietnam
+    ballMat: {fileID: 2100000, guid: d8052cfb3886e554085f14f276e9e66e, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
+  - name: Wales
+    ballName: Wales
+    ballMat: {fileID: 2100000, guid: 5c8071c418bfb4542844871c22f014be, type: 2}
+    lbs: 12
+    speed: 55
+    spin: 50
   urlInfoScreen:
   - https://cdn.ghstatic.com/images/deluxe/300x150/200162.jpg
   - https://cdn.ghstatic.com/images/deluxe/300x150/200161.jpg

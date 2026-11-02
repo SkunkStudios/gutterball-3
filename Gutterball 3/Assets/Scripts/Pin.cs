@@ -96,7 +96,7 @@ public class Pin : MonoBehaviour
         }
         if (collision.gameObject.tag == "Scooper" && !GetComponent<Rigidbody>().isKinematic)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, collision.contacts[0].point.z - 16.4f);
+            transform.position = new Vector3(transform.position.x, transform.position.y, collision.contacts[0].point.z - 24f);
             GetComponent<Rigidbody>().AddForce(0, 0, -1500);
         }
         if (collision.gameObject.tag != "Lane" && !GetComponent<Rigidbody>().isKinematic && !isFall)
@@ -114,7 +114,7 @@ public class Pin : MonoBehaviour
     {
         if (collision.gameObject.tag == "Scooper" && !GetComponent<Rigidbody>().isKinematic)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, collision.contacts[0].point.z - 16.4f);
+            transform.position = new Vector3(transform.position.x, transform.position.y, collision.contacts[0].point.z - 24f);
             GetComponent<Rigidbody>().AddForce(0, 0, -300);
         }
     }

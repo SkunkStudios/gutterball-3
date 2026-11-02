@@ -140,17 +140,6 @@ public class BallHundredPin : MonoBehaviour
             moveMouse = direction;
             fastSpeed = direction.y;
         }
-        if (game.ballType == GameHundredPin.BallType.MoveX && GameManager.type == GameManager.GameState.Game && isMoveY)
-        {
-            if (fastSpeed > direction.y - 150)
-            {
-                fastSpeed = direction.y - 150;
-            }
-            else
-            {
-                fastSpeed += Time.deltaTime * 1000 / 3;
-            }
-        }
         if (game.ballType == GameHundredPin.BallType.MoveX && GameManager.type == GameManager.GameState.Game && spinEnd.x <= -75 && spinEnd.x >= -150 && spinEnd.y > -125 && !isMoveY)
         {
             transform.Translate(16 * Time.deltaTime, 0, 0, Space.World);
@@ -194,6 +183,17 @@ public class BallHundredPin : MonoBehaviour
     void FixedUpdate()
     {
         transform.Rotate(rigidBody.angularVelocity / 1.25f, Space.World);
+        if (game.ballType == GameHundredPin.BallType.MoveX && GameManager.type == GameManager.GameState.Game && isMoveY)
+        {
+            if (fastSpeed > direction.y - 150)
+            {
+                fastSpeed = direction.y - 150;
+            }
+            else
+            {
+                fastSpeed += Time.fixedDeltaTime * 2000 / 3;
+            }
+        }
     }
 
     void LateUpdate()

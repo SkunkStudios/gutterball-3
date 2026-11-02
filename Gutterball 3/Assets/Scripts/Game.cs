@@ -31,7 +31,7 @@ public class Game : MonoBehaviour
     public enum CameraType { Intro, MoveX, DropBall, FollowBall, LookBall, Replay, Replay2, Anim, ReturnBall, MoveCam, ReactCam, ComputerCam, ComputerFollow, ComputerLook, EndCam }
     public CameraType camType;
     public static GameManager.Alley alleyLockType;
-    public enum Players { OnePlayer, TwoPlayer, ThreePlayer, FourPlayer, Computer }
+    public enum Players { OnePlayer, TwoPlayer, ThreePlayer, FourPlayer, Computer, Tournament }
     public static Players allPlayers;
     public enum Commentators { Baxter, Maria, Natasha, Jensen, Master }
     public static Commentators voices1;
@@ -91,12 +91,13 @@ public class Game : MonoBehaviour
     public ScoreDisplay[] scoreDisplay;
     public GameObject[] scoreCards = new GameObject[2];
     public GameObject[] playersBallTwo = new GameObject[4];
-    public GameObject[] winGameBalls = new GameObject[18];
+    public GameObject[] winGameBalls = new GameObject[20];
     public Text[] winGameName1;
     public Text[] winGameName2;
     public Text[] winGameName3;
     public Text[] winGameName4;
     public Text[] winGameNameCPU;
+    public Text[] winGameNameCountries;
     public Text[] winGameScore1;
     public Text[] winGameScore2;
     public Text[] winGameScore3;
@@ -157,6 +158,7 @@ public class Game : MonoBehaviour
     public MeshRenderer winBallRender3;
     public MeshRenderer winBallRender4;
     public MeshRenderer winBallRenderCPU;
+    public MeshRenderer winBallRenderCountries;
     public GameObject ballCloudRender;
     public GameObject winBallCloudRender1;
     public GameObject winBallCloudRender2;
@@ -243,8 +245,31 @@ public class Game : MonoBehaviour
     public Button playSongButton;
     public Button spareButton;
     public Button hundredPinButton;
+    public Button tournamentButton;
     public GameObject demoPinMode;
     public GameObject fullPinMode;
+    public GameObject demoSkillLevel;
+    public GameObject fullSkillLevel;
+    public GameObject tournament;
+    public GameObject tournamentSkillLevel;
+    public GameObject tournamentSaveLoad;
+    public GameObject tournamentWin;
+    public GameObject unlockExtremeMode;
+    public Text tournamentFirst1;
+    public Text tournamentFirst2;
+    public Text tournamentFirst3;
+    public Text tournamentFirst4;
+    public Text tournamentFirst5;
+    public Text tournamentFirst6;
+    public Text tournamentFirst7;
+    public Text tournamentFirst8;
+    public Text tournamentSemiFinal1;
+    public Text tournamentSemiFinal2;
+    public Text tournamentSemiFinal3;
+    public Text tournamentSemiFinal4;
+    public Text tournamentFinal1;
+    public Text tournamentFinal2;
+    public Button[] extremeButton = new Button[2];
     [HideInInspector]
     public int randomTarget;
     [HideInInspector]
@@ -256,6 +281,7 @@ public class Game : MonoBehaviour
     public GameObject demoOptions;
     public GameObject[] threeButtons = new GameObject[3];
     public Image logoLight;
+    public Text tournamentWinText;
 
     private ExtensionFilter[] extensions = new[] { new ExtensionFilter("PNG", "png" ), new ExtensionFilter("JPEG", "jpg", "jpeg", "jpe", "jfif", "exif"), new ExtensionFilter("WebP", "webp"), new ExtensionFilter("DirectDraw Surface (DDS)", "dds"), new ExtensionFilter("TIFF", "tiff", "tif"), new ExtensionFilter("GIF", "gif"), new ExtensionFilter("BMP", "bmp", "dib", "rle"), new ExtensionFilter("TGA", "tga") };
     private AudioSource music;
@@ -361,6 +387,9 @@ public class Game : MonoBehaviour
         {
             demoOptions.SetActive(true);
             demoPinMode.SetActive(true);
+            demoSkillLevel.SetActive(true);
+            spareButton.interactable = false;
+            tournamentButton.interactable = false;
         }
         else
         {
@@ -378,6 +407,7 @@ public class Game : MonoBehaviour
             fullOptions.SetActive(true);
             fullGameOptions.SetActive(true);
             fullPinMode.SetActive(true);
+            fullSkillLevel.SetActive(true);
         }
         pinCounter.Reset();
         music = GameObject.FindGameObjectWithTag("Music").GetComponent<AudioSource>();
@@ -454,45 +484,6 @@ public class Game : MonoBehaviour
                 StartCoroutine(gameManager.DownloadTexture(PlayerPrefs.GetString("CustomBallURL" + customBalls), gameManager.chooseBalls[customBalls].ballMat));
             }
         }
-
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
-        {
-            spareButton.interactable = false;
-        }
-
-        if (gameManager.r_hs.Count > 0 && gameManager.w_hs.Count > 0 && gameManager.i_hs.Count > 0 && gameManager.j_hs.Count > 0 && gameManager.z_hs.Count > 0 && gameManager.c_hs.Count > 0 && gameManager.b_hs.Count > 0 && gameManager.m_hs.Count > 0 && gameManager.v_hs.Count > 0)
-        {
-            if (gameManager.r_hs[0].playerScore >= 300 && gameManager.w_hs[0].playerScore >= 300 && gameManager.i_hs[0].playerScore >= 300 && gameManager.j_hs[0].playerScore >= 300 && gameManager.z_hs[0].playerScore >= 300 && gameManager.c_hs[0].playerScore >= 300 && gameManager.b_hs[0].playerScore >= 300 && gameManager.m_hs[0].playerScore >= 300 && gameManager.v_hs[0].playerScore >= 300)
-            {
-                hundredPinButton.interactable = true;
-            }
-            else
-            {
-                hundredPinButton.interactable = false;
-            }
-        }
-        else
-        {
-            hundredPinButton.interactable = false;
-        }
-
-        if (PlayerPrefs.GetInt("100PinHighScore", 0) >= 3000)
-        {
-            if (!music.isPlaying)
-            {
-                music.clip = Resources.Load<AudioClip>("Music/ending");
-            }
-            playSongButton.interactable = true;
-        }
-        else
-        {
-            if (!music.isPlaying)
-            {
-                music.clip = Resources.Load<AudioClip>("Music/menu");
-            }
-            playSongButton.interactable = false;
-        }
-
         ball = GameObject.FindObjectOfType<Ball>();
         switch (GameManager.pinMode)
         {
@@ -534,13 +525,131 @@ public class Game : MonoBehaviour
             }
             else
             {
-                highScoreUI.SetActive(true);
-                ShowAlleyScores();
+                if (allPlayers == Players.Tournament)
+                {
+                    if (PlayerPrefs.GetInt("SaveTournament") == 3)
+                    {
+                        tournamentWin.SetActive(true);
+                        tournamentWinText.text = gameManager.bowler[GameManager.turnNameIndex1].playerName + " Win!";
+                        if (PlayerPrefs.GetInt("TournamentComplete") == 0 && GameManager.difficulty == GameManager.Difficulty.Hard)
+                        {
+                            unlockExtremeMode.SetActive(true);
+                            PlayerPrefs.SetInt("TournamentComplete", 1);
+                        }
+                        else if (PlayerPrefs.GetInt("TournamentComplete") == 1 && GameManager.difficulty == GameManager.Difficulty.Extreme)
+                        {
+                            PlayerPrefs.SetInt("TournamentComplete", 2);
+                        }
+                    }
+                    else if (PlayerPrefs.GetInt("SaveTournament") == 4)
+                    {
+                        tournamentWin.SetActive(true);
+                        if (GameManager.tournamentFirstWin == 0)
+                        {
+                            tournamentWinText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].name + " Win!";
+                        }
+                        else if (GameManager.tournamentFirstWin == 1)
+                        {
+                            tournamentWinText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament3")].name + " Win!";
+                        }
+                        else if (GameManager.tournamentFirstWin == 2)
+                        {
+                            tournamentWinText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament4")].name + " Win!";
+                        }
+                        else if (GameManager.tournamentFirstWin == 3)
+                        {
+                            tournamentWinText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament5")].name + " Win!";
+                        }
+                        else if (GameManager.tournamentFirstWin == 4)
+                        {
+                            tournamentWinText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament6")].name + " Win!";
+                        }
+                        else if (GameManager.tournamentFirstWin == 5)
+                        {
+                            tournamentWinText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament7")].name + " Win!";
+                        }
+                        else if (GameManager.tournamentFirstWin == 6)
+                        {
+                            tournamentWinText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament8")].name + " Win!";
+                        }
+                    }
+                    else if (PlayerPrefs.GetInt("SaveTournament") == 5)
+                    {
+                        tournamentWin.SetActive(true);
+                        if (GameManager.tournamentSemiFinal == 0)
+                        {
+                            tournamentWinText.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].name + " Win!";
+                        }
+                        else if (GameManager.tournamentSemiFinal == 1)
+                        {
+                            tournamentWinText.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament3")].name + " Win!";
+                        }
+                        else if (GameManager.tournamentSemiFinal == 2)
+                        {
+                            tournamentWinText.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament4")].name + " Win!";
+                        }
+                    }
+                    else if (PlayerPrefs.GetInt("SaveTournament") == 6)
+                    {
+                        tournamentWin.SetActive(true);
+                        tournamentWinText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].name + " Win!";
+                    }
+                    else
+                    {
+                        tournament.SetActive(true);
+                    }
+                }
+                else
+                {
+                    highScoreUI.SetActive(true);
+                    ShowAlleyScores();
+                }
             }
         }
         else
         {
             menuAlleyUI.SetActive(true);
+        }
+        if (PlayerPrefs.GetInt("TournamentComplete") == 0)
+        {
+            extremeButton[0].interactable = false;
+            extremeButton[1].interactable = false;
+        }
+        else
+        {
+            extremeButton[0].interactable = true;
+            extremeButton[1].interactable = true;
+        }
+        if (gameManager.r_hs.Count > 0 && gameManager.w_hs.Count > 0 && gameManager.i_hs.Count > 0 && gameManager.j_hs.Count > 0 && gameManager.z_hs.Count > 0 && gameManager.c_hs.Count > 0 && gameManager.b_hs.Count > 0 && gameManager.m_hs.Count > 0 && gameManager.v_hs.Count > 0 && PlayerPrefs.GetInt("TournamentComplete") == 2)
+        {
+            if (gameManager.r_hs[0].playerScore >= 300 && gameManager.w_hs[0].playerScore >= 300 && gameManager.i_hs[0].playerScore >= 300 && gameManager.j_hs[0].playerScore >= 300 && gameManager.z_hs[0].playerScore >= 300 && gameManager.c_hs[0].playerScore >= 300 && gameManager.b_hs[0].playerScore >= 300 && gameManager.m_hs[0].playerScore >= 300 && gameManager.v_hs[0].playerScore >= 300)
+            {
+                hundredPinButton.interactable = true;
+            }
+            else
+            {
+                hundredPinButton.interactable = false;
+            }
+        }
+        else
+        {
+            hundredPinButton.interactable = false;
+        }
+        if (PlayerPrefs.GetInt("100PinHighScore", 0) >= 3000)
+        {
+            if (!music.isPlaying)
+            {
+                music.clip = Resources.Load<AudioClip>("Music/ending");
+            }
+            playSongButton.interactable = true;
+        }
+        else
+        {
+            if (!music.isPlaying)
+            {
+                music.clip = Resources.Load<AudioClip>("Music/menu");
+            }
+            playSongButton.interactable = false;
         }
         unlockedAlley.GetComponent<Text>().text = gameManager.nameAlleys[(int)alleyLockType] + " Alley";
         unlockedBallBeat.GetComponent<Text>().text = gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].ballName + " Ball";
@@ -643,6 +752,26 @@ public class Game : MonoBehaviour
                 }
                 playerName1.text = gameManager.bowler[GameManager.turnNameIndex1].playerName;
                 playerName2.text = gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].CPUName;
+            }
+            else if (allPlayers == Players.Tournament && GameManager.pinMode != GameManager.PinMode.Spare)
+            {
+                if (GameManager.startBall <= 0)
+                {
+                    GameManager.startBall = 1;
+                }
+                playerName1.text = gameManager.bowler[GameManager.turnNameIndex1].playerName;
+                if (PlayerPrefs.GetInt("SaveTournament") == 0)
+                {
+                    playerName2.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].name;
+                }
+                else if (PlayerPrefs.GetInt("SaveTournament") == 1)
+                {
+                    playerName2.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].name;
+                }
+                else if (PlayerPrefs.GetInt("SaveTournament") == 2)
+                {
+                    playerName2.text = gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].name;
+                }
             }
         }
     }
@@ -794,6 +923,18 @@ public class Game : MonoBehaviour
             winBallCloudRender4.SetActive(false);
         }
         winBallRenderCPU.material = gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].ballMat;
+        if (PlayerPrefs.GetInt("SaveTournament") == 0)
+        {
+            winBallRenderCountries.material = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].ballMat;
+        }
+        else if (PlayerPrefs.GetInt("SaveTournament") == 1)
+        {
+            winBallRenderCountries.material = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].ballMat;
+        }
+        else if (PlayerPrefs.GetInt("SaveTournament") == 2)
+        {
+            winBallRenderCountries.material = gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].ballMat;
+        }
         AlleyRegister();
         if (GameManager.isOpening && opening.time >= 14)
         {
@@ -871,6 +1012,21 @@ public class Game : MonoBehaviour
         foreach (Text winNameCPU in winGameNameCPU)
         {
             winNameCPU.text = gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].CPUName;
+        }
+        foreach (Text winNameCountries in winGameNameCountries)
+        {
+            if (PlayerPrefs.GetInt("SaveTournament") == 0)
+            {
+                winNameCountries.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].name;
+            }
+            else if (PlayerPrefs.GetInt("SaveTournament") == 1)
+            {
+                winNameCountries.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].name;
+            }
+            else if (PlayerPrefs.GetInt("SaveTournament") == 2)
+            {
+                winNameCountries.text = gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].name;
+            }
         }
         foreach (Text winScore1 in winGameScore1)
         {
@@ -1000,49 +1156,82 @@ public class Game : MonoBehaviour
                 GameManager.chooseBallIndex = gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex;
                 playerNameText.text = gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].CPUName;
             }
-            if (GameManager.chooseBallIndex < gameManager.chooseBalls.Length && !isEndGame)
+            else if (playerTurn == 5)
+            {
+                if (PlayerPrefs.GetInt("SaveTournament") == 0)
+                {
+                    GameManager.chooseBallIndex = PlayerPrefs.GetInt("FirstTournament2");
+                    playerNameText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].name;
+                }
+                else if (PlayerPrefs.GetInt("SaveTournament") == 1)
+                {
+                    GameManager.chooseBallIndex = PlayerPrefs.GetInt("SemiFinalTournament2");
+                    playerNameText.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].name;
+                }
+                else if (PlayerPrefs.GetInt("SaveTournament") == 2)
+                {
+                    GameManager.chooseBallIndex = PlayerPrefs.GetInt("FinalTournament");
+                    playerNameText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].name;
+                }
+            }
+            if (GameManager.chooseBallIndex < gameManager.chooseBalls.Length && !isEndGame && playerTurn == 5)
+            {
+                ball.ChargeBall(gameManager.countriesObj[GameManager.chooseBallIndex].ballMat, gameManager.countriesObj[GameManager.chooseBallIndex].lbs, gameManager.countriesObj[GameManager.chooseBallIndex].speed, gameManager.countriesObj[GameManager.chooseBallIndex].spin);
+            }
+            else if (GameManager.chooseBallIndex < gameManager.chooseBalls.Length && !isEndGame && playerTurn != 5)
             {
                 ball.ChargeBall(gameManager.chooseBalls[GameManager.chooseBallIndex].ballMat, gameManager.chooseBalls[GameManager.chooseBallIndex].lbs, gameManager.chooseBalls[GameManager.chooseBallIndex].speed, gameManager.chooseBalls[GameManager.chooseBallIndex].spin);
             }
-            if (GameManager.chooseBallIndex == 47)
-            {
-                ballCloudRender.SetActive(true);
-                ball.earthCloudBall.SetActive(true);
-                ball.saturnRingBall.SetActive(false);
-                ball.uranusRingBall.SetActive(false);
-                ball.sunBall.SetActive(false);
-            }
-            else if (GameManager.chooseBallIndex == 50)
-            {
-                ballCloudRender.SetActive(false);
-                ball.earthCloudBall.SetActive(false);
-                ball.saturnRingBall.SetActive(true);
-                ball.uranusRingBall.SetActive(false);
-                ball.sunBall.SetActive(false);
-            }
-            else if(GameManager.chooseBallIndex == 51)
-            {
-                ballCloudRender.SetActive(false);
-                ball.earthCloudBall.SetActive(false);
-                ball.saturnRingBall.SetActive(false);
-                ball.uranusRingBall.SetActive(true);
-                ball.sunBall.SetActive(false);
-            }
-            else if(GameManager.chooseBallIndex == 54)
+            if (playerTurn == 5)
             {
                 ballCloudRender.SetActive(false);
                 ball.earthCloudBall.SetActive(false);
                 ball.saturnRingBall.SetActive(false);
                 ball.uranusRingBall.SetActive(false);
-                ball.sunBall.SetActive(true);
+                ball.sunBall.SetActive(false);
             }
             else
             {
-                ballCloudRender.SetActive(false);
-                ball.earthCloudBall.SetActive(false);
-                ball.saturnRingBall.SetActive(false);
-                ball.uranusRingBall.SetActive(false);
-                ball.sunBall.SetActive(false);
+                if (GameManager.chooseBallIndex == 47)
+                {
+                    ballCloudRender.SetActive(true);
+                    ball.earthCloudBall.SetActive(true);
+                    ball.saturnRingBall.SetActive(false);
+                    ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
+                }
+                else if (GameManager.chooseBallIndex == 50)
+                {
+                    ballCloudRender.SetActive(false);
+                    ball.earthCloudBall.SetActive(false);
+                    ball.saturnRingBall.SetActive(true);
+                    ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
+                }
+                else if (GameManager.chooseBallIndex == 51)
+                {
+                    ballCloudRender.SetActive(false);
+                    ball.earthCloudBall.SetActive(false);
+                    ball.saturnRingBall.SetActive(false);
+                    ball.uranusRingBall.SetActive(true);
+                    ball.sunBall.SetActive(false);
+                }
+                else if (GameManager.chooseBallIndex == 54)
+                {
+                    ballCloudRender.SetActive(false);
+                    ball.earthCloudBall.SetActive(false);
+                    ball.saturnRingBall.SetActive(false);
+                    ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(true);
+                }
+                else
+                {
+                    ballCloudRender.SetActive(false);
+                    ball.earthCloudBall.SetActive(false);
+                    ball.saturnRingBall.SetActive(false);
+                    ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
+                }
             }
         }
         for (int i = 0; i < 12; i++)
@@ -1069,6 +1258,57 @@ public class Game : MonoBehaviour
                 if (gameManager.bowler.Count >= 1)
                 {
                     bowlerText.text = gameManager.bowler[GameManager.turnNameIndex1].playerName;
+                    if (PlayerPrefs.GetInt("SaveTournament") == 0)
+                    {
+                        tournamentFirst1.text = gameManager.bowler[GameManager.turnNameIndex1].playerName;
+                        tournamentFirst2.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].name;
+                        tournamentFirst3.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament3")].name;
+                        tournamentFirst4.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament4")].name;
+                        tournamentFirst5.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament5")].name;
+                        tournamentFirst6.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament6")].name;
+                        tournamentFirst7.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament7")].name;
+                        tournamentFirst8.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament8")].name;
+                        tournamentSemiFinal1.text = "";
+                        tournamentSemiFinal2.text = "";
+                        tournamentSemiFinal3.text = "";
+                        tournamentSemiFinal4.text = "";
+                        tournamentFinal1.text = "";
+                        tournamentFinal2.text = "";
+                    }
+                    else if (PlayerPrefs.GetInt("SaveTournament") == 1)
+                    {
+                        tournamentFirst1.text = gameManager.bowler[GameManager.turnNameIndex1].playerName;
+                        tournamentFirst2.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].name;
+                        tournamentFirst3.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament3")].name;
+                        tournamentFirst4.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament4")].name;
+                        tournamentFirst5.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament5")].name;
+                        tournamentFirst6.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament6")].name;
+                        tournamentFirst7.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament7")].name;
+                        tournamentFirst8.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament8")].name;
+                        tournamentSemiFinal1.text = gameManager.bowler[GameManager.turnNameIndex1].playerName;
+                        tournamentSemiFinal2.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].name;
+                        tournamentSemiFinal3.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament3")].name;
+                        tournamentSemiFinal4.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament4")].name;
+                        tournamentFinal1.text = "";
+                        tournamentFinal2.text = "";
+                    }
+                    else if (PlayerPrefs.GetInt("SaveTournament") == 2)
+                    {
+                        tournamentFirst1.text = gameManager.bowler[GameManager.turnNameIndex1].playerName;
+                        tournamentFirst2.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].name;
+                        tournamentFirst3.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament3")].name;
+                        tournamentFirst4.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament4")].name;
+                        tournamentFirst5.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament5")].name;
+                        tournamentFirst6.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament6")].name;
+                        tournamentFirst7.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament7")].name;
+                        tournamentFirst8.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament8")].name;
+                        tournamentSemiFinal1.text = gameManager.bowler[GameManager.turnNameIndex1].playerName;
+                        tournamentSemiFinal2.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].name;
+                        tournamentSemiFinal3.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament3")].name;
+                        tournamentSemiFinal4.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament4")].name;
+                        tournamentFinal1.text = gameManager.bowler[GameManager.turnNameIndex1].playerName;
+                        tournamentFinal2.text = gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].name;
+                    }
                 }
                 if (gameManager.chooseBalls[GameManager.turnBalls1].isLock != 1)
                 {
@@ -2807,6 +3047,122 @@ public class Game : MonoBehaviour
                     }
                 }
             }
+            else if (allPlayers == Players.Tournament)
+            {
+                if (nextTurn == 0)
+                {
+                    if (ballTurn == 0)
+                    {
+                        if (pinFall == 10)
+                        {
+                            if (frames1 != 10)
+                            {
+                                nextTurn = 5;
+                                frames1++;
+                            }
+                            else
+                            {
+                                nextTurn = 0;
+                            }
+                        }
+                        else
+                        {
+                            ballTurn = 1;
+                        }
+                    }
+                    else
+                    {
+                        if (frames1 != 10)
+                        {
+                            nextTurn = 5;
+                            ballTurn = 0;
+                            frames1++;
+                        }
+                        else
+                        {
+                            nextTurn = 0;
+                        }
+                    }
+                    try
+                    {
+                        rolls1.Add(pinFall);
+                        GameObject.FindObjectOfType<PinSetter>().PerformAction(ActionMasterOld.NextAction(rolls1));
+                    }
+                    catch
+                    {
+                        nextTurn = 5;
+                        ballTurn = 0;
+                        isResetPins = true;
+                    }
+
+                    try
+                    {
+                        scoreDisplay[0].FillRolls(rolls1);
+                        scoreDisplay[0].FillFrames(ScoreMaster.ScoreCumulative(rolls1));
+                        scores1 = ScoreMaster.ScoreCumulative(rolls1);
+
+                    }
+                    catch
+                    {
+                        UnityEngine.Debug.LogWarning("FillRollCard failed");
+                    }
+                }
+                else
+                {
+                    if (ballTurn == 0)
+                    {
+                        if (pinFall == 10)
+                        {
+                            if (frames2 != 10)
+                            {
+                                nextTurn = 0;
+                                frames2++;
+                            }
+                            else
+                            {
+                                nextTurn = 5;
+                            }
+                        }
+                        else
+                        {
+                            ballTurn = 1;
+                        }
+                    }
+                    else
+                    {
+                        if (frames2 != 10)
+                        {
+                            nextTurn = 0;
+                            ballTurn = 0;
+                            frames2++;
+                        }
+                        else
+                        {
+                            nextTurn = 5;
+                        }
+                    }
+                    try
+                    {
+                        rolls2.Add(pinFall);
+                        GameObject.FindObjectOfType<PinSetter>().PerformAction(ActionMasterOld.NextAction(rolls2));
+                    }
+                    catch
+                    {
+                        isEndGame = true;
+                    }
+
+                    try
+                    {
+                        scoreDisplay[1].FillRolls(rolls2);
+                        scoreDisplay[1].FillFrames(ScoreMaster.ScoreCumulative(rolls2));
+                        scores2 = ScoreMaster.ScoreCumulative(rolls2);
+                    }
+                    catch
+                    {
+                        UnityEngine.Debug.LogWarning("FillRollCard failed");
+                    }
+                }
+            }
             if (pinFall == 0 && !isComputer)
             {
                 hintCount++;
@@ -2955,6 +3311,10 @@ public class Game : MonoBehaviour
         {
             GameObject.FindObjectOfType<PinSetter>().pumpkinFace.AngryFace();
         }
+        if (GameObject.FindObjectOfType<PinSetter>().vegasLights != null)
+        {
+            StartCoroutine(GameObject.FindObjectOfType<PinSetter>().vegasLights.StrikeLights());
+        }
         if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Strike(commentatorAudio);
@@ -2970,6 +3330,10 @@ public class Game : MonoBehaviour
 
     public void VoiceSpare()
     {
+        if (GameObject.FindObjectOfType<PinSetter>().vegasLights != null)
+        {
+            StartCoroutine(GameObject.FindObjectOfType<PinSetter>().vegasLights.SpareLights());
+        }
         if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Spare(commentatorAudio);
@@ -3008,6 +3372,10 @@ public class Game : MonoBehaviour
         {
             GameObject.FindObjectOfType<PinSetter>().pumpkinFace.AngryFace();
         }
+        if (GameObject.FindObjectOfType<PinSetter>().vegasLights != null)
+        {
+            StartCoroutine(GameObject.FindObjectOfType<PinSetter>().vegasLights.StrikeLights());
+        }
         if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
             commentator.Double(commentatorAudio);
@@ -3026,6 +3394,10 @@ public class Game : MonoBehaviour
         if (GameObject.FindObjectOfType<PinSetter>().pumpkinFace != null && System.DateTime.Now.Month == 10)
         {
             GameObject.FindObjectOfType<PinSetter>().pumpkinFace.AngryFace();
+        }
+        if (GameObject.FindObjectOfType<PinSetter>().vegasLights != null)
+        {
+            StartCoroutine(GameObject.FindObjectOfType<PinSetter>().vegasLights.StrikeLights());
         }
         if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
@@ -3083,6 +3455,10 @@ public class Game : MonoBehaviour
         if (GameObject.FindObjectOfType<PinSetter>().pumpkinFace != null && System.DateTime.Now.Month == 10)
         {
             GameObject.FindObjectOfType<PinSetter>().pumpkinFace.AngryFace();
+        }
+        if (GameObject.FindObjectOfType<PinSetter>().vegasLights != null)
+        {
+            StartCoroutine(GameObject.FindObjectOfType<PinSetter>().vegasLights.SpareLights());
         }
         if (GameManager.isVoice && GameManager.type != GameManager.GameState.Menu && maxBalls != 1)
         {
@@ -3884,7 +4260,22 @@ public class Game : MonoBehaviour
                 {
                     winGameBalls[0].SetActive(true);
                     wins = 1;
-                    gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 1000;
+                    if (GameManager.difficulty == GameManager.Difficulty.Easy)
+                    {
+                        gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 500;
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Normal)
+                    {
+                        gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 1000;
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Hard)
+                    {
+                        gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 2500;
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Extreme)
+                    {
+                        gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 5000;
+                    }
                     gameManager.bowler[GameManager.turnNameIndex1].playerWin++;
                 }
                 else if (score1 < score2)
@@ -3897,16 +4288,155 @@ public class Game : MonoBehaviour
                 {
                     winGameBalls[8].SetActive(true);
                     wins = 1;
-                    gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 1000;
+                    if (GameManager.difficulty == GameManager.Difficulty.Easy)
+                    {
+                        gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 500;
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Normal)
+                    {
+                        gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 1000;
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Hard)
+                    {
+                        gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 2500;
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Extreme)
+                    {
+                        gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 5000;
+                    }
                     gameManager.bowler[GameManager.turnNameIndex1].playerWin++;
                 }
                 foreach (Text winPrize1 in winGamePrize1)
                 {
-                    winPrize1.text = "prize: 1,000";
+                    if (GameManager.difficulty == GameManager.Difficulty.Easy)
+                    {
+                        winPrize1.text = "prize: 500";
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Normal)
+                    {
+                        winPrize1.text = "prize: 1,000";
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Hard)
+                    {
+                        winPrize1.text = "prize: 2,500";
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Extreme)
+                    {
+                        winPrize1.text = "prize: 5,000";
+                    }
                 }
                 foreach (Text winPrize2 in winGamePrize2)
                 {
-                    winPrize2.text = "prize: 1,000";
+                    if (GameManager.difficulty == GameManager.Difficulty.Easy)
+                    {
+                        winPrize2.text = "prize: 500";
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Normal)
+                    {
+                        winPrize2.text = "prize: 1,000";
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Hard)
+                    {
+                        winPrize2.text = "prize: 2,500";
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Extreme)
+                    {
+                        winPrize2.text = "prize: 5,000";
+                    }
+                }
+            }
+            else if (allPlayers == Players.Tournament && maxBalls != 1)
+            {
+                gameManager.bowler[GameManager.turnNameIndex1].playerStrikes += strikes1;
+                gameManager.bowler[GameManager.turnNameIndex1].playerSpares += spares1;
+                gameManager.bowler[GameManager.turnNameIndex1].playerGutters += gutters1;
+                if (score2 < score1)
+                {
+                    winGameBalls[0].SetActive(true);
+                    wins = 1;
+                    if (GameManager.difficulty == GameManager.Difficulty.Easy)
+                    {
+                        gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 500;
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Normal)
+                    {
+                        gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 1000;
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Hard)
+                    {
+                        gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 2500;
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Extreme)
+                    {
+                        gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 5000;
+                    }
+                    gameManager.bowler[GameManager.turnNameIndex1].playerWin++;
+                }
+                else if (score1 < score2)
+                {
+                    winGameBalls[18].SetActive(true);
+                    wins = 6;
+                    gameManager.bowler[GameManager.turnNameIndex1].playerLoss++;
+                }
+                else if (score1 == score2)
+                {
+                    winGameBalls[19].SetActive(true);
+                    wins = 1;
+                    if (GameManager.difficulty == GameManager.Difficulty.Easy)
+                    {
+                        gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 500;
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Normal)
+                    {
+                        gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 1000;
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Hard)
+                    {
+                        gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 2500;
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Extreme)
+                    {
+                        gameManager.bowler[GameManager.turnNameIndex1].playerMoney += 5000;
+                    }
+                    gameManager.bowler[GameManager.turnNameIndex1].playerWin++;
+                }
+                foreach (Text winPrize1 in winGamePrize1)
+                {
+                    if (GameManager.difficulty == GameManager.Difficulty.Easy)
+                    {
+                        winPrize1.text = "prize: 500";
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Normal)
+                    {
+                        winPrize1.text = "prize: 1,000";
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Hard)
+                    {
+                        winPrize1.text = "prize: 2,500";
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Extreme)
+                    {
+                        winPrize1.text = "prize: 5,000";
+                    }
+                }
+                foreach (Text winPrize2 in winGamePrize2)
+                {
+                    if (GameManager.difficulty == GameManager.Difficulty.Easy)
+                    {
+                        winPrize2.text = "prize: 500";
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Normal)
+                    {
+                        winPrize2.text = "prize: 1,000";
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Hard)
+                    {
+                        winPrize2.text = "prize: 2,500";
+                    }
+                    else if (GameManager.difficulty == GameManager.Difficulty.Extreme)
+                    {
+                        winPrize2.text = "prize: 5,000";
+                    }
                 }
             }
             if (wins == 0)
@@ -3966,6 +4496,21 @@ public class Game : MonoBehaviour
                     unlockedText.SetActive(true);
                     unlockedBallBeat.SetActive(true);
                     PlayerPrefs.SetInt("SaveBalls" + gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex, 0);
+                }
+                if (allPlayers == Players.Tournament)
+                {
+                    if (PlayerPrefs.GetInt("SaveTournament") == 0)
+                    {
+                        PlayerPrefs.SetInt("SaveTournament", 1);
+                    }
+                    else if (PlayerPrefs.GetInt("SaveTournament") == 1)
+                    {
+                        PlayerPrefs.SetInt("SaveTournament", 2);
+                    }
+                    else if (PlayerPrefs.GetInt("SaveTournament") == 2)
+                    {
+                        PlayerPrefs.SetInt("SaveTournament", 3);
+                    }
                 }
                 if (score1 >= gameManager.chooseBalls[GameManager.unlockBallScore].totalLock && gameManager.chooseBalls[GameManager.unlockBallScore].isLock == 1 && gameManager.chooseBalls[GameManager.unlockBallScore].lockType == ChooseBall.LockType.Score && Application.platform != RuntimePlatform.WebGLPlayer)
                 {
@@ -4132,6 +4677,65 @@ public class Game : MonoBehaviour
                 ballDataText.text = gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].lbs + "lbs.  speed:" + gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].speed + "  spin:" + gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].spin;
                 ballRender.material = gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].ballMat;
                 playerTurn = 4;
+                turns = 1;
+                playersBallTwo[0].SetActive(false);
+                playersBallTwo[1].SetActive(true);
+                playersBallTwo[2].SetActive(false);
+                playersBallTwo[3].SetActive(false);
+                if (score2 <= 99)
+                {
+                    VoiceEndBad();
+                    winCrowd.clip = Resources.Load<AudioClip>("Sound/Foo05");
+                }
+                else if(score2 >= 100 && score2 <= 149)
+                {
+                    VoiceEndOk();
+                }
+                else if(score2 >= 150 && score2 <= 249)
+                {
+                    VoiceEndGood();
+                    winCrowd.clip = Resources.Load<AudioClip>("Sound/Yea05");
+                }
+                else if(score2 >= 250 && score2 <= 299)
+                {
+                    VoiceEndGreat();
+                    winCrowd.clip = Resources.Load<AudioClip>("Sound/App01");
+                }
+                else if(score2 >= 300)
+                {
+                    PerfectGame();
+                    winCrowd.clip = Resources.Load<AudioClip>("Sound/end-perfect");
+                }
+            }
+            else if (wins == 6)
+            {
+                if (PlayerPrefs.GetInt("SaveTournament") == 0)
+                {
+                    playerNameText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].name;
+                    ballNameText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].ballName;
+                    ballDataText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].lbs + "lbs.  speed:" + gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].speed + "  spin:" + gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].spin;
+                    ballRender.material = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].ballMat;
+                    PlayerPrefs.SetInt("SaveTournament", 4);
+                }
+                else if (PlayerPrefs.GetInt("SaveTournament") == 1)
+                {
+                    playerNameText.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].name;
+                    ballNameText.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].ballName;
+                    ballDataText.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].lbs + "lbs.  speed:" + gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].speed + "  spin:" + gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].spin;
+                    ballRender.material = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].ballMat;
+                    ball.ChargeBall(gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].ballMat, gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].lbs, gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].speed, gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].spin);
+                    PlayerPrefs.SetInt("SaveTournament", 5);
+                }
+                else if (PlayerPrefs.GetInt("SaveTournament") == 2)
+                {
+                    playerNameText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].name;
+                    ballNameText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].ballName;
+                    ballDataText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].lbs + "lbs.  speed:" + gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].speed + "  spin:" + gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].spin;
+                    ballRender.material = gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].ballMat;
+                    ball.ChargeBall(gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].ballMat, gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].lbs, gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].speed, gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].spin);
+                    PlayerPrefs.SetInt("SaveTournament", 6);
+                }
+                playerTurn = 5;
                 turns = 1;
                 playersBallTwo[0].SetActive(false);
                 playersBallTwo[1].SetActive(true);
@@ -4440,6 +5044,47 @@ public class Game : MonoBehaviour
                     chooseBallUI.SetActive(false);
                     powerUpUI.SetActive(false);
                     playerTurn = 4;
+                    turns = 1;
+                    isComputer = true;
+                    playersBallTwo[0].SetActive(false);
+                    playersBallTwo[1].SetActive(true);
+                    playersBallTwo[2].SetActive(false);
+                    playersBallTwo[3].SetActive(false);
+                }
+                else if (nextTurn == 5)
+                {
+                    if (PlayerPrefs.GetInt("SaveTournament") == 0)
+                    {
+                        playerNameText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].name;
+                        ballNameText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].ballName;
+                        ballDataText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].lbs + "lbs.  speed:" + gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].speed + "  spin:" + gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].spin;
+                        ballRender.material = gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].ballMat;
+                        ball.ChargeBall(gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].ballMat, gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].lbs, gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].speed, gameManager.countriesObj[PlayerPrefs.GetInt("FirstTournament2")].spin);
+                    }
+                    else if (PlayerPrefs.GetInt("SaveTournament") == 1)
+                    {
+                        playerNameText.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].name;
+                        ballNameText.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].ballName;
+                        ballDataText.text = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].lbs + "lbs.  speed:" + gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].speed + "  spin:" + gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].spin;
+                        ballRender.material = gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].ballMat;
+                        ball.ChargeBall(gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].ballMat, gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].lbs, gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].speed, gameManager.countriesObj[PlayerPrefs.GetInt("SemiFinalTournament2")].spin);
+                    }
+                    else if (PlayerPrefs.GetInt("SaveTournament") == 2)
+                    {
+                        playerNameText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].name;
+                        ballNameText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].ballName;
+                        ballDataText.text = gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].lbs + "lbs.  speed:" + gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].speed + "  spin:" + gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].spin;
+                        ballRender.material = gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].ballMat;
+                        ball.ChargeBall(gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].ballMat, gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].lbs, gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].speed, gameManager.countriesObj[PlayerPrefs.GetInt("FinalTournament")].spin);
+                    }
+                    ballCloudRender.SetActive(false);
+                    ball.earthCloudBall.SetActive(false);
+                    ball.saturnRingBall.SetActive(false);
+                    ball.uranusRingBall.SetActive(false);
+                    ball.sunBall.SetActive(false);
+                    chooseBallUI.SetActive(false);
+                    powerUpUI.SetActive(false);
+                    playerTurn = 5;
                     turns = 1;
                     isComputer = true;
                     playersBallTwo[0].SetActive(false);
@@ -4875,6 +5520,60 @@ public class Game : MonoBehaviour
                         AddBowlerScore(gameManager.v_hs, new ScoreBowler(gameManager.chooseBalls[gameManager.compuObj[GameManager.turnBallsCPU].cpuIndex].CPUName, score2, strikes2, spares2, gutters2), "HS_Vegas");
                     }
                     break;
+            }
+            if (allPlayers == Players.Tournament)
+            {
+                PlayerPrefs.SetInt("SaveBallTournament", GameManager.turnBalls1);
+                if (PlayerPrefs.GetInt("SaveTournament") == 1)
+                {
+                    GameManager.tournamentFirst2 = Random.Range(0, 1);
+                    if (GameManager.tournamentFirst2 == 0)
+                    {
+                        PlayerPrefs.SetInt("SemiFinalTournament2", PlayerPrefs.GetInt("FirstTournament3"));
+                    }
+                    else if (GameManager.tournamentFirst2 == 1)
+                    {
+                        PlayerPrefs.SetInt("SemiFinalTournament2", PlayerPrefs.GetInt("FirstTournament4"));
+                    }
+                    GameManager.tournamentFirst3 = Random.Range(0, 1);
+                    if (GameManager.tournamentFirst3 == 0)
+                    {
+                        PlayerPrefs.SetInt("SemiFinalTournament3", PlayerPrefs.GetInt("FirstTournament5"));
+                    }
+                    else if (GameManager.tournamentFirst2 == 1)
+                    {
+                        PlayerPrefs.SetInt("SemiFinalTournament3", PlayerPrefs.GetInt("FirstTournament6"));
+                    }
+                    GameManager.tournamentFirst4 = Random.Range(0, 1);
+                    if (GameManager.tournamentFirst4 == 0)
+                    {
+                        PlayerPrefs.SetInt("SemiFinalTournament4", PlayerPrefs.GetInt("FirstTournament7"));
+                    }
+                    else if (GameManager.tournamentFirst2 == 1)
+                    {
+                        PlayerPrefs.SetInt("SemiFinalTournament4", PlayerPrefs.GetInt("FirstTournament8"));
+                    }
+                }
+                else if (PlayerPrefs.GetInt("SaveTournament") == 2)
+                {
+                    GameManager.tournamentSemiFinal = Random.Range(0, 1);
+                    if (GameManager.tournamentSemiFinal == 0)
+                    {
+                        PlayerPrefs.SetInt("FinalTournament", PlayerPrefs.GetInt("SemiFinalTournament3"));
+                    }
+                    else if (GameManager.tournamentSemiFinal == 1)
+                    {
+                        PlayerPrefs.SetInt("FinalTournament", PlayerPrefs.GetInt("SemiFinalTournament4"));
+                    }
+                }
+                else if (PlayerPrefs.GetInt("SaveTournament") == 4)
+                {
+                    GameManager.tournamentFirstWin = Random.Range(0, 7);
+                }
+                else if (PlayerPrefs.GetInt("SaveTournament") == 5)
+                {
+                    GameManager.tournamentSemiFinalWin = Random.Range(0, 3);
+                }
             }
             GameManager.isHighScore = true;
         }
@@ -5995,6 +6694,69 @@ public class Game : MonoBehaviour
     {
         playerTurn = 0;
         allPlayers = Players.Computer;
+    }
+
+    public void PlayerTournament()
+    {
+        playerTurn = 0;
+        allPlayers = Players.Tournament;
+    }
+
+    public void DifficultyEasy()
+    {
+        GameManager.difficulty = GameManager.Difficulty.Easy;
+    }
+
+    public void DifficultyNormal()
+    {
+        GameManager.difficulty = GameManager.Difficulty.Normal;
+    }
+
+    public void DifficultyHard()
+    {
+        GameManager.difficulty = GameManager.Difficulty.Hard;
+    }
+
+    public void DifficultyExtreme()
+    {
+        GameManager.difficulty = GameManager.Difficulty.Extreme;
+    }
+
+    public void TournamentButton()
+    {
+        if (PlayerPrefs.GetInt("SaveTournament") == 1 || PlayerPrefs.GetInt("SaveTournament") == 2)
+        {
+            tournamentSaveLoad.SetActive(true);
+        }
+        else
+        {
+            tournamentSkillLevel.SetActive(true);
+            PlayerPrefs.SetInt("SaveTournament", 0);
+        }
+    }
+
+    public void NewGameTournament()
+    {
+        PlayerPrefs.SetInt("SaveTournament", 0);
+    }
+
+    public void PlayGameTournament()
+    {
+        PlayerPrefs.SetInt("FirstTournament2", Random.Range(0, gameManager.countriesObj.Length));
+        PlayerPrefs.SetInt("FirstTournament3", Random.Range(0, gameManager.countriesObj.Length));
+        PlayerPrefs.SetInt("FirstTournament4", Random.Range(0, gameManager.countriesObj.Length));
+        PlayerPrefs.SetInt("FirstTournament5", Random.Range(0, gameManager.countriesObj.Length));
+        PlayerPrefs.SetInt("FirstTournament6", Random.Range(0, gameManager.countriesObj.Length));
+        PlayerPrefs.SetInt("FirstTournament7", Random.Range(0, gameManager.countriesObj.Length));
+        PlayerPrefs.SetInt("FirstTournament8", Random.Range(0, gameManager.countriesObj.Length));
+        PlayerPrefs.SetInt("SkillLevelTournament", (int)GameManager.difficulty);
+    }
+
+    public void LoadGameTournament()
+    {
+        GameManager.turnBalls1 = PlayerPrefs.GetInt("SaveBallTournament");
+        GameManager.difficulty = (GameManager.Difficulty)PlayerPrefs.GetInt("SkillLevelTournament");
+        allPlayers = Players.Tournament;
     }
 
     public void ChargeAlleys()

@@ -90,17 +90,83 @@ public class Ball : MonoBehaviour
             hyperParticle.SetActive(false);
             lightningParticle.SetActive(false);
         }
-        if (GameManager.chooseAlleys == GameManager.Alley.Iceberg)
+        if (GameManager.type == GameManager.GameState.Menu)
         {
-            pinTargetSpeed = 1;
-        }
-        else if (GameManager.chooseAlleys == GameManager.Alley.Wacky)
-        {
-            pinTargetSpeed = 0.25f;
+            if (GameManager.chooseAlleys == GameManager.Alley.Iceberg)
+            {
+                pinTargetSpeed = 1f;
+            }
+            else if (GameManager.chooseAlleys == GameManager.Alley.Wacky)
+            {
+                pinTargetSpeed = 0.25f;
+            }
+            else
+            {
+                pinTargetSpeed = 0.5f;
+            }
         }
         else
         {
-            pinTargetSpeed = 0.5f;
+            if (GameManager.difficulty == GameManager.Difficulty.Easy)
+            {
+                if (GameManager.chooseAlleys == GameManager.Alley.Iceberg)
+                {
+                    pinTargetSpeed = 0.9f;
+                }
+                else if (GameManager.chooseAlleys == GameManager.Alley.Wacky)
+                {
+                    pinTargetSpeed = 0.225f;
+                }
+                else
+                {
+                    pinTargetSpeed = 0.45f;
+                }
+            }
+            else if (GameManager.difficulty == GameManager.Difficulty.Normal)
+            {
+                if (GameManager.chooseAlleys == GameManager.Alley.Iceberg)
+                {
+                    pinTargetSpeed = 1f;
+                }
+                else if (GameManager.chooseAlleys == GameManager.Alley.Wacky)
+                {
+                    pinTargetSpeed = 0.25f;
+                }
+                else
+                {
+                    pinTargetSpeed = 0.5f;
+                }
+            }
+            else if (GameManager.difficulty == GameManager.Difficulty.Hard)
+            {
+                if (GameManager.chooseAlleys == GameManager.Alley.Iceberg)
+                {
+                    pinTargetSpeed = 1.025f;
+                }
+                else if (GameManager.chooseAlleys == GameManager.Alley.Wacky)
+                {
+                    pinTargetSpeed = 0.25625f;
+                }
+                else
+                {
+                    pinTargetSpeed = 0.5125f;
+                }
+            }
+            else if (GameManager.difficulty == GameManager.Difficulty.Extreme)
+            {
+                if (GameManager.chooseAlleys == GameManager.Alley.Iceberg)
+                {
+                    pinTargetSpeed = 1.1f;
+                }
+                else if (GameManager.chooseAlleys == GameManager.Alley.Wacky)
+                {
+                    pinTargetSpeed = 0.275f;
+                }
+                else
+                {
+                    pinTargetSpeed = 0.55f;
+                }
+            }
         }
     }
 
@@ -192,17 +258,6 @@ public class Ball : MonoBehaviour
         {
             moveMouse = direction;
             fastSpeed = direction.y;
-        }
-        if (game.ballType == Game.BallType.MoveX && GameManager.type == GameManager.GameState.Game && !game.isComputer && isMoveY)
-        {
-            if (fastSpeed > direction.y - 150)
-            {
-                fastSpeed = direction.y - 150;
-            }
-            else
-            {
-                fastSpeed += Time.deltaTime * 1000 / 3;
-            }
         }
         if (game.ballType == Game.BallType.MoveX && GameManager.type == GameManager.GameState.Game && spinEnd.x <= -75 && spinEnd.x >= -150 && spinEnd.y > -125 && !game.isComputer && !isMoveY)
         {
@@ -307,6 +362,17 @@ public class Ball : MonoBehaviour
     void FixedUpdate()
     {
         transform.Rotate(rigidBody.angularVelocity / 1.25f, Space.World);
+        if (game.ballType == Game.BallType.MoveX && GameManager.type == GameManager.GameState.Game && !game.isComputer && isMoveY)
+        {
+            if (fastSpeed > direction.y - 150)
+            {
+                fastSpeed = direction.y - 150;
+            }
+            else
+            {
+                fastSpeed += Time.fixedDeltaTime * 2000 / 3;
+            }
+        }
     }
 
     void LateUpdate()
@@ -917,85 +983,427 @@ public class Ball : MonoBehaviour
         isBackWall = false;
         isSplash = GameObject.FindObjectOfType<PinSetter>().isSplash;
         game.isReplayRecord = false;
-        if (lbs < 12)
+        if (GameManager.type == GameManager.GameState.Menu)
         {
-            rigidBody.AddForce(-Vector3.forward * 325000);
-        }
-        else if (lbs >= 12 && lbs < 16)
-        {
-            rigidBody.AddForce(-Vector3.forward * 366250);
-        }
-        else if (lbs >= 16)
-        {
-            rigidBody.AddForce(-Vector3.forward * 367500);
-        }
-        if (transform.position.x > 0)
-        {
-            if (spin < 25)
+            if (lbs < 12)
             {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-75f, 0));
+                rigidBody.AddForce(-Vector3.forward * 325000);
             }
-            else if (spin >= 25 && spin < 50)
+            else if (lbs >= 12 && lbs < 16)
             {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-60f, 0));
+                rigidBody.AddForce(-Vector3.forward * 366250);
             }
-            else if (spin >= 50 && spin < 75)
+            else if (lbs >= 16)
             {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-45f, 0));
+                rigidBody.AddForce(-Vector3.forward * 377500);
             }
-            else if (spin >= 75 && spin < 100)
+            if (transform.position.x > 0)
             {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-30f, 0));
+                if (spin < 25)
+                {
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-75f, 0));
+                }
+                else if (spin >= 25 && spin < 50)
+                {
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-60f, 0));
+                }
+                else if (spin >= 50 && spin < 75)
+                {
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-45f, 0));
+                }
+                else if (spin >= 75 && spin < 100)
+                {
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-30f, 0));
+                }
+                else if (spin >= 100)
+                {
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-15f, 0));
+                }
             }
-            else if (spin >= 100)
+            else if (transform.position.x < 0)
             {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-15f, 0));
+                if (spin < 25)
+                {
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 75f));
+                }
+                else if (spin >= 25 && spin < 50)
+                {
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 60f));
+                }
+                else if (spin >= 50 && spin < 75)
+                {
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 45f));
+                }
+                else if (spin >= 75 && spin < 100)
+                {
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 30f));
+                }
+                else if (spin >= 100)
+                {
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 15f));
+                }
             }
-        }
-        else if (transform.position.x < 0)
-        {
-            if (spin < 25)
+            else
             {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 75f));
-            }
-            else if (spin >= 25 && spin < 50)
-            {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 60f));
-            }
-            else if (spin >= 50 && spin < 75)
-            {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 45f));
-            }
-            else if (spin >= 75 && spin < 100)
-            {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 30f));
-            }
-            else if (spin >= 100)
-            {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 15f));
+                if (spin < 25)
+                {
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-75f, 75f));
+                }
+                else if (spin >= 25 && spin < 50)
+                {
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-60f, 60f));
+                }
+                else if (spin >= 50 && spin < 75)
+                {
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-45f, 45f));
+                }
+                else if (spin >= 75 && spin < 100)
+                {
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-30f, 30f));
+                }
+                else if (spin >= 100)
+                {
+                    rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-15f, 15f));
+                }
             }
         }
         else
         {
-            if (spin < 25)
+            if (GameManager.difficulty == GameManager.Difficulty.Easy)
             {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-75f, 75f));
+                if (lbs < 12)
+                {
+                    rigidBody.AddForce(-Vector3.forward * 325000 * 0.95f);
+                }
+                else if (lbs >= 12 && lbs < 16)
+                {
+                    rigidBody.AddForce(-Vector3.forward * 366250 * 0.95f);
+                }
+                else if (lbs >= 16)
+                {
+                    rigidBody.AddForce(-Vector3.forward * 377500 * 0.95f);
+                }
+                if (transform.position.x > 0)
+                {
+                    if (spin < 25)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-100f, 0));
+                    }
+                    else if (spin >= 25 && spin < 50)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-80f, 0));
+                    }
+                    else if (spin >= 50 && spin < 75)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-60f, 0));
+                    }
+                    else if (spin >= 75 && spin < 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-40f, 0));
+                    }
+                    else if (spin >= 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-20f, 0));
+                    }
+                }
+                else if (transform.position.x < 0)
+                {
+                    if (spin < 25)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 100f));
+                    }
+                    else if (spin >= 25 && spin < 50)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 80f));
+                    }
+                    else if (spin >= 50 && spin < 75)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 60f));
+                    }
+                    else if (spin >= 75 && spin < 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 40f));
+                    }
+                    else if (spin >= 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 20f));
+                    }
+                }
+                else
+                {
+                    if (spin < 25)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-100f, 100f));
+                    }
+                    else if (spin >= 25 && spin < 50)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-80f, 80f));
+                    }
+                    else if (spin >= 50 && spin < 75)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-60f, 60f));
+                    }
+                    else if (spin >= 75 && spin < 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-40f, 40f));
+                    }
+                    else if (spin >= 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-20f, 20f));
+                    }
+                }
             }
-            else if (spin >= 25 && spin < 50)
+            else if (GameManager.difficulty == GameManager.Difficulty.Normal)
             {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-60f, 60f));
+                if (lbs < 12)
+                {
+                    rigidBody.AddForce(-Vector3.forward * 325000 * 1f);
+                }
+                else if (lbs >= 12 && lbs < 16)
+                {
+                    rigidBody.AddForce(-Vector3.forward * 366250 * 1f);
+                }
+                else if (lbs >= 16)
+                {
+                    rigidBody.AddForce(-Vector3.forward * 377500 * 1f);
+                }
+                if (transform.position.x > 0)
+                {
+                    if (spin < 25)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-75f, 0));
+                    }
+                    else if (spin >= 25 && spin < 50)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-60f, 0));
+                    }
+                    else if (spin >= 50 && spin < 75)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-45f, 0));
+                    }
+                    else if (spin >= 75 && spin < 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-30f, 0));
+                    }
+                    else if (spin >= 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-15f, 0));
+                    }
+                }
+                else if (transform.position.x < 0)
+                {
+                    if (spin < 25)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 75f));
+                    }
+                    else if (spin >= 25 && spin < 50)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 60f));
+                    }
+                    else if (spin >= 50 && spin < 75)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 45f));
+                    }
+                    else if (spin >= 75 && spin < 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 30f));
+                    }
+                    else if (spin >= 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 15f));
+                    }
+                }
+                else
+                {
+                    if (spin < 25)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-75f, 75f));
+                    }
+                    else if (spin >= 25 && spin < 50)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-60f, 60f));
+                    }
+                    else if (spin >= 50 && spin < 75)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-45f, 45f));
+                    }
+                    else if (spin >= 75 && spin < 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-30f, 30f));
+                    }
+                    else if (spin >= 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-15f, 15f));
+                    }
+                }
             }
-            else if (spin >= 50 && spin < 75)
+            else if (GameManager.difficulty == GameManager.Difficulty.Hard)
             {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-45f, 45f));
+                if (lbs < 12)
+                {
+                    rigidBody.AddForce(-Vector3.forward * 325000 * 1.05f);
+                }
+                else if (lbs >= 12 && lbs < 16)
+                {
+                    rigidBody.AddForce(-Vector3.forward * 366250 * 1.05f);
+                }
+                else if (lbs >= 16)
+                {
+                    rigidBody.AddForce(-Vector3.forward * 377500 * 1.05f);
+                }
+                if (transform.position.x > 0)
+                {
+                    if (spin < 25)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-50f, 0));
+                    }
+                    else if (spin >= 25 && spin < 50)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-40f, 0));
+                    }
+                    else if (spin >= 50 && spin < 75)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-30f, 0));
+                    }
+                    else if (spin >= 75 && spin < 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-20f, 0));
+                    }
+                    else if (spin >= 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-10f, 0));
+                    }
+                }
+                else if (transform.position.x < 0)
+                {
+                    if (spin < 25)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 50f));
+                    }
+                    else if (spin >= 25 && spin < 50)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 40f));
+                    }
+                    else if (spin >= 50 && spin < 75)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 30f));
+                    }
+                    else if (spin >= 75 && spin < 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 20f));
+                    }
+                    else if (spin >= 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 10f));
+                    }
+                }
+                else
+                {
+                    if (spin < 25)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-50f, 50f));
+                    }
+                    else if (spin >= 25 && spin < 50)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-40f, 40f));
+                    }
+                    else if (spin >= 50 && spin < 75)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-30f, 30f));
+                    }
+                    else if (spin >= 75 && spin < 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-20f, 20f));
+                    }
+                    else if (spin >= 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-10f, 10f));
+                    }
+                }
             }
-            else if (spin >= 75 && spin < 100)
+            else if (GameManager.difficulty == GameManager.Difficulty.Extreme)
             {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-30f, 30f));
-            }
-            else if (spin >= 100)
-            {
-                rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-15f, 15f));
+                if (lbs < 12)
+                {
+                    rigidBody.AddForce(-Vector3.forward * 325000 * 1.2f);
+                }
+                else if (lbs >= 12 && lbs < 16)
+                {
+                    rigidBody.AddForce(-Vector3.forward * 366250 * 1.2f);
+                }
+                else if (lbs >= 16)
+                {
+                    rigidBody.AddForce(-Vector3.forward * 377500 * 1.2f);
+                }
+                if (transform.position.x > 0)
+                {
+                    if (spin < 25)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-75f, 0));
+                    }
+                    else if (spin >= 25 && spin < 50)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-60f, 0));
+                    }
+                    else if (spin >= 50 && spin < 75)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-45f, 0));
+                    }
+                    else if (spin >= 75 && spin < 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-30f, 0));
+                    }
+                    else if (spin >= 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-15f, 0));
+                    }
+                }
+                else if (transform.position.x < 0)
+                {
+                    if (spin < 25)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 75f));
+                    }
+                    else if (spin >= 25 && spin < 50)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 60f));
+                    }
+                    else if (spin >= 50 && spin < 75)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 45f));
+                    }
+                    else if (spin >= 75 && spin < 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 30f));
+                    }
+                    else if (spin >= 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(0, 15f));
+                    }
+                }
+                else
+                {
+                    if (spin < 25)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-25f, 25f));
+                    }
+                    else if (spin >= 25 && spin < 50)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-20f, 20f));
+                    }
+                    else if (spin >= 50 && spin < 75)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-15f, 15f));
+                    }
+                    else if (spin >= 75 && spin < 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-10f, 10f));
+                    }
+                    else if (spin >= 100)
+                    {
+                        rigidBody.AddForce(Vector3.right * spin * rigidBody.mass * Random.Range(-5f, 5f));
+                    }
+                }
             }
         }
         game.PlayClip("Thumbpop");

@@ -32,6 +32,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Vegas_Alley-Vegas_AlleyTex Lights
+    second: {fileID: 2100000, guid: c5f4ed0b57cd74c4cbcd87e18ac806d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Vegas_Alley-Vegas_Buildings
     second: {fileID: 2100000, guid: 1e618c21d614db3438627786715b4f1f, type: 2}
   - first:

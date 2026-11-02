@@ -20,6 +20,7 @@ TagManager:
   - Particles
   - Gravity
   - Scooper
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX

@@ -53,6 +53,7 @@ public class PinSetter : MonoBehaviour
     public GameObject pin9;
     public GameObject pin10;
     public PumpkinFace pumpkinFace;
+    public VegasLights vegasLights;
 
     private Animator animator;
 
