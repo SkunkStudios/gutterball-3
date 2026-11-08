@@ -328,6 +328,7 @@ public class Game : MonoBehaviour
     private int addCash = 0;
     public delegate void OnHighscoreListChanged(List<ScoreBowler> list);
     public static event OnHighscoreListChanged onHighscoreListChanged;
+    private float holdDeleteDataTime = 0;
 
     void Awake()
     {
@@ -779,6 +780,18 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update ()
 	{
+        if (GameManager.isOpening && GameManager.type == GameManager.GameState.Menu && Application.platform != RuntimePlatform.WebGLPlayer)
+        {
+            if (Input.GetKeyDown(KeyCode.Delete))
+            {
+                holdDeleteDataTime = Time.time + 15;
+            }
+            else if (Input.GetKey(KeyCode.Delete) && Time.time > holdDeleteDataTime)
+            {
+                UnityEngine.Debug.Log("All delete data will restart game.");
+                PlayerPrefs.DeleteAll();
+            }
+        }
         logoLight.color = new Color(1, 1, 1, Random.Range(0f, 1f));
         if (timer < maxTimer && isWaitPin)
         {
