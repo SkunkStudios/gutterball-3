@@ -19,7 +19,7 @@ Windows 7/8/8.1/10/11
 
 2GHz CPU
 
-512MB RAM
+1GB RAM
 
 DirectX 11.0
 
@@ -29,4 +29,4 @@ MacOS X 10.7
 
 64-bit Intel CPU
 
-512MB RAM
+1GB RAM
